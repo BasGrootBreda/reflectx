@@ -700,7 +700,7 @@ html,body{
       <div class="brand-name">Reflect<span>X</span></div>
     </div>
     <h1 class="welcome-title">Reflecteren<br>die <em>werkt.</em></h1>
-    <p class="welcome-sub">Een AI-coach die je stap voor stap begeleidt door een STARRT-reflectie op jouw leeruitkomst. Concreet, eerlijk, geen bullshit bingo.</p>
+    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op — en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.</p>
     <div class="lang-row">
       <button class="lang-btn" onclick="setLang('nl')">
         <span class="lg-flag">🇳🇱</span>
@@ -751,11 +751,40 @@ html,body{
         <div class="year-grid" id="year-grid"></div>
         <div class="setup-nav">
           <button class="btn-secondary" onclick="setupGo(-1)" id="btn-year-back">← Terug</button>
-          <button class="btn-primary" id="btn-year-next" disabled onclick="startChat()">
-            Start reflectie →
+          <button class="btn-primary" id="btn-year-next" disabled onclick="goIntro()">
+            Volgende →
           </button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- STARRT INTRO CARD -->
+<div id="s-intro" class="screen">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 24px;background:var(--paper)">
+    <div style="max-width:520px;width:100%">
+
+      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:white;font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:20px" id="intro-badge">Zo werkt het</div>
+
+      <h2 style="font-family:var(--font-display);font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--ink);margin-bottom:8px;line-height:1.15" id="intro-title">Dag! Ik help je graag om een ijzersterk STARRT-verslag op te stellen.</h2>
+      <p style="font-size:13px;color:var(--ink3);margin-bottom:28px;line-height:1.65" id="intro-sub">Een goede reflectie laat niet alleen zien wat er gebeurde, maar vooral wat jóuw specifieke rol was en wat je ervan hebt geleerd. Ik stel je per stap gerichte vragen — hoe concreter jij antwoordt, hoe sterker je verslag.</p>
+
+      <div style="border:2px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:28px;background:white">
+        <div style="background:var(--ink);padding:12px 18px;display:flex;align-items:center;gap:10px">
+          <span style="font-family:var(--font-display);font-size:12px;font-weight:700;color:white;text-transform:uppercase;letter-spacing:.05em" id="intro-card-title">De STARRT-structuur</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.4);margin-left:auto" id="intro-card-sub">6 stappen, één verhaal</span>
+        </div>
+        <div id="intro-steps-list"></div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <button class="btn-primary" id="intro-start-btn" onclick="launchChat()">
+          <span id="intro-btn-text">Begin →</span>
+        </button>
+        <button class="btn-secondary" onclick="showScreen('s-setup')" id="intro-back-btn">← Terug</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -915,6 +944,48 @@ function setupGo(dir){
   });
 }
 
+function goIntro(){
+  if(!S.plo||!S.year)return;
+  const nl=S.lang==='nl';
+  const plo=PLO[S.lang][S.plo];
+
+  // Update intro texts
+  document.getElementById('intro-badge').textContent=nl?'Zo werkt het':'How it works';
+  document.getElementById('intro-title').textContent=nl
+    ?'Dag! Ik help je graag om een ijzersterk STARRT-verslag op te stellen.'
+    :'Hey! I\'m here to help you write a strong STARRT reflection.';
+  document.getElementById('intro-sub').textContent=nl
+    ?`Een goede reflectie laat niet alleen zien wat er gebeurde, maar vooral wat jóuw specifieke rol was en wat je ervan hebt geleerd. Ik stel je per stap gerichte vragen — hoe concreter jij antwoordt, hoe sterker je verslag. We werken aan: ${plo.name}.`
+    :`A good reflection doesn't just show what happened — it shows what YOUR specific role was and what you learned. I'll ask targeted questions at each step. The more concrete you are, the stronger your reflection. We're working on: ${plo.name}.`;
+  document.getElementById('intro-card-title').textContent=nl?'De STARRT-structuur':'The STARRT structure';
+  document.getElementById('intro-card-sub').textContent=nl?'6 stappen, één verhaal':'6 steps, one story';
+  document.getElementById('intro-btn-text').textContent=nl?'Begin →':'Let\'s go →';
+  document.getElementById('intro-back-btn').textContent=nl?'← Terug':'← Back';
+
+  const steps=nl?NL_STEPS:EN_STEPS;
+  const descs=nl
+    ?['Wat was de context? Wanneer, waar, wie?','Wat was jóuw verantwoordelijkheid?','Wat deed jij precies — en waarom?','Wat leerde je over jezelf?','Wat betekent dit voor hoe jij in elkaar zit?','Hoe ga je dit concreet toepassen?']
+    :['What was the context? When, where, who?','What was YOUR responsibility?','What exactly did you do — and why?','What did you learn about yourself?','What does this mean for how you operate?','How will you apply this concretely?'];
+
+  const letters=['S','T','A','R','R','T'];
+  const colors=['var(--orange)','var(--blue)','var(--green)','var(--orange)','var(--blue)','var(--green)'];
+
+  document.getElementById('intro-steps-list').innerHTML=steps.map((s,i)=>`
+    <div style="display:flex;align-items:flex-start;gap:14px;padding:12px 18px;border-bottom:${i<5?'1px solid var(--line)':'none'}">
+      <div style="width:28px;height:28px;border-radius:50%;background:${colors[i]};color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;font-weight:800;flex-shrink:0;margin-top:1px">${letters[i]}</div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px">${s}</div>
+        <div style="font-size:12px;color:var(--ink3)">${descs[i]}</div>
+      </div>
+    </div>`).join('');
+
+  showScreen('s-intro');
+}
+
+function launchChat(){
+  startChat();
+}
+
 function goSetup(){showScreen('s-setup')}
 
 // ─── STARRT BAR ───
@@ -946,20 +1017,25 @@ function jargon(){
 function criteria(){
   const nl=S.lang==='nl';
   const adv=S.year==='stage'||S.year==='afstuderen';
+  const yr1=S.year==='1';
   if(nl)return[
     `- Concreet moment (wanneer, waar, welk vak/opdracht${adv?'/werkplek':''})\n- Namen van betrokkenen MÉT rol/context\n- Vakjargon gebruikt én uitgelegd voor buitenstaander\n- Buitenstaander begrijpt situatie volledig${adv?'\n- Werkplek/organisatiecontext beschreven':''}`,
     `- Eigen verantwoordelijkheid — niet alleen formele functie\n- Wat moest student bereiken of bijdragen\n- Formulering in "ik"-vorm${adv?'\n- Taak gekoppeld aan professionele/zakelijke uitdaging':''}`,
     `- Concrete handelingen (wat precies?)\n- "Ik deed" NIET "wij deden" — bij "wij": vraag wat ZIJ specifiek deden\n- Waarom die keuze (redenering)\n- Overwogen alternatief dat niet gekozen werd${adv?'\n- Tools/methoden/systemen benoemd indien relevant (ERP/WMS/KPI)':''}`,
-    `- Wat student over ZICHZELF leerde — niet alleen of het goed afliep\n- Eerlijk verbeterpunt\n- "Ik ben tevreden" als enige zin NIET geaccepteerd\n- Externe feedback of concreet resultaat${adv?'\n- Meetbare uitkomst (KPI, feedback begeleider, cijfer)':''}`,
-    `- Patroon in eigen gedrag over meerdere situaties\n- Onderliggend mechanisme (waarom gedraag ik me zo?)\n- Reflectie gaat over de STUDENT, niet alleen de situatie`,
+    `- Wat student over ZICHZELF leerde — niet alleen of het goed afliep\n- Eerlijk verbeterpunt${yr1?'\n- Één concrete les is genoeg voor jaar 1':'\n- "Ik ben tevreden" als enige zin NIET geaccepteerd'}\n- Externe feedback of concreet resultaat${adv?'\n- Meetbare uitkomst (KPI, feedback begeleider, cijfer)':''}`,
+    yr1
+      ?`- Student noemt één concrete les die ze hebben geleerd\n- Minimaal één eerlijk verbeterpunt\n- Patroon herkennen is een bonus, niet verplicht\n- Antwoord mag kort zijn als het concreet is`
+      :`- Patroon in eigen gedrag over meerdere situaties\n- Onderliggend mechanisme (waarom gedraag ik me zo?)\n- Reflectie gaat over de STUDENT, niet alleen de situatie`,
     `- Specifiek komend moment (wanneer, welke context)\n- Concrete actie op dat moment\n- Strategie voor als het tegenzit\n- Vage voornemens NIET geaccepteerd`
   ];
   return[
     `- Concrete moment (when, where, which assignment${adv?'/workplace':''})\n- Names of people involved WITH role/context\n- Jargon used AND explained for outsider\n- Outsider fully understands the situation${adv?'\n- Workplace/organisation context described':''}`,
     `- Own responsibility — not just formal role\n- What student needed to achieve or contribute\n- Written in first person "I"${adv?'\n- Task linked to professional/business challenge':''}`,
     `- Concrete actions (what exactly?)\n- "I did" NOT "we did" — if "we": ask what THEY specifically did\n- Why that choice (reasoning)\n- Considered alternative not chosen${adv?'\n- Tools/methods/systems mentioned if relevant (ERP/WMS/KPI)':''}`,
-    `- What student learned about THEMSELVES — not just whether it went well\n- Honest improvement point\n- "I am satisfied" as only sentence NOT accepted\n- External feedback or concrete result${adv?'\n- Measurable outcome (KPI, supervisor feedback, grade)':''}`,
-    `- Pattern in own behaviour across multiple situations\n- Underlying mechanism (why do I behave this way?)\n- Reflection is about the STUDENT, not just the situation`,
+    `- What student learned about THEMSELVES — not just whether it went well\n- Honest improvement point${yr1?'\n- One concrete lesson is enough for year 1':'\n- "I am satisfied" as only sentence NOT accepted'}\n- External feedback or concrete result${adv?'\n- Measurable outcome (KPI, supervisor feedback, grade)':''}`,
+    yr1
+      ?`- Student names one concrete lesson learned\n- At least one honest improvement point\n- Pattern recognition is a bonus, not required\n- Short answer is fine if it is concrete`
+      :`- Pattern in own behaviour across multiple situations\n- Underlying mechanism (why do I behave this way?)\n- Reflection is about the STUDENT, not just the situation`,
     `- Specific upcoming moment (when, which context)\n- Concrete action at that moment\n- Strategy for when it gets difficult\n- Vague intentions NOT accepted`
   ];
 }
@@ -980,24 +1056,37 @@ function sysPrompt(){
 Student: ${yearLabel} | PLO: ${plo.name} — ${plo.desc}
 Jargon this level: ${jargon()}
 
+TONE RULES (critical):
+- Warm, practical, encouraging — never therapeutic or psychological
+- Never analyse the student's personality or deeper patterns uninvited
+- Never say things like "je vermijdt reflectie" or "dit zegt iets over jou als persoon"
+- If a student gives a short or resistant answer, acknowledge it briefly and ask ONE practical follow-up
+- Max 2 sentences per response — always
+- Never repeat what the student just said back to them
+- Speak like a good mentor, not a therapist
+
+SKIP RULE:
+- If student writes something like "volgende", "skip", "door", "next", "verder" or gives a clearly resistant/minimal answer:
+  - First time: ask ONE short, easy follow-up question to give them a chance ("Kun je in één zin zeggen wat je hiervan meeneemt?")
+  - If they resist again (second minimal/skip response): write "${nl?'⏭ Overgeslagen — verder naar':'⏭ Skipped — moving to'} ${nl?NL_STEPS[Math.min(S.step+1,5)]:EN_STEPS[Math.min(S.step+1,5)]}" and move on
+
 RULES:
-- ONE question per message, max 3 sentences
-- Warm but never accept vague; mild and persistent
+- ONE question per message, max 2 sentences
 - If jargon used: ask student to explain for outsiders
 - Action step: "we/wij" → ask what THEY specifically did
-- NEVER write text for student — feedback and structure tips only
-- Names, dates, locations required — outsider must fully understand
+- NEVER write text for student — feedback and tips only
+- Names, dates, locations help outsiders understand
 
 CURRENT STEP: ${cur} (${S.step+1}/6)
 ACCEPT WHEN:
 ${crit[S.step]}
 
-ON ACCEPTANCE: write exactly "${acc}" then one opening question for next step.
+ON ACCEPTANCE: write exactly "${acc}" then one short opening question for next step.
 
-EVIDENCE (2 sentences max, specific):
-- After Situatie: ask for 1 concrete evidence type
-- After Actie: ask for evidence of the action
-- After Resultaat: ask for evidence of feedback received
+EVIDENCE (1-2 sentences, specific not generic):
+- After Situatie accepted: ask for 1 concrete evidence type
+- After Actie accepted: ask for evidence of the action
+- After Resultaat accepted: ask for evidence of feedback received
 ${isFinal?`
 AFTER TRANSFER ACCEPTED:
 Write "${acc}" then:
@@ -1006,7 +1095,7 @@ Write "${acc}" then:
 [T] Taak: [one sentence, student's own responsibility]
 [A] Actie: [one sentence, "ik" not "wij", action + reasoning]
 [R] Resultaat: [one sentence, self-insight + improvement]
-[R] Reflectie: [one sentence, pattern identified]
+[R] Reflectie: [one sentence, lesson learned]
 [T] Transfer: [one sentence, specific moment + plan]
 --- EINDE OVERZICHT ---
 Then 1 sentence: write 3-5 sentences per section in own words.`:''}`;
@@ -1035,8 +1124,8 @@ async function startChat(){
       :(nl?'tijdens je afstuderen':'during your graduation');
 
   const opening=nl
-    ?`Welkom. We reflecteren op **${plo.name}**.\n\nSchrijf zo dat iemand die jouw opleiding niet kent het begrijpt — noem namen, leg vakjargon uit, geef context.\n\nBegin met de **Situatie**: beschrijf een concreet moment ${ctxPart}. Wanneer was het, waar, en wie waren erbij betrokken?`
-    :`Welcome. We're reflecting on **${plo.name}**.\n\nWrite so someone unfamiliar with your programme understands — use names, explain jargon, give context.\n\nStart with the **Situation**: describe a concrete moment ${ctxPart}. When was it, where, and who was involved?`;
+    ?`Goed, laten we beginnen met **${plo.name}**.\n\nSchrijf zo dat iemand die jouw opleiding niet kent het begrijpt — noem namen, leg vakjargon uit, geef context. Hoe beter ik begrijp in welk kader deze reflectie past, hoe gerichter ik kan doorvragen.\n\nBegin met de **Situatie**: beschrijf een concreet moment ${ctxPart}. Wanneer was het, waar, en wie waren erbij betrokken?`
+    :`Right, let's start with **${plo.name}**.\n\nWrite so that someone unfamiliar with your programme understands — use names, explain jargon, give context. The better I understand your situation, the more targeted my questions will be.\n\nStart with the **Situation**: describe a concrete moment ${ctxPart}. When was it, where, and who was involved?`;
 
   addBubble('tool',opening);
   S.msgs.push({role:'assistant',content:opening});
@@ -1117,9 +1206,12 @@ function checkAccepted(reply){
   const steps=nl?NL_STEPS:EN_STEPS;
   const cur=steps[S.step];
   const phrase=nl?`✓ [${cur}] geaccepteerd`:`✓ [${cur}] accepted`;
+  const skipPhrase=nl?'⏭ Overgeslagen':'⏭ Skipped';
   if(reply.includes(phrase)){
     addBubble('tool',nl?`✓ ${cur} geaccepteerd`:`✓ ${cur} accepted`,'accepted');
     S.accepted.add(S.step);
+    if(S.step<5){S.step++;updateBar();}
+  } else if(reply.includes(skipPhrase)){
     if(S.step<5){S.step++;updateBar();}
   }
 }
