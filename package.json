@@ -1,0 +1,12 @@
+{
+  "name": "reflectx",
+  "version": "1.0.0",
+  "description": "BUas Logistiek — STARRT reflectietool",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
