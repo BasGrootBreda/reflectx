@@ -32,9 +32,17 @@ function callAnthropic(payload) {
     const req = https.request(options, (res) => {
       const chunks = [];
       res.on('data', chunk => chunks.push(chunk));
-      res.on('end', () => resolve({ status: res.statusCode, body: Buffer.concat(chunks).toString() }));
+      res.on('end', () => {
+        const result = Buffer.concat(chunks).toString();
+        console.log('Anthropic status:', res.statusCode);
+        if (res.statusCode !== 200) console.log('Anthropic error body:', result.substring(0, 300));
+        resolve({ status: res.statusCode, body: result });
+      });
     });
-    req.on('error', reject);
+    req.on('error', (e) => {
+      console.error('HTTPS request error:', e.message);
+      reject(e);
+    });
     req.write(body);
     req.end();
   });
@@ -53,19 +61,39 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       res.end(file);
     } catch(e) {
-      res.writeHead(500); res.end('index.html not found');
+      res.writeHead(500); res.end('index.html not found: ' + e.message);
     }
     return;
   }
 
   if (req.method === 'POST' && req.url === '/api/chat') {
+    console.log('POST /api/chat received');
     try {
       const rawBody = await readBody(req);
-      const { system, messages } = JSON.parse(rawBody);
+      console.log('Body length:', rawBody.length);
+      
+      let parsed;
+      try {
+        parsed = JSON.parse(rawBody);
+      } catch(e) {
+        console.error('JSON parse error:', e.message);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid JSON: ' + e.message }));
+        return;
+      }
 
+      const { system, messages } = parsed;
       if (!system || !messages) {
+        console.error('Missing fields. Keys:', Object.keys(parsed));
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Missing system or messages' }));
+        return;
+      }
+
+      if (!API_KEY) {
+        console.error('ANTHROPIC_API_KEY not set!');
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'API key not configured' }));
         return;
       }
 
@@ -80,13 +108,14 @@ const server = http.createServer(async (req, res) => {
       res.end(result.body);
 
     } catch(e) {
-      console.error('API error:', e.message);
+      console.error('Unhandled error:', e.message);
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: e.message }));
     }
     return;
   }
 
+  console.log('404:', req.method, req.url);
   res.writeHead(404); res.end('Not found');
 });
 
