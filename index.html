@@ -1036,7 +1036,6 @@ async function startChat(){
 
   const opening=nl
     ?`Welkom. We reflecteren op **${plo.name}**.\n\nSchrijf zo dat iemand die jouw opleiding niet kent het begrijpt — noem namen, leg vakjargon uit, geef context.\n\nBegin met de **Situatie**: beschrijf een concreet moment ${ctxPart}. Wanneer was het, waar, en wie waren erbij betrokken?`
-    ?`Welcome. We're reflecting on **${plo.name}**.\n\nWrite so someone unfamiliar with your programme understands — use names, explain jargon, give context.\n\nStart with the **Situation**: describe a concrete moment ${ctxPart}. When was it, where, and who was involved?`:null
     :`Welcome. We're reflecting on **${plo.name}**.\n\nWrite so someone unfamiliar with your programme understands — use names, explain jargon, give context.\n\nStart with the **Situation**: describe a concrete moment ${ctxPart}. When was it, where, and who was involved?`;
 
   addBubble('tool',opening);
