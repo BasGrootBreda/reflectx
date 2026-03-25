@@ -852,6 +852,11 @@ html,body{
             <svg viewBox="0 0 16 16"><path d="M13 8L3 3l2.5 5L3 13z"/></svg>
           </button>
         </div>
+        <div style="margin-top:8px;text-align:right">
+          <button id="btn-klaar" onclick="forceDone()" style="display:none;font-size:11px;color:var(--ink3);background:none;border:1.5px solid var(--line);border-radius:6px;padding:5px 12px;cursor:pointer;font-family:var(--font-body);transition:all .15s">
+            Reflectie afronden →
+          </button>
+        </div>
       </div>
     </div>
 
@@ -861,12 +866,15 @@ html,body{
 <!-- DONE -->
 <div id="s-done" class="screen">
   <div class="done-inner">
-    <div class="done-badge">✓ Reflectie voltooid</div>
+    <div class="done-badge" id="done-badge">✓ Reflectie voltooid</div>
     <h2 class="done-title" id="done-title">Goed gedaan.</h2>
-    <p class="done-sub" id="done-sub">Gebruik de ankerpunten hieronder om je portfoliotekst te schrijven — in je eigen woorden, 3-5 zinnen per onderdeel.</p>
+    <p class="done-sub" id="done-sub">Schrijf hieronder je portfoliotekst uit — gebruik de ankerpunten als vertrekpunt. 3 tot 5 zinnen per onderdeel, in je eigen woorden.</p>
     <div class="structure-wrap" id="structure-wrap"></div>
     <div class="done-actions">
-      <button class="btn-primary" onclick="restart()">← Nieuwe reflectie</button>
+      <button class="btn-primary" id="btn-copy-all" onclick="copyAll()">
+        Kopieer alles
+      </button>
+      <button class="btn-secondary" onclick="restart()" id="btn-restart">← Nieuwe reflectie</button>
     </div>
   </div>
 </div>
@@ -1090,6 +1098,34 @@ function jargon(){
   return {1:d.j1,2:d.j2,stage:d.js,afstuderen:d.ja}[S.year]||d.j1;
 }
 
+function ploProbes(){
+  const nl=S.lang==='nl';
+  const probes={
+    ontwikkelen: nl
+      ?'Doorvraagtips: Wat deed je anders dan je gewend was? Waar merkte je dat je groeide? Wat kostte je de meeste moeite — en waarom juist dat?'
+      :'Probing tips: What did you do differently than usual? Where did you notice growth? What cost you the most effort — and why exactly that?',
+    analyseren: nl
+      ?'Doorvraagtips: Welke KPI of maatstaf keek je naar? Wat zei de data concreet? Waar zat de bottleneck in de stroom — en hoe heb je dat aangetoond?'
+      :'Probing tips: Which KPI or metric did you look at? What did the data show concretely? Where was the bottleneck in the flow — and how did you demonstrate that?',
+    adviseren: nl
+      ?'Doorvraagtips: Hoe heb je je advies onderbouwd — cijfers, data, vergelijking? Hoe ben je omgegaan met tegenwerpingen? Wat was de reactie van de stakeholder en wat deed je daarmee?'
+      :'Probing tips: How did you substantiate your advice — numbers, data, comparison? How did you handle objections? What was the stakeholder\'s reaction and what did you do with it?',
+    managen: nl
+      ?'Doorvraagtips: Wat week af van je planning en waardoor? Hoe heb je bijgestuurd — wat besloot je en waarom? Wat had je eerder moeten zien of doen?'
+      :'Probing tips: What deviated from your planning and why? How did you adjust — what did you decide and why? What should you have seen or done earlier?',
+    ontwerpen: nl
+      ?'Doorvraagtips: Waarom deze oplossing en niet een alternatief? Wat heb je getest of vergeleken? Wat verandert er concreet in het proces door jouw ontwerp?'
+      :'Probing tips: Why this solution and not an alternative? What did you test or compare? What changes concretely in the process because of your design?',
+    onderzoeken: nl
+      ?'Doorvraagtips: Hoe heb je je bronnen gekozen en beoordeeld? Wat deed je met tegenstrijdige informatie? Wat klopt er misschien niet aan je conclusie — waar twijfel je zelf aan?'
+      :'Probing tips: How did you choose and evaluate your sources? What did you do with conflicting information? What might be wrong with your conclusion — where do you doubt yourself?',
+    implementeren: nl
+      ?'Doorvraagtips: Wat ging er mis of anders bij de uitvoering? Hoe heb je mensen meegekregen in de verandering? Wat werkte anders dan gepland en wat deed je daarmee?'
+      :'Probing tips: What went wrong or differently during execution? How did you get people on board with the change? What worked differently than planned and what did you do with that?'
+  };
+  return probes[S.plo]||'';
+}
+
 function criteria(){
   const nl=S.lang==='nl';
   const adv=S.year==='stage'||S.year==='afstuderen';
@@ -1134,38 +1170,51 @@ Jargon: ${jargon()}
 
 SMART READING: Before asking, scan the full conversation. If student already covered the current or next step: accept it and move on. Never ask for information already given. If student says "dat beschreef ik al" or "en X ook?" — check history and accept if correct.
 
-TONE: Warm, practical, max 2 sentences. Never therapeutic. Never repeat student's words back. Mentor not therapist.
+TONE:
+- Neutral and practical — NEVER use praise words like "perfect", "sterk", "mooi", "geweldig", "goed gedaan", "great", "excellent", "well done", "strong"
+- Use neutral acknowledgements only: "Helder.", "Duidelijk.", "Oké.", "Begrepen.", "Clear.", "Got it."
+- Never therapeutic, never repeat student's words back, mentor not therapist
+- When something is missing: name what's missing directly, don't cushion it
+
+QUESTIONS: Ask max 3 questions per message when multiple things are missing. Number them (1. 2. 3.) so student knows what to answer. If only 1 thing is missing: ask 1 question. Never ask more than 3.
 
 SKIP: If student writes "volgende/skip/door/next/verder" — ask one short follow-up. If they resist again: write "${nl?'⏭ Overgeslagen':'⏭ Skipped'}" and move on.
 
 RULES:
-- ONE question per message
 - Jargon used → ask student to explain for outsiders
 - "we/wij" in Action step → ask what THEY specifically did
 - NEVER write text for student
+
+PLO-SPECIFIC PROBES (use these to go deeper when relevant):
+${ploProbes()}
 
 CURRENT STEP: ${cur} (${S.step+1}/6)
 ACCEPT WHEN:
 ${crit[S.step]}
 
-ON ACCEPTANCE: write exactly "${acc}" then one short opening question for next step.
+ON ACCEPTANCE: write exactly "${acc}". Then ask opening question(s) for next step (max 3, numbered if multiple).
 
-EVIDENCE (1-2 sentences, specific not generic):
-- After Situatie accepted: ask for 1 concrete evidence type
-- After Actie accepted: ask for evidence of the action
-- After Resultaat accepted: ask for evidence of feedback received
+EVIDENCE (specific, not generic — student is responsible, tool suggests):
+- After Situatie accepted: suggest 1 concrete evidence type
+- After Actie accepted: suggest evidence of the action
+- After Resultaat accepted: suggest evidence of feedback received
+- If student has no evidence: accept and move on — student owns this decision
 ${isFinal?`
-AFTER TRANSFER ACCEPTED:
-Write "${acc}" then:
+CRITICAL — AFTER TRANSFER ACCEPTED:
+You MUST write "${acc}" followed IMMEDIATELY by the structured overview below. No compliments, no extra text before the markers. The markers trigger the done screen.
+
 --- STRUCTUUROVERZICHT ---
-[S] Situatie: [one sentence from student's words]
-[T] Taak: [one sentence, student's own responsibility]
-[A] Actie: [one sentence, "ik" not "wij", action + reasoning]
-[R] Resultaat: [one sentence, self-insight + improvement]
-[R] Reflectie: [one sentence, lesson learned]
-[T] Transfer: [one sentence, specific moment + plan]
+[S] Situatie: [one concrete sentence using student's own words]
+[T] Taak: [one sentence — student's own responsibility in "ik"-form]
+[A] Actie: [one sentence — "ik deed X omdat Y"]
+[R] Resultaat: [one sentence — what student learned about themselves]
+[R] Reflectie: [one sentence — the lesson or pattern]
+[T] Transfer: [one sentence — specific moment + concrete plan]
 --- EINDE OVERZICHT ---
-Then 1 sentence: write 3-5 sentences per section in own words.`:''}`;
+
+After the markers: write max 2 sentences telling student to use these anchor points to write 3-5 sentences per section in their own words.
+
+IF STUDENT SAYS "ik ben klaar", "done", "klaar", "finish" at any point after Transfer is accepted: also output the full structured overview immediately.`:''}`;
 }
 
 async function startChat(){
@@ -1285,8 +1334,10 @@ function checkAccepted(reply){
     addBubble('tool',nl?`✓ ${cur} geaccepteerd`:`✓ ${cur} accepted`,'accepted');
     S.accepted.add(S.step);
     if(S.step<5){S.step++;updatePanel();}
+    else{showKlaarBtn();} // Transfer accepted — show finish button
   } else if(reply.includes(skipPhrase)){
     if(S.step<5){S.step++;updatePanel();}
+    else{showKlaarBtn();}
   }
 }
 
@@ -1295,36 +1346,93 @@ function showDone(reply){
   showScreen('s-done');
   const nl=S.lang==='nl';
   const plo=PLO[S.lang][S.plo];
-  document.getElementById('done-title').textContent=nl?`Goed gedaan, ${plo.name} reflectie afgerond.`:`Well done, ${plo.name} reflection complete.`;
+  document.getElementById('done-badge').textContent=nl?'✓ Reflectie voltooid':'✓ Reflection complete';
+  document.getElementById('done-title').textContent=nl?`Goed gedaan — ${plo.name} afgerond.`:`Well done — ${plo.name} complete.`;
   document.getElementById('done-sub').textContent=nl
-    ?'Gebruik de ankerpunten hieronder om je portfoliotekst te schrijven — in je eigen woorden, 3-5 zinnen per onderdeel.'
-    :'Use the anchor points below to write your portfolio text — in your own words, 3-5 sentences per section.';
-  document.querySelector('.done-badge').textContent=nl?'✓ Reflectie voltooid':'✓ Reflection complete';
-  document.querySelector('.done-actions .btn-primary').textContent=nl?'← Nieuwe reflectie':'← New reflection';
+    ?'Schrijf hieronder je portfoliotekst uit — gebruik de ankerpunten als vertrekpunt. 3 tot 5 zinnen per onderdeel, in je eigen woorden.'
+    :'Write your portfolio text below — use the anchor points as a starting point. 3 to 5 sentences per section, in your own words.';
+  document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
+  document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
+
+  const steps=nl?NL_STEPS:EN_STEPS;
+  const letters=['S','T','A','R','R','T'];
+  const placeholders=nl
+    ?['Beschrijf de situatie in 3-5 zinnen...','Beschrijf jouw taak in 3-5 zinnen...','Beschrijf jouw actie in 3-5 zinnen...','Beschrijf het resultaat in 3-5 zinnen...','Schrijf jouw reflectie in 3-5 zinnen...','Beschrijf jouw transfer in 3-5 zinnen...']
+    :['Describe the situation in 3-5 sentences...','Describe your task in 3-5 sentences...','Describe your action in 3-5 sentences...','Describe the result in 3-5 sentences...','Write your reflection in 3-5 sentences...','Describe your transfer in 3-5 sentences...'];
 
   const si=reply.indexOf('--- STRUCTUUROVERZICHT ---');
   const ei=reply.indexOf('--- EINDE OVERZICHT ---');
-  const steps=nl?NL_STEPS:EN_STEPS;
-  const letters=['S','T','A','R','R','T'];
-  const wrap=document.getElementById('structure-wrap');
+  let anchors=steps.map(()=>'');
+
   if(si!==-1&&ei!==-1){
     const block=reply.substring(si+26,ei).trim();
     const lines=block.split('\n').filter(l=>l.trim());
-    wrap.innerHTML=`<div class="structure-head">
-      <div class="structure-head-title">${nl?'Structuuroverzicht':'Structure overview'}</div>
-      <div class="structure-head-sub">${nl?'Schrijf dit zelf uit':'Write this yourself'}</div>
-    </div>`+lines.map((line,i)=>{
+    lines.forEach((line,i)=>{
       const colon=line.indexOf(':');
-      const anchor=colon>-1?line.substring(colon+1).trim():line;
-      const label=steps[i]||letters[i];
-      return`<div class="structure-item">
-        <div class="s-letter">${letters[i]||''}</div>
-        <div class="s-label">${label}</div>
-        <div class="s-anchor">${anchor}</div>
-        <div class="s-prompt">${nl?'Schrijf dit uit in 3-5 zinnen in je eigen woorden.':'Write this in 3-5 sentences in your own words.'}</div>
-      </div>`;
-    }).join('');
+      if(colon>-1) anchors[i]=line.substring(colon+1).trim();
+    });
   }
+
+  const wrap=document.getElementById('structure-wrap');
+  wrap.innerHTML=`<div class="structure-head">
+    <div class="structure-head-title">${nl?'Jouw portfoliotekst':'Your portfolio text'}</div>
+    <div class="structure-head-sub">${nl?'Schrijf zelf uit':'Write yourself'}</div>
+  </div>`+steps.map((step,i)=>`
+    <div class="structure-item">
+      <div class="s-letter">${letters[i]}</div>
+      <div class="s-label">${step}</div>
+      ${anchors[i]?`<div class="s-anchor">${anchors[i]}</div>`:''}
+      <textarea
+        id="field-${i}"
+        placeholder="${placeholders[i]}"
+        style="width:100%;margin-top:8px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:90px;outline:none;transition:border-color .15s"
+        onfocus="this.style.borderColor='var(--border2)'"
+        onblur="this.style.borderColor='var(--line)'"
+      ></textarea>
+    </div>`).join('');
+}
+
+function forceDone(){
+  // Build a minimal overview from conversation history
+  const nl=S.lang==='nl';
+  const steps=nl?NL_STEPS:EN_STEPS;
+  const letters=['S','T','A','R','R','T'];
+  // Extract best student answers from msgs
+  const studentMsgs=S.msgs.filter(m=>m.role==='user'&&!m.content.startsWith('[Student navigeer'));
+  const anchors=steps.map((s,i)=>{
+    // Use the longest student message as anchor for each step (rough heuristic)
+    const msg=studentMsgs[Math.min(i,studentMsgs.length-1)];
+    return msg?msg.content.substring(0,120)+'...':'';
+  });
+  const fakeReply='--- STRUCTUUROVERZICHT ---\n'+
+    steps.map((s,i)=>`[${letters[i]}] ${s}: ${anchors[i]}`).join('\n')+
+    '\n--- EINDE OVERZICHT ---';
+  showDone(fakeReply);
+}
+
+function showKlaarBtn(){
+  const btn=document.getElementById('btn-klaar');
+  if(btn) btn.style.display='inline-block';
+}
+
+function copyAll(){
+  const nl=S.lang==='nl';
+  const steps=nl?NL_STEPS:EN_STEPS;
+  const letters=['S','T','A','R','R','T'];
+  let text='';
+  steps.forEach((step,i)=>{
+    const field=document.getElementById('field-'+i);
+    const val=field?field.value.trim():'';
+    text+=`${letters[i]}. ${step}\n${val||'(niet ingevuld)'}\n\n`;
+  });
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('btn-copy-all');
+    const orig=btn.textContent;
+    btn.textContent=nl?'✓ Gekopieerd!':'✓ Copied!';
+    setTimeout(()=>btn.textContent=orig,2000);
+  }).catch(()=>{
+    alert(nl?'Selecteer de tekst handmatig om te kopiëren.':'Select the text manually to copy.');
+  });
 }
 
 // ─── UTILS ───
