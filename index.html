@@ -1087,6 +1087,25 @@ function getFieldValues(){
   });
 }
 
+function jargon(){
+  const d=PLO[S.lang][S.plo];
+  return {1:d.j1,2:d.j2,stage:d.js,afstuderen:d.ja}[S.year]||d.j1;
+}
+
+function ploProbes(){
+  const nl=S.lang==='nl';
+  const probes={
+    ontwikkelen:nl?'Doorvraagtips: Wat deed je anders dan je gewend was? Waar merkte je groei? Wat kostte je de meeste moeite — en waarom?':'Probing: What did you do differently? Where did you notice growth? What cost the most effort — and why?',
+    analyseren:nl?'Doorvraagtips: Welke KPI keek je naar? Wat zei de data concreet? Waar zat de bottleneck?':'Probing: Which KPI? What did the data show? Where was the bottleneck?',
+    adviseren:nl?'Doorvraagtips: Hoe heb je je advies onderbouwd? Hoe ben je omgegaan met tegenwerpingen? Wat was de reactie van de stakeholder?':'Probing: How did you substantiate? How did you handle objections? What was the stakeholder reaction?',
+    managen:nl?'Doorvraagtips: Wat week af van je planning? Hoe heb je bijgestuurd? Wat had je eerder moeten zien?':'Probing: What deviated from your plan? How did you adjust? What should you have seen earlier?',
+    ontwerpen:nl?'Doorvraagtips: Waarom deze oplossing en niet een alternatief? Wat heb je vergeleken? Wat verandert er concreet door jouw ontwerp?':'Probing: Why this solution? What did you compare? What changes concretely through your design?',
+    onderzoeken:nl?'Doorvraagtips: Hoe heb je bronnen gekozen? Wat deed je met tegenstrijdige info? Waar twijfel je aan je conclusie?':'Probing: How did you choose sources? What did you do with conflicting info? Where do you doubt your conclusion?',
+    implementeren:nl?'Doorvraagtips: Wat ging mis bij de uitvoering? Hoe heb je mensen meegekregen? Wat werkte anders dan gepland?':'Probing: What went wrong? How did you get people on board? What worked differently than planned?'
+  };
+  return probes[S.plo]||'';
+}
+
 async function getFeedback(){
   const nl=S.lang==='nl';
   const values=getFieldValues();
