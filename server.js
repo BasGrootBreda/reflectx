@@ -15,37 +15,56 @@ function readBody(req) {
   });
 }
 
-function callAnthropic(payload) {
-  return new Promise((resolve, reject) => {
-    const body = JSON.stringify(payload);
-    const options = {
-      hostname: 'api.anthropic.com',
-      path: '/v1/messages',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-        'Content-Length': Buffer.byteLength(body)
-      }
-    };
-    const req = https.request(options, (res) => {
-      const chunks = [];
-      res.on('data', chunk => chunks.push(chunk));
-      res.on('end', () => {
-        const result = Buffer.concat(chunks).toString();
-        console.log('Anthropic status:', res.statusCode);
-        if (res.statusCode !== 200) console.log('Anthropic error body:', result.substring(0, 300));
-        resolve({ status: res.statusCode, body: result });
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function callAnthropic(payload, retries = 3) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    const result = await new Promise((resolve, reject) => {
+      const body = JSON.stringify(payload);
+      const options = {
+        hostname: 'api.anthropic.com',
+        path: '/v1/messages',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+          'anthropic-version': '2023-06-01',
+          'Content-Length': Buffer.byteLength(body)
+        }
+      };
+      const req = https.request(options, (res) => {
+        const chunks = [];
+        res.on('data', chunk => chunks.push(chunk));
+        res.on('end', () => {
+          const result = Buffer.concat(chunks).toString();
+          if (res.statusCode !== 200) {
+            console.log(`Anthropic status: ${res.statusCode} (attempt ${attempt}/${retries})`);
+            console.log('Error body:', result.substring(0, 200));
+          }
+          resolve({ status: res.statusCode, body: result });
+        });
       });
+      req.on('error', reject);
+      req.write(body);
+      req.end();
     });
-    req.on('error', (e) => {
-      console.error('HTTPS request error:', e.message);
-      reject(e);
-    });
-    req.write(body);
-    req.end();
-  });
+
+    // Success
+    if (result.status === 200) return result;
+
+    // Overloaded (529) or server error (500) — retry with backoff
+    if ((result.status === 529 || result.status === 500) && attempt < retries) {
+      const wait = attempt * 2000; // 2s, 4s
+      console.log(`Retrying in ${wait}ms...`);
+      await sleep(wait);
+      continue;
+    }
+
+    // Other error or retries exhausted
+    return result;
+  }
 }
 
 const server = http.createServer(async (req, res) => {
@@ -71,12 +90,11 @@ const server = http.createServer(async (req, res) => {
     try {
       const rawBody = await readBody(req);
       console.log('Body length:', rawBody.length);
-      
+
       let parsed;
       try {
         parsed = JSON.parse(rawBody);
       } catch(e) {
-        console.error('JSON parse error:', e.message);
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Invalid JSON: ' + e.message }));
         return;
@@ -84,14 +102,12 @@ const server = http.createServer(async (req, res) => {
 
       const { system, messages } = parsed;
       if (!system || !messages) {
-        console.error('Missing fields. Keys:', Object.keys(parsed));
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Missing system or messages' }));
         return;
       }
 
       if (!API_KEY) {
-        console.error('ANTHROPIC_API_KEY not set!');
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'API key not configured' }));
         return;
@@ -115,7 +131,6 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  console.log('404:', req.method, req.url);
   res.writeHead(404); res.end('Not found');
 });
 
