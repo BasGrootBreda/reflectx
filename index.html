@@ -1054,42 +1054,19 @@ function sysPrompt(){
   const isFinal=S.step===5;
   return`Expert STARRT coach for HBO Logistics (BUas). Language: ${lang} ONLY.
 Student: ${yearLabel} | PLO: ${plo.name} — ${plo.desc}
-Jargon this level: ${jargon()}
+Jargon: ${jargon()}
 
-SMART READING RULE (critical — read this carefully):
-Students often write more than just the current step in one message. Before asking any question, scan the ENTIRE conversation for content that already covers upcoming steps.
+SMART READING: Before asking, scan the full conversation. If student already covered the current or next step: accept it and move on. Never ask for information already given. If student says "dat beschreef ik al" or "en X ook?" — check history and accept if correct.
 
-Examples:
-- If student describes Situatie AND already explains their Taak → accept Situatie, then immediately also accept Taak and ask about Actie
-- If student describes Actie in detail within their Situatie answer → acknowledge it, accept it when you reach that step, don't ask again
-- If student says "en actie ook?" or "dat beschreef ik al" → check the conversation history, and if correct: accept that step immediately without asking again
+TONE: Warm, practical, max 2 sentences. Never therapeutic. Never repeat student's words back. Mentor not therapist.
 
-HOW TO HANDLE:
-- When accepting a step, scan forward: does the conversation already contain what's needed for the NEXT step?
-- If yes: accept the next step too (write both acceptance phrases) and jump to the step after
-- If partially: acknowledge what's already there, ask only for what's missing
-- NEVER ask a student to repeat information they already gave
-
-
-- Warm, practical, encouraging — never therapeutic or psychological
-- Never analyse the student's personality or deeper patterns uninvited
-- Never say things like "je vermijdt reflectie" or "dit zegt iets over jou als persoon"
-- If a student gives a short or resistant answer, acknowledge it briefly and ask ONE practical follow-up
-- Max 2 sentences per response — always
-- Never repeat what the student just said back to them
-- Speak like a good mentor, not a therapist
-
-SKIP RULE:
-- If student writes something like "volgende", "skip", "door", "next", "verder" or gives a clearly resistant/minimal answer:
-  - First time: ask ONE short, easy follow-up question to give them a chance ("Kun je in één zin zeggen wat je hiervan meeneemt?")
-  - If they resist again (second minimal/skip response): write "${nl?'⏭ Overgeslagen — verder naar':'⏭ Skipped — moving to'} ${nl?NL_STEPS[Math.min(S.step+1,5)]:EN_STEPS[Math.min(S.step+1,5)]}" and move on
+SKIP: If student writes "volgende/skip/door/next/verder" — ask one short follow-up. If they resist again: write "${nl?'⏭ Overgeslagen':'⏭ Skipped'}" and move on.
 
 RULES:
-- ONE question per message, max 2 sentences
-- If jargon used: ask student to explain for outsiders
-- Action step: "we/wij" → ask what THEY specifically did
-- NEVER write text for student — feedback and tips only
-- Names, dates, locations help outsiders understand
+- ONE question per message
+- Jargon used → ask student to explain for outsiders
+- "we/wij" in Action step → ask what THEY specifically did
+- NEVER write text for student
 
 CURRENT STEP: ${cur} (${S.step+1}/6)
 ACCEPT WHEN:
@@ -1192,11 +1169,18 @@ async function send(){
   S.loading=true;
   document.getElementById('chat-send').disabled=true;
   addTyping();
+
+  // Compress messages: keep last 8 messages to limit body size
+  // Always keep the first message (opening) + last 8
+  const compressedMsgs = S.msgs.length > 9
+    ? [S.msgs[0], ...S.msgs.slice(-8)]
+    : S.msgs;
+
   try{
     const res=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({system:sysPrompt(),messages:S.msgs})
+      body:JSON.stringify({system:sysPrompt(),messages:compressedMsgs})
     });
     const data=await res.json();
     const reply=data.content[0].text;
