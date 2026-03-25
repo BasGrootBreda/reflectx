@@ -365,89 +365,125 @@ html,body{
 
 .btn-secondary:hover{border-color:var(--ink2)}
 
-/* ─── CHAT SCREEN ─── */
-#s-chat{
-  flex-direction:column;
-  height:100vh;
-  overflow:hidden;
+/* ─── CHAT SPLIT LAYOUT ─── */
+#s-chat{flex-direction:column;height:100vh;overflow:hidden}
+
+.chat-layout{
+  display:grid;
+  grid-template-columns:230px 1fr;
+  height:100vh;overflow:hidden;
 }
 
-.chat-topbar{
-  display:flex;align-items:center;gap:16px;
-  padding:14px 24px;
-  background:white;
-  border-bottom:1px solid var(--line);
-  flex-shrink:0;
+.starrt-panel{
+  background:var(--ink);
+  display:flex;flex-direction:column;
+  padding:20px 14px;
+  overflow-y:auto;
+}
+
+.starrt-panel-top{
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:14px;
 }
 
 .chat-back{
-  width:34px;height:34px;
-  border-radius:8px;border:1.5px solid var(--line);
+  width:30px;height:30px;border-radius:7px;
+  border:1.5px solid rgba(255,255,255,.15);
   background:transparent;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  transition:all .15s;flex-shrink:0;
+  transition:all .15s;margin-bottom:12px;
 }
 
-.chat-back:hover{border-color:var(--ink2);background:var(--paper2)}
-.chat-back svg{width:16px;height:16px;stroke:var(--ink2);fill:none;stroke-width:2;stroke-linecap:round}
-
-.chat-meta-col{flex:1;min-width:0}
-
-.chat-plo-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--orange);color:white;
-  font-family:var(--font-display);
-  font-size:11px;font-weight:700;
-  letter-spacing:.04em;text-transform:uppercase;
-  padding:3px 10px;border-radius:20px;
-  margin-bottom:3px;
-}
-
-.chat-title-row{
-  display:flex;align-items:center;gap:12px;
-}
+.chat-back:hover{background:rgba(255,255,255,.08)}
+.chat-back svg{width:14px;height:14px;stroke:rgba(255,255,255,.6);fill:none;stroke-width:2;stroke-linecap:round}
 
 .chat-plo-name{
   font-family:var(--font-display);
-  font-size:15px;font-weight:700;color:var(--ink);
+  font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.9);
+  margin-bottom:3px;
 }
 
 .chat-year-tag{
-  font-size:11px;color:var(--ink3);
-  background:var(--paper2);
-  padding:2px 8px;border-radius:20px;
+  font-size:10px;color:rgba(255,255,255,.4);
+  background:rgba(255,255,255,.07);
+  padding:2px 7px;border-radius:10px;
 }
 
-.starrt-bar{
-  display:flex;gap:3px;flex:0 0 auto;
+.starrt-steps-nav{
+  display:flex;flex-direction:column;gap:3px;flex:1;
 }
 
-.starrt-seg{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
+.starrt-step-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px;border-radius:9px;
+  border:none;background:transparent;
+  cursor:pointer;text-align:left;width:100%;
+  transition:background .15s;
 }
 
-.starrt-seg-bar{
-  width:32px;height:4px;border-radius:2px;
-  background:var(--line);transition:background .4s;
+.starrt-step-btn:hover{background:rgba(255,255,255,.06)}
+.starrt-step-btn.active{background:rgba(232,93,32,.2)}
+.starrt-step-btn.done{background:rgba(255,255,255,.04)}
+
+.step-circle{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:11px;font-weight:800;
+  flex-shrink:0;border:2px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.3);transition:all .2s;
 }
 
-.starrt-seg.done .starrt-seg-bar{background:var(--green)}
-.starrt-seg.active .starrt-seg-bar{background:var(--orange)}
+.starrt-step-btn.active .step-circle{background:var(--orange);border-color:var(--orange);color:white}
+.starrt-step-btn.done .step-circle{background:var(--green);border-color:var(--green);color:white}
 
-.starrt-seg-label{
-  font-size:9px;font-weight:600;letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ink3);transition:color .3s;
+.step-info{flex:1;min-width:0}
+
+.step-info-name{
+  font-family:var(--font-display);font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.3);transition:color .2s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
-.starrt-seg.done .starrt-seg-label{color:var(--green)}
-.starrt-seg.active .starrt-seg-label{color:var(--orange)}
+.starrt-step-btn.active .step-info-name{color:white}
+.starrt-step-btn.done .step-info-name{color:rgba(255,255,255,.7)}
+
+.step-info-sub{
+  font-size:10px;color:rgba(255,255,255,.18);margin-top:1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.starrt-step-btn.active .step-info-sub{color:rgba(255,255,255,.45)}
+.starrt-step-btn.done .step-info-sub{color:rgba(255,255,255,.3)}
+
+.starrt-panel-footer{
+  padding-top:14px;border-top:1px solid rgba(255,255,255,.07);
+  margin-top:8px;font-size:10px;color:rgba(255,255,255,.18);line-height:1.5;
+}
+
+.chat-col{
+  display:flex;flex-direction:column;overflow:hidden;background:var(--paper);
+}
 
 .chat-body{
-  flex:1;overflow-y:auto;
-  padding:24px;
-  display:flex;flex-direction:column;
-  gap:12px;
-  background:var(--paper);
+  flex:1;overflow-y:auto;padding:20px;
+  display:flex;flex-direction:column;gap:10px;
+}
+
+@media(max-width:680px){
+  .chat-layout{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .starrt-panel{
+    flex-direction:row;padding:8px 10px;
+    overflow-x:auto;overflow-y:hidden;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .starrt-panel-top,.starrt-panel-footer{display:none}
+  .starrt-steps-nav{flex-direction:row;gap:3px}
+  .starrt-step-btn{padding:5px 8px;border-radius:16px;min-width:44px;flex-direction:column;gap:2px;align-items:center}
+  .step-circle{width:22px;height:22px;font-size:9px}
+  .step-info-name{font-size:9px;text-align:center}
+  .step-info-sub{display:none}
 }
 
 .msg-row{display:flex;gap:10px;align-items:flex-end;max-width:100%}
@@ -791,26 +827,34 @@ html,body{
 
 <!-- CHAT -->
 <div id="s-chat" class="screen">
-  <div class="chat-topbar">
-    <button class="chat-back" onclick="goSetup()">
-      <svg viewBox="0 0 16 16"><path d="M10 4L6 8l4 4"/></svg>
-    </button>
-    <div class="chat-meta-col">
-      <div class="chat-title-row">
-        <div class="chat-plo-name" id="ct-ploname"></div>
-        <div class="chat-year-tag" id="ct-year"></div>
+  <div class="chat-layout">
+
+    <!-- LEFT: STARRT PANEL -->
+    <div class="starrt-panel" id="starrt-panel">
+      <div class="starrt-panel-top">
+        <button class="chat-back" onclick="goSetup()" style="margin-bottom:16px">
+          <svg viewBox="0 0 16 16"><path d="M10 4L6 8l4 4"/></svg>
+        </button>
+        <div class="chat-plo-name" id="ct-ploname" style="font-size:13px;margin-bottom:2px"></div>
+        <div class="chat-year-tag" id="ct-year" style="display:inline-block"></div>
+      </div>
+      <div class="starrt-steps-nav" id="starrt-steps-nav"></div>
+      <div class="starrt-panel-footer" id="starrt-panel-footer"></div>
+    </div>
+
+    <!-- RIGHT: CHAT -->
+    <div class="chat-col">
+      <div class="chat-body" id="chat-body"></div>
+      <div class="chat-footer">
+        <div class="chat-input-wrap">
+          <textarea class="chat-textarea" id="chat-ta" rows="1" onkeydown="onKey(event)" oninput="autoResize(this)"></textarea>
+          <button class="chat-send" id="chat-send" onclick="send()" disabled>
+            <svg viewBox="0 0 16 16"><path d="M13 8L3 3l2.5 5L3 13z"/></svg>
+          </button>
+        </div>
       </div>
     </div>
-    <div class="starrt-bar" id="starrt-bar"></div>
-  </div>
-  <div class="chat-body" id="chat-body"></div>
-  <div class="chat-footer">
-    <div class="chat-input-wrap">
-      <textarea class="chat-textarea" id="chat-ta" rows="1" onkeydown="onKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="chat-send" id="chat-send" onclick="send()" disabled>
-        <svg viewBox="0 0 16 16"><path d="M13 8L3 3l2.5 5L3 13z"/></svg>
-      </button>
-    </div>
+
   </div>
 </div>
 
@@ -988,24 +1032,56 @@ function launchChat(){
 
 function goSetup(){showScreen('s-setup')}
 
-// ─── STARRT BAR ───
-function buildStarrtBar(){
+// ─── STARRT PANEL ───
+function buildStarrtPanel(){
   const nl=S.lang==='nl';
-  const labels=(nl?NL_STEPS:EN_STEPS).map(s=>s[0]);
-  const bar=document.getElementById('starrt-bar');
-  bar.innerHTML=labels.map((l,i)=>`
-    <div class="starrt-seg" id="seg-${i}">
-      <div class="starrt-seg-bar"></div>
-      <div class="starrt-seg-label">${l}</div>
-    </div>`).join('');
+  const steps=nl?NL_STEPS:EN_STEPS;
+  const descs=nl
+    ?['Wanneer, waar, wie?','Jóuw verantwoordelijkheid','Wat deed jij precies?','Wat leerde je over jezelf?','Wat betekent dit voor jou?','Hoe pas je dit toe?']
+    :['When, where, who?','Your responsibility','What did you do exactly?','What did you learn about yourself?','What does this mean for you?','How will you apply this?'];
+  const letters=['S','T','A','R','R','T'];
+  const nav=document.getElementById('starrt-steps-nav');
+  nav.innerHTML=steps.map((s,i)=>`
+    <button class="starrt-step-btn" id="sstep-${i}" onclick="switchStep(${i})">
+      <div class="step-circle">${letters[i]}</div>
+      <div class="step-info">
+        <div class="step-info-name">${s}</div>
+        <div class="step-info-sub">${descs[i]}</div>
+      </div>
+    </button>`).join('');
+
+  const footer=document.getElementById('starrt-panel-footer');
+  if(footer) footer.textContent=nl?'BUas · Logistiek':'BUas · Logistics';
+  updatePanel();
 }
 
-function updateBar(){
+function updatePanel(){
   for(let i=0;i<6;i++){
-    const el=document.getElementById('seg-'+i);
+    const el=document.getElementById('sstep-'+i);
     if(!el)continue;
-    el.className='starrt-seg'+(S.accepted.has(i)?' done':i===S.step?' active':'');
+    el.className='starrt-step-btn'+(S.accepted.has(i)?' done':i===S.step?' active':'');
   }
+}
+
+function switchStep(i){
+  // When student clicks a step, switch the active step and inject a context message
+  const nl=S.lang==='nl';
+  const steps=nl?NL_STEPS:EN_STEPS;
+  if(i===S.step)return; // already on this step
+  S.step=i;
+  updatePanel();
+  // Inject a brief system note so AI knows which step is now active
+  const note=nl
+    ?`[Student navigeert naar stap: ${steps[i]}. Ga verder met deze stap.]`
+    :`[Student navigated to step: ${steps[i]}. Continue with this step.]`;
+  S.msgs.push({role:'user',content:note});
+  // Show a visual indicator in chat
+  const body=document.getElementById('chat-body');
+  const d=document.createElement('div');
+  d.className='msg-accepted';
+  d.textContent=nl?`→ ${steps[i]}`:`→ ${steps[i]}`;
+  body.appendChild(d);
+  body.scrollTop=body.scrollHeight;
 }
 
 // ─── CHAT ───
@@ -1103,7 +1179,7 @@ async function startChat(){
     :{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year];
   document.getElementById('ct-ploname').textContent=plo.name;
   document.getElementById('ct-year').textContent=yearLabel;
-  buildStarrtBar();updateBar();
+  buildStarrtPanel();updatePanel();
   document.getElementById('chat-body').innerHTML='';
   document.getElementById('chat-ta').disabled=false;
   document.getElementById('chat-send').disabled=false;
@@ -1208,9 +1284,9 @@ function checkAccepted(reply){
   if(reply.includes(phrase)){
     addBubble('tool',nl?`✓ ${cur} geaccepteerd`:`✓ ${cur} accepted`,'accepted');
     S.accepted.add(S.step);
-    if(S.step<5){S.step++;updateBar();}
+    if(S.step<5){S.step++;updatePanel();}
   } else if(reply.includes(skipPhrase)){
-    if(S.step<5){S.step++;updateBar();}
+    if(S.step<5){S.step++;updatePanel();}
   }
 }
 
