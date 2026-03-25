@@ -115,7 +115,7 @@ const server = http.createServer(async (req, res) => {
 
       const result = await callAnthropic({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
+        max_tokens: 1200,
         system,
         messages
       });

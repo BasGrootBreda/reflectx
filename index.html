@@ -1187,7 +1187,6 @@ function renderFeedback(parsed,raw,values){
       const wrap=document.getElementById('field-wrap-'+i);
       const fb=document.getElementById('fb-'+i);
       if(!wrap||!fb)return;
-
       fb.style.display='block';
       if(f.status==='ok'){
         accepted.add(i);
@@ -1202,6 +1201,15 @@ function renderFeedback(parsed,raw,values){
         fb.innerHTML=f.feedback;
       }
     });
+  } else {
+    // Fallback: show raw AI response in first field's feedback area
+    const fb=document.getElementById('fb-0');
+    if(fb){
+      fb.style.display='block';
+      fb.style.background='var(--info-light)';
+      fb.style.color='var(--info)';
+      fb.innerHTML=raw.replace(/\n/g,'<br>');
+    }
   }
 
   updatePanel(accepted);
