@@ -1394,11 +1394,11 @@ function finishReflection(){
   const plo=PLO[S.lang][S.plo];
 
   showScreen('s-done');
-  document.getElementById('done-badge').textContent=nl?'✓ Reflectie voltooid':'✓ Reflection complete';
-  document.getElementById('done-title').textContent=nl?`${plo.name} — reflectie afgerond.`:`${plo.name} — reflection complete.`;
+  document.getElementById('done-badge').textContent=nl?'✓ Afgerond':'✓ Complete';
+  document.getElementById('done-title').textContent=nl?`Jouw reflectietekst`:`Your reflection text`;
   document.getElementById('done-sub').textContent=nl
-    ?'Je tekst staat hieronder. Gebruik dit als basis voor je portfolio — schrijf uit in 3-5 zinnen per onderdeel, in je eigen woorden.'
-    :'Your text is below. Use this as the basis for your portfolio — expand to 3-5 sentences per section, in your own words.';
+    ?`Hieronder vind je jouw reflectietekst voor PLO "${plo.name}". Gebruik dit als basis voor je portfolio — schrijf uit in 3-5 zinnen per onderdeel, in je eigen woorden.`
+    :`Below you will find your reflection text for PLO "${plo.name}". Use this as the basis for your portfolio — expand to 3-5 sentences per section, in your own words.`;
   document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
   document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
 
