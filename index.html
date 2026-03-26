@@ -857,7 +857,7 @@ html,body{
 
 <script>
 // ─── STATE ───
-const S={lang:null,plo:null,year:null,round:0,loading:false};
+const S={lang:null,plo:null,year:null,round:0,loading:false,lastParsed:null};
 // round = feedback round counter (0 = not started)
 
 const NL_STEPS=['Situatie','Taak','Actie','Resultaat','Reflectie','Transfer'];
@@ -986,8 +986,8 @@ function buildStarrtPanel(){
   const nl=S.lang==='nl';
   const steps=nl?NL_STEPS:EN_STEPS;
   const descs=nl
-    ?['Wanneer, waar, wie?','Jóuw verantwoordelijkheid','Wat deed jij precies?','Wat leerde je over jezelf?','Wat betekent dit voor jou?','Hoe pas je dit toe?']
-    :['When, where, who?','Your responsibility','What did you do exactly?','What did you learn?','What does this mean for you?','How will you apply this?'];
+    ?['Wanneer, waar, wie?','Jóuw verantwoordelijkheid — en waarom jij?','Wat deed jij precies, en waarom?','Wat was het concrete effect?','Wat leerde je over jezelf en je aanpak?','Hoe pas je dit concreet toe?']
+    :['When, where, who?','Your responsibility — and why you?','What did you do exactly, and why?','What was the concrete effect?','What did you learn about yourself?','How will you apply this?'];
   const letters=['S','T','A','R','R','T'];
   const nav=document.getElementById('starrt-steps-nav');
   nav.innerHTML=steps.map((s,i)=>`
@@ -1016,20 +1016,24 @@ function getHints(){
   const nl=S.lang==='nl';
   const adv=S.year==='stage'||S.year==='afstuderen';
   if(nl) return[
-    `Beschrijf een concreet moment${adv?' op je werkplek':' dit semester'}. Noem namen, het vak of project, en leg vakjargon uit zodat een buitenstaander het begrijpt.`,
-    `Wat was jóuw specifieke verantwoordelijkheid? Schrijf in "ik"-vorm, niet wat de groep moest doen.`,
-    `Wat deed jij precies — en waarom die aanpak? Schrijf "ik deed X omdat Y". Niet "wij deden".`,
-    `Wat was het resultaat? En wat leerde je over jezelf — niet alleen of het goed afliep.`,
-    `Wat neem je hiervan mee als leermoment? Wat doe je een volgende keer anders of juist hetzelfde?`,
-    `Wanneer ga je dit concreet toepassen? Noem een specifiek moment en wat je dan doet.`
+    `Beschrijf één concreet moment${adv?' op je werkplek':' dit semester'} — niet een heel project. Noem wie erbij was (naam of rol), en leg vakjargon uit zodat een buitenstaander het snapt.\n\nBijv.: "Op dinsdag 12 maart was ik op het DC van PostNL in Breda. Tijdens het ochtendoverleg met mijn stagebegeleider Mark (teamleider sorteerhal) bespraken we de afleverscores — het percentage pakketten dat op de beloofde dag wordt bezorgd."`,
+    `Wat was jóuw specifieke verantwoordelijkheid? Schrijf in "ik"-vorm. Niet wat de groep moest doen, maar waarom jij degene was die dit oppakte.\n\nBijv.: "Mijn taak was om de oorzaak van de dalende scores te achterhalen. Ik pakte dit op omdat ik als stagiair op de planningsafdeling het meest met de data werkte."`,
+    `Wat deed jij precies — stap voor stap, in "ik"-vorm? Leg bij elke actie uit waarom je daarvoor koos.\n\nBijv.: "Ik exporteerde de sorteerdata van drie maanden uit het WMS en filterde op de drie slechtste regio's. Ik koos drie maanden om seizoenseffecten uit te sluiten. Daarna interviewde ik twee chauffeurs — ik wilde niet alleen op data afgaan."`,
+    `Wat was het concrete effect op het proces, het team of een KPI? Voeg als het kan bewijs toe: feedback die je kreeg, een meetbaar resultaat, of een eigen observatie (noem eerlijk wat je niet zeker weet).\n\nBijv.: "Uit mijn analyse bleek dat 60% van de vertragingen kwam door onjuiste adresgegevens. Mark zei in mijn evaluatie dat mijn aanpak 'gestructureerd' was, maar dat ik de chauffeurs eerder had moeten betrekken."`,
+    S.year==='1'
+      ?`Wat leerde je over jezelf en je aanpak? Noem minimaal één ding dat je anders had kunnen doen.\n\nBijv.: "Ik merkte dat ik snel kies voor analytische taken omdat ik daar goed in ben, maar de presentatie aan Anna overliet. Wat ik anders had kunnen doen: afspreken dat we allebei een deel presenteren."`
+      :`Wat leerde je over jezelf? Herken je dit patroon in meerdere situaties? Waarom handel je zo? En wat had je anders kunnen doen?\n\nBijv.: "Ik zie een patroon: ik ga liever zelf data analyseren dan mensen vragen naar hun ervaring. Bij PostNL ging ik weer eerst naar het WMS in plaats van de chauffeurs. Ik had ze in week 1 al moeten spreken."`,
+    `Noem een specifiek komend moment waarop je dit gaat toepassen. Wat ga je concreet doen? En wat als het tegenzit?\n\nBijv.: "Bij mijn volgende analyse-opdracht (week 22) plan ik in de eerste week stakeholder-interviews vóórdat ik de data induik. Als ik merk dat ik toch weer achter mijn laptop kruip: ik zet een harde deadline van woensdag."`
   ];
   return[
-    `Describe a concrete moment${adv?' at your workplace':' this semester'}. Use names, explain jargon so an outsider understands.`,
-    `What was YOUR specific responsibility? Write in "I" form.`,
-    `What exactly did you do — and why that approach? Write "I did X because Y". Not "we did".`,
-    `What was the result? And what did you learn about yourself — not just whether it went well.`,
-    `What do you take away as a lesson? What would you do differently or the same next time?`,
-    `When will you apply this concretely? Name a specific moment and what you will do.`
+    `Describe one specific moment${adv?' at your workplace':' this semester'} — not an entire project. Name who was involved (name or role), explain jargon so an outsider understands.\n\nE.g.: "On Tuesday March 12th, I was at the PostNL distribution centre in Breda. During the morning meeting with my supervisor Mark (team leader sorting hall), we discussed delivery scores — the percentage of parcels delivered on the promised day."`,
+    `What was YOUR specific responsibility? Write in "I" form. Not the group goal, but why you were the one to take this on.\n\nE.g.: "My task was to identify the cause of declining scores. I took this on because as an intern in planning, I worked most with the data."`,
+    `What exactly did you do — step by step, in "I" form? For each action, explain why you chose that approach.\n\nE.g.: "I exported three months of sorting data from the WMS and filtered by the three worst regions. I chose three months to rule out seasonal effects. Then I interviewed two drivers — I didn't want to rely on data alone."`,
+    `What was the concrete effect on the process, team, or a KPI? Add evidence if possible: feedback received, a measurable result, or your own observation (honestly state what you're uncertain about).\n\nE.g.: "My analysis showed 60% of delays came from incorrect address data. Mark said in my evaluation my approach was 'structured', but I should have involved drivers earlier."`,
+    S.year==='1'
+      ?`What did you learn about yourself and your approach? Name at least one thing you could have done differently.\n\nE.g.: "I noticed I quickly choose analytical tasks because I'm good at them, but I left the presentation to Anna. What I could have done: agree we both present a part."`
+      :`What did you learn about yourself? Do you recognise this pattern across situations? Why do you act this way? What could you have done differently?\n\nE.g.: "I see a pattern: I prefer analysing data over asking people. At PostNL I again went to the WMS first instead of the drivers. I should have spoken to them in week 1."`,
+    `Name a specific upcoming moment when you'll apply this. What concretely? And what if it gets tough?\n\nE.g.: "For my next analysis task (week 22), I'll schedule stakeholder interviews in week 1 before diving into data. If I notice myself retreating: hard deadline of Wednesday for at least two interviews."`
   ];
 }
 
@@ -1054,13 +1058,18 @@ async function startChat(){
   const letters=['S','T','A','R','R','T'];
   const hints=getHints();
   const form=document.getElementById('starrt-form');
+  const hintParts=hints.map(h=>{
+    const parts=h.split('\n\n');
+    return {hint:parts[0],example:parts[1]||''};
+  });
   form.innerHTML=steps.map((step,i)=>`
     <div style="background:white;border:1.5px solid var(--line);border-radius:var(--r-lg);overflow:hidden" id="field-wrap-${i}">
       <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg2)">
         <div style="width:26px;height:26px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;font-weight:800;flex-shrink:0">${letters[i]}</div>
         <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--ink)">${step}</div>
       </div>
-      <div style="padding:4px 16px 8px;font-size:11px;color:var(--ink3);line-height:1.5">${hints[i]}</div>
+      <div style="padding:4px 16px 8px;font-size:11px;color:var(--ink3);line-height:1.5">${hintParts[i].hint}</div>
+      ${hintParts[i].example?`<div style="font-size:11px;color:var(--blue);background:var(--blue-soft);margin:0 12px 8px;padding:8px 12px;border-radius:8px;border-left:3px solid var(--blue);line-height:1.55;font-style:italic">${hintParts[i].example}</div>`:''}
       <div style="padding:0 12px 12px">
         <textarea
           id="ta-${i}"
@@ -1128,39 +1137,64 @@ async function getFeedback(){
   const adv=S.year==='stage'||S.year==='afstuderen';
   const yr1=S.year==='1';
 
-  const system=`You are a STARRT reflection coach for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY.
+  const system=`You are a STARRT reflection feedback tool for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY.
 Student: ${nl?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]:{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year]} | PLO: ${plo.name} — ${plo.desc}
 Relevant jargon: ${jargon()}
+Feedback round: ${S.round+1}
 
-TASK: Give feedback on all 6 STARRT fields. For each field:
-- If the field meets the criteria: write ✓ and one neutral sentence confirming what works (NO praise words: not "perfect/sterk/mooi/geweldig/excellent/well done")
-- If the field needs improvement: write → and max 2 numbered questions asking for what's missing
+TASK: Assess all 6 STARRT fields against the criteria below. Return structured JSON.
 
-NEUTRAL ACKNOWLEDGEMENTS ONLY: "Helder.", "Duidelijk.", "Oké.", "Clear.", "Got it." — nothing more positive than this.
-
-TONE: Direct, practical, never therapeutic. Never analyse the student's personality. Never write text for the student.
+TONE RULES (critical):
+- NEVER use: "perfect", "sterk", "mooi", "geweldig", "goed gedaan", "excellent", "well done", "nice", "great"
+- NEVER use superlatives: "heel concreet", "erg duidelijk", "zeer helder"
+- NEVER give vague feedback: "dit kan concreter" without saying WHAT
+- NEVER use therapeutic language: "ik begrijp dat...", "het is logisch dat je..."
+- When field is OK: name WHAT is there, without qualification.
+  GOOD: "Je beschrijft het moment, de betrokkenen en de context."
+  BAD: "Helder." / "Duidelijk." / "Clear." (too little info)
+  BAD: "Dit is een duidelijke situatieschets." (hidden value judgment)
+- When field needs work: name what IS there + what is NOT there, grounded in student's text.
+  GOOD: "Je beschrijft wat je deed. Wat ik niet lees is waarom je daarvoor koos."
+  BAD: "Dit kan concreter." / "Probeer eens..."
+- ALWAYS start observations with what you read in the student's text.
+- NEVER write text for the student.
 
 CRITERIA per field:
-S (Situatie/Situation): Concrete moment + names with context + jargon explained for outsider${adv?'+ workplace context':''}
-T (Taak/Task): Own responsibility in "ik/I" form — not just formal role${adv?'+ linked to professional challenge':''}
-A (Actie/Action): Concrete actions + "ik/I" not "wij/we" + reasoning for choice + considered alternative${adv?'+ tools/methods mentioned if relevant':''}
-R (Resultaat/Result): What student learned about THEMSELVES + honest improvement point${yr1?'(one lesson enough for year 1)':''} + external feedback or result
-R (Reflectie/Reflection): ${yr1?'One concrete lesson + improvement point (pattern optional)':'Pattern across situations + underlying mechanism'}
-T (Transfer): Specific upcoming moment + concrete action + strategy for when difficult
+S (Situatie/Situation): Concrete moment (when, where) + who was involved (name or role + context) + relevant context so an outsider understands, jargon explained where needed${adv?' + workplace/organisation context':''}
+T (Taak/Task): Own responsibility in "ik/I" form — not just job title + what student needed to achieve + why the student was the one to take this on${adv?' + linked to professional challenge':''}
+A (Actie/Action): Concrete actions in "ik/I" form, NOT "wij/we" + reasoning: "I did X because Y"${adv?' + tools/methods/systems mentioned if relevant':''}
+R1 (Resultaat/Result): Concrete effect on process, team, stakeholder or outcome + evidence ladder: prefer external feedback, otherwise visible effect, otherwise own observation with honestly stated uncertainty. "I am satisfied" as only sentence NOT accepted.${adv?' Measurable outcome recommended.':''}
+R2 (Reflectie/Reflection): ${yr1?'What student learned about themselves + at least one honest improvement point + what could have been done differently (considered alternative). Pattern recognition is a bonus, not required.':'What student learned about themselves + pattern in own behaviour across situations + underlying mechanism + what could have been done differently (considered alternative). Reflection is about the STUDENT, not just the situation.'}
+T2 (Transfer): Specific upcoming moment + concrete action + strategy for when it gets difficult. Vague intentions NOT accepted.
 
-PLO-SPECIFIC PROBES: ${ploProbes()}
+PLO-SPECIFIC PROBES (use max 1 as a priority question if it fits):
+${ploProbes()}
 
-OUTPUT FORMAT — respond with exactly this JSON structure:
+LOGISTICS LENSES (use max 1 per round as deepening):
+KPIs, service vs cost, planning vs disruption, safety, sustainability, stakeholder interests, data quality, bottlenecks, variability.
+
+FEEDBACK STRUCTURE:
+1. Per field: status + ONE sentence observation grounded in student's text.
+2. Max 3 PRIORITIES total — the points that make biggest difference. Each: field + one open question. Focus on weakest fields. NEVER more than 3.
+3. PLO ALIGNMENT: does content fit PLO "${plo.name}"? If mismatch: flag which PLO fits better.
+4. SUMMARY: only if round >= 3 OR all fields "ok". Count complete fields, list remaining gaps.
+
+OUTPUT — ONLY this JSON, no text before/after, no backticks:
 {
   "fields": [
-    {"letter": "S", "status": "ok|needs_work", "feedback": "..."},
+    {"letter": "S", "status": "ok|needs_work", "feedback": "one sentence"},
     {"letter": "T", "status": "ok|needs_work", "feedback": "..."},
     {"letter": "A", "status": "ok|needs_work", "feedback": "..."},
     {"letter": "R1", "status": "ok|needs_work", "feedback": "..."},
     {"letter": "R2", "status": "ok|needs_work", "feedback": "..."},
     {"letter": "T2", "status": "ok|needs_work", "feedback": "..."}
   ],
-  "summary": "one sentence overall status in ${nl?'Dutch':'English'}"
+  "priorities": [
+    {"field": "A", "question": "one open question"}
+  ],
+  "plo_alignment": "ok|mismatch",
+  "plo_note": "only if mismatch",
+  "summary": ${S.round>=2?`"one sentence in ${nl?'Dutch':'English'}"`:'"null"'}
 }`;
 
   const userMsg=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n');
@@ -1216,22 +1250,50 @@ function renderFeedback(parsed,raw,values){
       } else {
         wrap.style.borderColor='var(--orange)';
         fb.style.background='var(--orange-soft)';
-        fb.style.color='var(--warn)';
-        fb.innerHTML=f.feedback;
+        fb.style.color='#8a4a10';
+        fb.innerHTML=`<strong>→</strong> ${f.feedback}`;
       }
     });
   } else {
-    // Fallback: show raw AI response in first field's feedback area
     const fb=document.getElementById('fb-0');
     if(fb){
       fb.style.display='block';
-      fb.style.background='var(--info-light)';
-      fb.style.color='var(--info)';
+      fb.style.background='var(--paper2)';
+      fb.style.color='var(--ink2)';
       fb.innerHTML=raw.replace(/\n/g,'<br>');
     }
   }
 
   updatePanel(accepted);
+
+  // Build feedback content
+  const content=document.getElementById('feedback-content');
+  let html='';
+
+  // PLO alignment alert
+  if(parsed&&parsed.plo_alignment==='mismatch'&&parsed.plo_note){
+    html+=`<div style="background:#fef3cd;border:2px solid #e8c547;border-radius:var(--r);padding:12px 16px;margin-bottom:14px">
+      <div style="font-size:12px;color:#6b5a1e;line-height:1.6">${parsed.plo_note}</div>
+      <button class="btn-secondary" onclick="this.parentElement.remove()" style="font-size:11px;padding:6px 12px;margin-top:8px">${nl?'Ik houd mijn keuze':'I\'ll keep my choice'}</button>
+    </div>`;
+  }
+
+  // Priorities block
+  if(parsed&&parsed.priorities&&parsed.priorities.length>0){
+    const fieldNames={S:steps[0],T:steps[1],A:steps[2],R1:steps[3],R2:steps[4],T2:steps[5]};
+    html+=`<div style="font-family:var(--font-display);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:10px">${nl?`Prioriteiten ronde ${S.round}`:`Priorities round ${S.round}`}</div>`;
+    parsed.priorities.forEach((p,i)=>{
+      html+=`<div style="display:flex;gap:10px;padding:8px 0;${i<parsed.priorities.length-1?'border-bottom:1px solid var(--line)':''}">
+        <div style="width:22px;height:22px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px">${i+1}</div>
+        <div style="font-size:12px;line-height:1.6">
+          <span style="font-family:var(--font-display);font-weight:700;color:var(--orange);text-transform:uppercase;font-size:10px;letter-spacing:.04em">${fieldNames[p.field]||p.field}</span><br>
+          <span style="color:var(--ink2)">${p.question}</span>
+        </div>
+      </div>`;
+    });
+  }
+
+  content.innerHTML=html;
 
   // Show feedback panel
   const panel=document.getElementById('feedback-panel');
@@ -1239,23 +1301,28 @@ function renderFeedback(parsed,raw,values){
   const allOk=accepted.size===6;
   const title=document.getElementById('feedback-title');
 
-  if(parsed&&parsed.summary){
+  if(parsed&&parsed.summary&&parsed.summary!=='null'){
     title.textContent=parsed.summary;
   } else {
-    title.textContent=nl?`Ronde ${S.round} — zie feedback per veld`:`Round ${S.round} — see feedback per field`;
+    title.textContent=nl?`Ronde ${S.round} — ${accepted.size}/6 velden compleet`:`Round ${S.round} — ${accepted.size}/6 fields complete`;
   }
 
+  // Finish button logic — improved
   const finishBtn=document.getElementById('btn-finish');
-  if(allOk||S.round>=3){
+  if(allOk){
     finishBtn.style.display='inline-block';
     finishBtn.textContent=nl?'Afronden →':'Finish →';
+    finishBtn.style.background='var(--green)';
+  } else if(S.round>=3){
+    finishBtn.style.display='inline-block';
+    finishBtn.textContent=nl?'Toch afronden':'Finish anyway';
+    finishBtn.style.background='var(--ink)';
   } else {
     finishBtn.style.display='none';
   }
 
+  S.lastParsed=parsed;
   document.getElementById('btn-revise').textContent=nl?'Aanpassen →':'Revise →';
-
-  // Scroll to feedback
   panel.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -1275,15 +1342,31 @@ function finishReflection(){
 
   showScreen('s-done');
   document.getElementById('done-badge').textContent=nl?'✓ Reflectie voltooid':'✓ Reflection complete';
-  document.getElementById('done-title').textContent=nl?`${plo.name} — afgerond.`:`${plo.name} — complete.`;
+  document.getElementById('done-title').textContent=nl?`${plo.name} — reflectie afgerond.`:`${plo.name} — reflection complete.`;
   document.getElementById('done-sub').textContent=nl
-    ?'Je tekst staat hieronder. Gebruik dit als basis voor je portfolio — schrijf eventueel uit in 3-5 zinnen per onderdeel.'
-    :'Your text is below. Use this as the basis for your portfolio — expand to 3-5 sentences per section if needed.';
+    ?'Je tekst staat hieronder. Gebruik dit als basis voor je portfolio — schrijf uit in 3-5 zinnen per onderdeel, in je eigen woorden.'
+    :'Your text is below. Use this as the basis for your portfolio — expand to 3-5 sentences per section, in your own words.';
   document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
   document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
 
+  // Quality indication based on last feedback
+  let qualHtml='';
+  if(S.lastParsed&&S.lastParsed.fields){
+    const okFields=[];const workFields=[];
+    S.lastParsed.fields.forEach((f,i)=>{
+      if(f.status==='ok') okFields.push(steps[i]);
+      else workFields.push({name:steps[i],fb:f.feedback});
+    });
+    qualHtml=`<div style="background:white;border:2px solid var(--line);border-radius:var(--r-lg);padding:16px 20px;margin-bottom:20px">
+      <div style="font-family:var(--font-display);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:10px">${nl?'Kwaliteitsindicatie':'Quality indication'}</div>
+      ${okFields.length?`<div style="font-size:12px;color:var(--green);margin-bottom:6px;line-height:1.6"><strong>${nl?'Compleet':'Complete'}:</strong> ${okFields.join(', ')}</div>`:''}
+      ${workFields.length?`<div style="font-size:12px;color:var(--orange);line-height:1.6"><strong>${nl?'Verdieping mogelijk':'Could go deeper'}:</strong> ${workFields.map(w=>`${w.name}`).join(', ')}</div>`
+        :`<div style="font-size:12px;color:var(--green);line-height:1.6">${nl?'Alle velden zijn inhoudelijk compleet.':'All fields are substantively complete.'}</div>`}
+    </div>`;
+  }
+
   const wrap=document.getElementById('structure-wrap');
-  wrap.innerHTML=`<div class="structure-head">
+  wrap.innerHTML=qualHtml+`<div class="structure-head">
     <div class="structure-head-title">${nl?'Jouw portfoliotekst':'Your portfolio text'}</div>
     <div class="structure-head-sub">${nl?'Pas aan waar nodig':'Edit where needed'}</div>
   </div>`+steps.map((step,i)=>`
@@ -1296,7 +1379,15 @@ function finishReflection(){
         onfocus="this.style.borderColor='var(--ink2)'"
         onblur="this.style.borderColor='var(--line)'"
       >${values[i]}</textarea>
-    </div>`).join('');
+    </div>`).join('')
+    +`<div style="padding:16px 20px;border-top:1px solid var(--line)">
+      <div style="font-family:var(--font-display);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:8px">${nl?'Optioneel — wat neem je mee uit dit reflectieproces?':'Optional — what do you take away from this reflection process?'}</div>
+      <textarea
+        id="meta-reflection"
+        placeholder="${nl?'Niet verplicht. Dit wordt niet beoordeeld.':'Not required. This is not assessed.'}"
+        style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:60px;outline:none"
+      ></textarea>
+    </div>`;
 }
 
 function copyAll(){
@@ -1309,6 +1400,10 @@ function copyAll(){
     const val=field?field.value.trim():'';
     text+=`${letters[i]}. ${step}\n${val||'(niet ingevuld)'}\n\n`;
   });
+  const meta=document.getElementById('meta-reflection');
+  if(meta&&meta.value.trim()){
+    text+=`---\n${nl?'Reflectie op het proces':'Process reflection'}: ${meta.value.trim()}\n`;
+  }
   navigator.clipboard.writeText(text).then(()=>{
     const btn=document.getElementById('btn-copy-all');
     const orig=btn.textContent;
@@ -1325,7 +1420,7 @@ function showScreen(id){
 }
 
 function restart(){
-  S.lang=null;S.plo=null;S.year=null;S.round=0;S.loading=false;
+  S.lang=null;S.plo=null;S.year=null;S.round=0;S.loading=false;S.lastParsed=null;
   setupPanel=0;
   showScreen('s-welcome');
 }
