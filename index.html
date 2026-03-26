@@ -857,7 +857,12 @@ html,body{
 
 <script>
 // ─── STATE ───
-const S={lang:null,plo:null,year:null,round:0,loading:false,lastParsed:null};
+const S={lang:null,plo:null,year:null,round:0,loading:false,lastParsed:null,
+  // Consistency tracking
+  lockedFields:{},    // {0:'ok', 2:'ok'} — fields that were accepted
+  lastValues:['','','','','',''],  // snapshot of values at last feedback
+  prevFeedback:null   // previous round's JSON for context
+};
 // round = feedback round counter (0 = not started)
 
 const NL_STEPS=['Situatie','Taak','Actie','Resultaat','Reflectie','Transfer'];
@@ -1016,24 +1021,24 @@ function getHints(){
   const nl=S.lang==='nl';
   const adv=S.year==='stage'||S.year==='afstuderen';
   if(nl) return[
-    `Beschrijf één concreet moment${adv?' op je werkplek':' dit semester'} — niet een heel project. Noem wie erbij was (naam of rol), en leg vakjargon uit zodat een buitenstaander het snapt.\n\nBijv.: "Op dinsdag 12 maart was ik op het DC van PostNL in Breda. Tijdens het ochtendoverleg met mijn stagebegeleider Mark (teamleider sorteerhal) bespraken we de afleverscores — het percentage pakketten dat op de beloofde dag wordt bezorgd."`,
-    `Wat was jóuw specifieke verantwoordelijkheid? Schrijf in "ik"-vorm. Niet wat de groep moest doen, maar waarom jij degene was die dit oppakte.\n\nBijv.: "Mijn taak was om de oorzaak van de dalende scores te achterhalen. Ik pakte dit op omdat ik als stagiair op de planningsafdeling het meest met de data werkte."`,
-    `Wat deed jij precies — stap voor stap, in "ik"-vorm? Leg bij elke actie uit waarom je daarvoor koos.\n\nBijv.: "Ik exporteerde de sorteerdata van drie maanden uit het WMS en filterde op de drie slechtste regio's. Ik koos drie maanden om seizoenseffecten uit te sluiten. Daarna interviewde ik twee chauffeurs — ik wilde niet alleen op data afgaan."`,
-    `Wat was het concrete effect op het proces, het team of een KPI? Voeg als het kan bewijs toe: feedback die je kreeg, een meetbaar resultaat, of een eigen observatie (noem eerlijk wat je niet zeker weet).\n\nBijv.: "Uit mijn analyse bleek dat 60% van de vertragingen kwam door onjuiste adresgegevens. Mark zei in mijn evaluatie dat mijn aanpak 'gestructureerd' was, maar dat ik de chauffeurs eerder had moeten betrekken."`,
+    `Beschrijf één concreet moment${adv?' op je werkplek':' dit semester'} — niet een heel project. Noem wie erbij was (naam of rol), en leg vakjargon uit zodat een buitenstaander het snapt.\n\nBijv.: "Op dinsdag 12 maart was ik op het distributiecentrum van PostNL in Breda. Tijdens het ochtendoverleg met mijn stagebegeleider Mark (teamleider sorteerhal) en twee collega-planners bespraken we de afleverscores — het percentage pakketten dat op de beloofde dag wordt bezorgd."`,
+    `Wat was jóuw specifieke verantwoordelijkheid? Niet het groepsdoel, maar wat JIJ moest doen en waarom jij degene was die dit oppakte.\n\nBijv.: "Mijn taak was om de oorzaak van de dalende afleverscores te achterhalen en een verbetervoorstel voor te bereiden. Ik pakte dit op omdat ik als stagiair op de planningsafdeling het meest met de sorteerdata werkte."`,
+    `Wat deed jij precies — stap voor stap, in "ik"-vorm? Leg bij elke stap uit waarom je daarvoor koos. Beschrijf hier alleen je handelingen, niet het resultaat ervan.\n\nBijv.: "Ik exporteerde de sorteerdata van drie maanden uit het WMS en filterde op de drie regio's met de laagste scores. Ik koos drie maanden om seizoenseffecten uit te sluiten. Daarna interviewde ik twee chauffeurs — ik wilde niet alleen op data afgaan maar ook het perspectief vanaf de weg meenemen."`,
+    `Wat was het concrete effect van je acties — op het proces, het team of een KPI? Voeg bewijs toe als je dat hebt: feedback die je kreeg, een meetbaar resultaat, of je eigen observatie (noem eerlijk wat je niet zeker weet). Beschrijf hier alleen wat er GEBEURDE, niet wat je ervan LEERDE.\n\nBijv.: "Uit mijn analyse bleek dat 60% van de vertragingen kwam door onjuiste adresgegevens, niet door capaciteitsproblemen. Het MT besloot op basis van mijn voorstel om een adresvalidatie-check in te bouwen. Mark noemde in mijn tussenevaluatie dat de onderbouwing helder was."`,
     S.year==='1'
-      ?`Wat leerde je over jezelf en je aanpak? Noem minimaal één ding dat je anders had kunnen doen.\n\nBijv.: "Ik merkte dat ik snel kies voor analytische taken omdat ik daar goed in ben, maar de presentatie aan Anna overliet. Wat ik anders had kunnen doen: afspreken dat we allebei een deel presenteren."`
-      :`Wat leerde je over jezelf? Herken je dit patroon in meerdere situaties? Waarom handel je zo? En wat had je anders kunnen doen?\n\nBijv.: "Ik zie een patroon: ik ga liever zelf data analyseren dan mensen vragen naar hun ervaring. Bij PostNL ging ik weer eerst naar het WMS in plaats van de chauffeurs. Ik had ze in week 1 al moeten spreken."`,
-    `Noem een specifiek komend moment waarop je dit gaat toepassen. Wat ga je concreet doen? En wat als het tegenzit?\n\nBijv.: "Bij mijn volgende analyse-opdracht (week 22) plan ik in de eerste week stakeholder-interviews vóórdat ik de data induik. Als ik merk dat ik toch weer achter mijn laptop kruip: ik zet een harde deadline van woensdag."`
+      ?`Wat leerde je over jezelf en je eigen aanpak? Niet wat het resultaat was (dat staat hierboven), maar wat dit zegt over hoe jij werkt. Noem minimaal één ding dat je anders had kunnen doen.\n\nBijv.: "Ik merkte dat ik direct naar de data greep zonder eerst met mensen te praten. Ik had de chauffeurs in week 1 al kunnen interviewen — dan had ik sneller de juiste richting gehad. Wat ik anders had kunnen doen: eerst een kort rondje langs het team voordat ik achter mijn laptop kroop."`
+      :`Wat leerde je over jezelf? Herken je dit patroon in meerdere situaties? Waarom handel je zo? Beschrijf hier niet opnieuw het resultaat, maar het inzicht over je eigen aanpak.\n\nBijv.: "Ik zie een patroon: ik ga liever zelf data analyseren dan mensen vragen naar hun ervaring. Bij mijn vorige project deed ik hetzelfde — drie weken data voordat ik met de klant sprak. Bij PostNL ging ik weer eerst naar het WMS. Ik denk dat ik me zekerder voel met cijfers dan met gesprekken."`,
+    `Noem een specifiek komend moment waarop je dit gaat toepassen. Wat ga je concreet doen? En wat is je plan als het tegenzit? Herhaal hier niet je les uit Reflectie, maar beschrijf de concrete actie.\n\nBijv.: "Bij mijn volgende analyse-opdracht (de voorraadoptimalisatie in week 22) plan ik in de eerste week minimaal twee stakeholder-interviews vóórdat ik de data induik. Als ik merk dat ik het toch uitstel: ik zet een harde deadline op woensdag en vraag Mark om me eraan te houden."`
   ];
   return[
-    `Describe one specific moment${adv?' at your workplace':' this semester'} — not an entire project. Name who was involved (name or role), explain jargon so an outsider understands.\n\nE.g.: "On Tuesday March 12th, I was at the PostNL distribution centre in Breda. During the morning meeting with my supervisor Mark (team leader sorting hall), we discussed delivery scores — the percentage of parcels delivered on the promised day."`,
-    `What was YOUR specific responsibility? Write in "I" form. Not the group goal, but why you were the one to take this on.\n\nE.g.: "My task was to identify the cause of declining scores. I took this on because as an intern in planning, I worked most with the data."`,
-    `What exactly did you do — step by step, in "I" form? For each action, explain why you chose that approach.\n\nE.g.: "I exported three months of sorting data from the WMS and filtered by the three worst regions. I chose three months to rule out seasonal effects. Then I interviewed two drivers — I didn't want to rely on data alone."`,
-    `What was the concrete effect on the process, team, or a KPI? Add evidence if possible: feedback received, a measurable result, or your own observation (honestly state what you're uncertain about).\n\nE.g.: "My analysis showed 60% of delays came from incorrect address data. Mark said in my evaluation my approach was 'structured', but I should have involved drivers earlier."`,
+    `Describe one specific moment${adv?' at your workplace':' this semester'} — not an entire project. Name who was involved (name or role), explain jargon so an outsider understands.\n\nE.g.: "On Tuesday March 12th, I was at the PostNL distribution centre in Breda. During the morning meeting with my supervisor Mark (team leader sorting hall) and two fellow planners, we discussed delivery scores — the percentage of parcels delivered on the promised day."`,
+    `What was YOUR specific responsibility? Not the group goal, but what YOU had to do and why you were the one to take this on.\n\nE.g.: "My task was to identify the cause of declining delivery scores and prepare an improvement proposal. I took this on because as an intern in the planning department, I worked most with the sorting data."`,
+    `What exactly did you do — step by step, in "I" form? For each step, explain why you chose that approach. Only describe your actions here, not the outcome.\n\nE.g.: "I exported three months of sorting data from the WMS and filtered by the three regions with the lowest scores. I chose three months to rule out seasonal effects. Then I interviewed two drivers — I didn't want to rely on data alone but also include the perspective from the road."`,
+    `What was the concrete effect of your actions — on the process, team, or a KPI? Add evidence: feedback received, a measurable result, or your own observation (honestly state uncertainty). Only describe what HAPPENED here, not what you LEARNED from it.\n\nE.g.: "My analysis showed that 60% of delays came from incorrect address data, not capacity issues. The management team decided, based on my proposal, to implement an address validation check. Mark noted in my interim evaluation that the substantiation was clear."`,
     S.year==='1'
-      ?`What did you learn about yourself and your approach? Name at least one thing you could have done differently.\n\nE.g.: "I noticed I quickly choose analytical tasks because I'm good at them, but I left the presentation to Anna. What I could have done: agree we both present a part."`
-      :`What did you learn about yourself? Do you recognise this pattern across situations? Why do you act this way? What could you have done differently?\n\nE.g.: "I see a pattern: I prefer analysing data over asking people. At PostNL I again went to the WMS first instead of the drivers. I should have spoken to them in week 1."`,
-    `Name a specific upcoming moment when you'll apply this. What concretely? And what if it gets tough?\n\nE.g.: "For my next analysis task (week 22), I'll schedule stakeholder interviews in week 1 before diving into data. If I notice myself retreating: hard deadline of Wednesday for at least two interviews."`
+      ?`What did you learn about yourself and your own approach? Not the result (that's above), but what this says about how you work. Name at least one thing you could have done differently.\n\nE.g.: "I noticed I went straight to the data without talking to people first. I could have interviewed the drivers in week 1 — I would have found the right direction sooner. What I could have done differently: a quick round past the team before sitting behind my laptop."`
+      :`What did you learn about yourself? Do you recognise this pattern across situations? Why do you act this way? Don't repeat the result — describe the insight about your own approach.\n\nE.g.: "I see a pattern: I prefer analysing data over asking people about their experience. In my previous project I did the same — three weeks of data before speaking to the client. At PostNL I again went to the WMS first. I think I feel more confident with numbers than with conversations."`,
+    `Name a specific upcoming moment when you'll apply this. What concretely? And what if it gets tough? Don't repeat your lesson from Reflection — describe the concrete action plan.\n\nE.g.: "For my next analysis task (inventory optimisation in week 22), I'll schedule at least two stakeholder interviews in week 1 before diving into data. If I notice myself postponing: hard deadline on Wednesday, and I'll ask Mark to hold me accountable."`
   ];
 }
 
@@ -1137,6 +1142,35 @@ async function getFeedback(){
   const adv=S.year==='stage'||S.year==='afstuderen';
   const yr1=S.year==='1';
 
+  // Determine which fields changed since last feedback
+  const changed=[];const unchanged=[];const lockedOk=[];
+  for(let i=0;i<6;i++){
+    if(S.lockedFields[i]==='ok'&&values[i]===S.lastValues[i]){
+      lockedOk.push(i); // locked and not changed — skip assessment
+    } else if(S.lockedFields[i]==='ok'&&values[i]!==S.lastValues[i]){
+      changed.push(i); // was ok but student edited — re-assess
+      delete S.lockedFields[i]; // unlock
+    } else {
+      changed.push(i); // needs_work or new — assess
+    }
+  }
+
+  // Build consistency context for the AI
+  let consistencyNote='';
+  if(S.round>0&&S.prevFeedback){
+    const lockedList=lockedOk.map(i=>letters[i]+' ('+steps[i]+')').join(', ');
+    const changedList=changed.map(i=>letters[i]+' ('+steps[i]+')').join(', ');
+    consistencyNote=`
+CONSISTENCY RULE (critical):
+Previous round feedback: ${JSON.stringify(S.prevFeedback.fields)}
+- Fields LOCKED as ok (student did NOT change text): ${lockedList||'none'}
+  → Do NOT re-assess these. Keep status "ok" and repeat the previous feedback verbatim.
+- Fields to assess: ${changedList||'none'}
+  → Only assess these fields. A field previously "ok" whose text was changed by the student must be re-assessed — it may still be ok or may now need work.
+  → A field previously "needs_work" that the student improved: assess against criteria. If it now meets criteria, mark "ok".
+  → NEVER downgrade a field from "ok" to "needs_work" if the text has not changed.`;
+  }
+
   const system=`You are a STARRT reflection feedback tool for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY.
 Student: ${nl?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]:{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year]} | PLO: ${plo.name} — ${plo.desc}
 Relevant jargon: ${jargon()}
@@ -1159,13 +1193,13 @@ TONE RULES (critical):
 - ALWAYS start observations with what you read in the student's text.
 - NEVER write text for the student.
 
-CRITERIA per field:
-S (Situatie/Situation): Concrete moment (when, where) + who was involved (name or role + context) + relevant context so an outsider understands, jargon explained where needed${adv?' + workplace/organisation context':''}
-T (Taak/Task): Own responsibility in "ik/I" form — not just job title + what student needed to achieve + why the student was the one to take this on${adv?' + linked to professional challenge':''}
-A (Actie/Action): Concrete actions in "ik/I" form, NOT "wij/we" + reasoning: "I did X because Y"${adv?' + tools/methods/systems mentioned if relevant':''}
-R1 (Resultaat/Result): Concrete effect on process, team, stakeholder or outcome + evidence ladder: prefer external feedback, otherwise visible effect, otherwise own observation with honestly stated uncertainty. "I am satisfied" as only sentence NOT accepted.${adv?' Measurable outcome recommended.':''}
-R2 (Reflectie/Reflection): ${yr1?'What student learned about themselves + at least one honest improvement point + what could have been done differently (considered alternative). Pattern recognition is a bonus, not required.':'What student learned about themselves + pattern in own behaviour across situations + underlying mechanism + what could have been done differently (considered alternative). Reflection is about the STUDENT, not just the situation.'}
-T2 (Transfer): Specific upcoming moment + concrete action + strategy for when it gets difficult. Vague intentions NOT accepted.
+CRITERIA per field (each field has ONE clear focus — do not assess content that belongs in another field):
+S (Situatie/Situation): WHERE and WHEN. Concrete moment + who was involved (name or role + context) + relevant context so an outsider understands, jargon explained.${adv?' Workplace/organisation context described.':''}
+T (Taak/Task): WHAT WAS YOUR JOB. Own responsibility in "ik/I" form + what student needed to achieve + why the student was the one to take this on. NOT what happened (that is Actie), NOT what the group had to do.${adv?' Linked to professional challenge.':''}
+A (Actie/Action): WHAT YOU DID. Concrete steps in "ik/I" form, NOT "wij/we" + reasoning for each step: "I did X because Y". Do NOT assess the outcome here (that is Resultaat). Do NOT ask for alternatives (that is Reflectie).${adv?' Tools/methods/systems mentioned if relevant.':''}
+R1 (Resultaat/Result): WHAT HAPPENED as a consequence. Concrete effect on process, team, stakeholder or KPI. Evidence: external feedback, visible effect, or own observation with stated uncertainty. Do NOT ask what the student learned (that is Reflectie). "I am satisfied" alone NOT accepted.${adv?' Measurable outcome recommended.':''}
+R2 (Reflectie/Reflection): WHAT YOU LEARNED ABOUT YOURSELF. ${yr1?'What student learned about own approach + honest improvement point + what could have been done differently (the considered alternative). Pattern recognition is a bonus.':'Pattern in own behaviour across situations + underlying mechanism (why do I act this way?) + what could have been done differently (considered alternative). Reflection is about the STUDENT, not the situation.'} Do NOT repeat the result — focus on the insight about the self.
+T2 (Transfer): WHAT YOU WILL DO NEXT. Specific upcoming moment + concrete action + strategy for when it gets difficult. Vague intentions NOT accepted. Do NOT repeat the reflection — focus on the plan.
 
 PLO-SPECIFIC PROBES (use max 1 as a priority question if it fits):
 ${ploProbes()}
@@ -1195,7 +1229,8 @@ OUTPUT — ONLY this JSON, no text before/after, no backticks:
   "plo_alignment": "ok|mismatch",
   "plo_note": "only if mismatch",
   "summary": ${S.round>=2?`"one sentence in ${nl?'Dutch':'English'}"`:'"null"'}
-}`;
+}
+${consistencyNote}`;
 
   const userMsg=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n');
 
@@ -1214,11 +1249,27 @@ OUTPUT — ONLY this JSON, no text before/after, no backticks:
       const jsonMatch=raw.match(/\{[\s\S]*\}/);
       parsed=JSON.parse(jsonMatch?jsonMatch[0]:raw);
     }catch(e){
-      // Fallback: show raw text
       parsed=null;
     }
 
+    // Enforce consistency: for locked fields, override AI response with previous feedback
+    if(parsed&&parsed.fields&&S.prevFeedback&&S.prevFeedback.fields){
+      lockedOk.forEach(i=>{
+        if(parsed.fields[i]&&S.prevFeedback.fields[i]){
+          parsed.fields[i].status='ok';
+          parsed.fields[i].feedback=S.prevFeedback.fields[i].feedback;
+        }
+      });
+      // Remove priorities that target locked fields
+      if(parsed.priorities){
+        const lockedLetters=lockedOk.map(i=>letters[i]);
+        parsed.priorities=parsed.priorities.filter(p=>!lockedLetters.includes(p.field));
+      }
+    }
+
     S.round++;
+    S.lastValues=[...values]; // snapshot for next round
+    S.prevFeedback=parsed;   // save for consistency context
     renderFeedback(parsed,raw,values);
 
   }catch(e){
@@ -1243,11 +1294,13 @@ function renderFeedback(parsed,raw,values){
       fb.style.display='block';
       if(f.status==='ok'){
         accepted.add(i);
+        S.lockedFields[i]='ok'; // Lock this field
         wrap.style.borderColor='var(--green)';
         fb.style.background='var(--green-soft)';
         fb.style.color='var(--green)';
         fb.innerHTML=`<strong>✓</strong> ${f.feedback}`;
       } else {
+        delete S.lockedFields[i]; // Ensure not locked
         wrap.style.borderColor='var(--orange)';
         fb.style.background='var(--orange-soft)';
         fb.style.color='#8a4a10';
@@ -1421,6 +1474,7 @@ function showScreen(id){
 
 function restart(){
   S.lang=null;S.plo=null;S.year=null;S.round=0;S.loading=false;S.lastParsed=null;
+  S.lockedFields={};S.lastValues=['','','','','',''];S.prevFeedback=null;
   setupPanel=0;
   showScreen('s-welcome');
 }
