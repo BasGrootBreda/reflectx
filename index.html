@@ -736,7 +736,7 @@ html,body{
       <div class="brand-name">Reflect<span>X</span></div>
     </div>
     <h1 class="welcome-title">Reflectie<br>die <em>werkt.</em></h1>
-    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op — en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.</p>
+    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op — en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.<br><br><span style="color:var(--ink2);font-weight:400">Deze tool helpt je reflecteren — maar de reflectie is van jou. De AI geeft feedback, jij bepaalt wat je ermee doet. Wat je inlevert, is jouw verantwoordelijkheid.</span></p>
     <div class="lang-row">
       <button class="lang-btn" onclick="setLang('nl')">
         <span class="lg-flag">🇳🇱</span>
@@ -821,6 +821,7 @@ html,body{
           <span id="btn-feedback-text">Geef feedback →</span>
         </button>
       </div>
+      <div style="padding:4px 24px 0;font-size:10px;color:var(--ink3);text-align:right;line-height:1.4" id="autosave-notice"></div>
 
       <!-- STARRT FORM FIELDS -->
       <div id="starrt-form" style="padding:16px 24px 24px;display:flex;flex-direction:column;gap:16px"></div>
@@ -1087,8 +1088,71 @@ async function startChat(){
       </div>
     </div>`).join('');
 
+  // Evidence field (recommended, not required)
+  const evLabel=nl?'Bewijsmateriaal':'Evidence';
+  const evHint=nl
+    ?'Beschrijf welk bewijs je hebt voor deze reflectie. Denk aan: een screenshot, feedback-mail, beoordeling, KPI-rapport, foto, of een link naar een document. Je kunt ook beschrijven wat iemand tegen je zei en wanneer.'
+    :'Describe what evidence you have for this reflection. Think of: a screenshot, feedback email, assessment, KPI report, photo, or a link to a document. You can also describe what someone said to you and when.';
+  const evPlaceholder=nl
+    ?'Bijv.: "Screenshot van de afleverscores uit het WMS (bijgevoegd in portfolio). Feedback-mail van Mark d.d. 15 maart."'
+    :'E.g.: "Screenshot of delivery scores from WMS (attached in portfolio). Feedback email from Mark dated March 15th."';
+  form.innerHTML+=`
+    <div style="background:white;border:1.5px solid var(--line);border-radius:var(--r-lg);overflow:hidden" id="field-wrap-evidence">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)">
+        <div style="width:26px;height:26px;border-radius:50%;background:var(--paper3);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📎</div>
+        <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--ink)">${evLabel}</div>
+      </div>
+      <div style="padding:4px 16px 8px;font-size:11px;color:var(--ink3);line-height:1.5">${evHint}</div>
+      <div style="padding:0 12px 12px">
+        <textarea
+          id="ta-evidence"
+          placeholder="${evPlaceholder}"
+          style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:60px;outline:none;transition:border-color .15s"
+          onfocus="this.style.borderColor='var(--ink2)'"
+          onblur="this.style.borderColor='var(--line)'"
+        ></textarea>
+      </div>
+    </div>`;
+
+  // ─── AUTOSAVE (localStorage) ───
+  const saveKey='reflectx-'+S.plo+'-'+S.year;
+  try{
+    const saved=JSON.parse(localStorage.getItem(saveKey)||'null');
+    if(saved&&saved.fields){
+      for(let i=0;i<6;i++){
+        const ta=document.getElementById('ta-'+i);
+        if(ta&&saved.fields[i])ta.value=saved.fields[i];
+      }
+      const evTa=document.getElementById('ta-evidence');
+      if(evTa&&saved.evidence)evTa.value=saved.evidence;
+      document.getElementById('form-round-label').textContent=nl
+        ?'Eerder werk hersteld — je kunt verdergaan.'
+        :'Previous work restored — you can continue.';
+    }
+  }catch(e){}
+
+  // Save on every input change
+  form.addEventListener('input',()=>{
+    try{
+      const fields=[];
+      for(let i=0;i<6;i++){
+        const ta=document.getElementById('ta-'+i);
+        fields.push(ta?ta.value:'');
+      }
+      const evTa=document.getElementById('ta-evidence');
+      localStorage.setItem(saveKey,JSON.stringify({
+        fields,
+        evidence:evTa?evTa.value:'',
+        ts:Date.now()
+      }));
+    }catch(e){}
+  });
+
   document.getElementById('feedback-panel').style.display='none';
   document.getElementById('form-round-label').textContent=nl?'Vul alle velden in en klik op "Geef feedback"':'Fill in all fields and click "Get feedback"';
+  document.getElementById('autosave-notice').textContent=nl
+    ?'Je werk wordt automatisch in je browser bewaard. Kopieer je tekst naar een eigen document als je zeker wilt zijn dat het niet verloren gaat.'
+    :'Your work is automatically saved in your browser. Copy your text to your own document to make sure it is not lost.';
   document.getElementById('btn-feedback-text').textContent=nl?'Geef feedback →':'Get feedback →';
   document.getElementById('btn-feedback').disabled=false;
 }
@@ -1210,8 +1274,9 @@ KPIs, service vs cost, planning vs disruption, safety, sustainability, stakehold
 FEEDBACK STRUCTURE:
 1. Per field: status + ONE sentence observation grounded in student's text.
 2. Max 3 PRIORITIES total — the points that make biggest difference. Each: field + one open question. Focus on weakest fields. NEVER more than 3.
-3. PLO ALIGNMENT: does content fit PLO "${plo.name}"? If mismatch: flag which PLO fits better.
-4. SUMMARY: only if round >= 3 OR all fields "ok". Count complete fields, list remaining gaps.
+3. EVIDENCE: if the student has not described any evidence (the evidence field is empty or very vague), include ONE priority suggesting what kind of evidence would strengthen this reflection. Examples: feedback from a supervisor, a screenshot, a KPI measurement, a grade, an email. Evidence is recommended, not required — do not block the student.
+4. PLO ALIGNMENT: does content fit PLO "${plo.name}"? If mismatch: flag which PLO fits better.
+5. SUMMARY: only if round >= 3 OR all fields "ok". Count complete fields, list remaining gaps.
 
 OUTPUT — ONLY this JSON, no text before/after, no backticks:
 {
@@ -1232,7 +1297,10 @@ OUTPUT — ONLY this JSON, no text before/after, no backticks:
 }
 ${consistencyNote}`;
 
-  const userMsg=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n');
+  const evTa=document.getElementById('ta-evidence');
+  const evText=evTa?evTa.value.trim():'';
+  const userMsg=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n')
+    +`\n\nEvidence/Bewijsmateriaal:\n${evText||'(not provided / niet ingevuld)'}`;
 
   try{
     const res=await fetch('/api/chat',{
@@ -1346,6 +1414,12 @@ function renderFeedback(parsed,raw,values){
     });
   }
 
+  // Responsibility reminder
+  html+=`<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3);line-height:1.5">${nl
+    ?'Deze feedback helpt je op weg — maar de reflectie is van jou. Jij beslist wat je overneemt, aanpast of naast je neerlegt. Wat je inlevert, is jouw werk.'
+    :'This feedback helps you along — but the reflection is yours. You decide what to take on board, adjust, or set aside. What you hand in is your own work.'
+  }</div>`;
+
   content.innerHTML=html;
 
   // Show feedback panel
@@ -1433,6 +1507,16 @@ function finishReflection(){
         onblur="this.style.borderColor='var(--line)'"
       >${values[i]}</textarea>
     </div>`).join('')
+    +`<div class="structure-item">
+      <div class="s-letter" style="color:var(--paper3)">📎</div>
+      <div class="s-label">${nl?'Bewijsmateriaal':'Evidence'}</div>
+      <textarea
+        id="final-evidence"
+        style="width:100%;margin-top:8px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:60px;outline:none;transition:border-color .15s"
+        onfocus="this.style.borderColor='var(--ink2)'"
+        onblur="this.style.borderColor='var(--line)'"
+      >${(document.getElementById('ta-evidence')||{}).value||''}</textarea>
+    </div>`
     +`<div style="padding:16px 20px;border-top:1px solid var(--line)">
       <div style="font-family:var(--font-display);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:8px">${nl?'Optioneel — wat neem je mee uit dit reflectieproces?':'Optional — what do you take away from this reflection process?'}</div>
       <textarea
@@ -1453,6 +1537,11 @@ function copyAll(){
     const val=field?field.value.trim():'';
     text+=`${letters[i]}. ${step}\n${val||'(niet ingevuld)'}\n\n`;
   });
+  const evField=document.getElementById('final-evidence');
+  const evVal=evField?evField.value.trim():'';
+  if(evVal){
+    text+=`${nl?'Bewijsmateriaal':'Evidence'}:\n${evVal}\n\n`;
+  }
   const meta=document.getElementById('meta-reflection');
   if(meta&&meta.value.trim()){
     text+=`---\n${nl?'Reflectie op het proces':'Process reflection'}: ${meta.value.trim()}\n`;
@@ -1473,6 +1562,10 @@ function showScreen(id){
 }
 
 function restart(){
+  // Clear saved data for this PLO+year combination
+  if(S.plo&&S.year){
+    try{localStorage.removeItem('reflectx-'+S.plo+'-'+S.year);}catch(e){}
+  }
   S.lang=null;S.plo=null;S.year=null;S.round=0;S.loading=false;S.lastParsed=null;
   S.lockedFields={};S.lastValues=['','','','','',''];S.prevFeedback=null;
   setupPanel=0;
