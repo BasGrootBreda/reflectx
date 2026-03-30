@@ -1,0 +1,264 @@
+{
+  "plo": {
+    "nl": {
+      "ontwikkelen": {
+        "name": "Ontwikkelen",
+        "sub": "Professionele groei & reflectie",
+        "desc": "Je ontwikkelt je als logistiek professional, geïnspireerd door trends in de sector en persoonlijke reflectie."
+      },
+      "analyseren": {
+        "name": "Analyseren",
+        "sub": "Supply chain stromen & verbeteringen",
+        "desc": "Je analyseert financiële, informatie- en fysieke stromen om verbetermogelijkheden en/of mogelijke innovaties in de supply chain te identificeren."
+      },
+      "adviseren": {
+        "name": "Adviseren",
+        "sub": "Verbeteringen & innovaties adviseren",
+        "desc": "Je adviseert over mogelijke verbeteringen en/of toepasbare innovaties in de supply chain."
+      },
+      "managen": {
+        "name": "Managen",
+        "sub": "Project & procesmanagement",
+        "desc": "Je managet een project of proces om het beoogde resultaat te bereiken."
+      },
+      "ontwerpen": {
+        "name": "Ontwerpen",
+        "sub": "Logistieke processen (her)ontwerpen",
+        "desc": "Je (her)ontwerpt een haalbare verbetering of innovatie voor een proces/product in de supply chain."
+      },
+      "onderzoeken": {
+        "name": "Onderzoeken",
+        "sub": "Supply chain uitdagingen onderzoeken",
+        "desc": "Je onderzoekt supply chain-uitdagingen in een bredere context, rekening houdend met duurzaamheid, internationalisering en technologie."
+      },
+      "implementeren": {
+        "name": "Implementeren",
+        "sub": "Verbeteringen doorvoeren",
+        "desc": "Je implementeert verbeteringen en/of innovaties in de supply chain."
+      }
+    },
+    "en": {
+      "ontwikkelen": {
+        "name": "Develop",
+        "sub": "Professional growth & reflection",
+        "desc": "You develop as a logistics professional, inspired by sector trends and personal reflection."
+      },
+      "analyseren": {
+        "name": "Analyse",
+        "sub": "Supply chain flows & improvements",
+        "desc": "You analyse financial, information and physical flows to identify improvement opportunities and/or possible innovations in the supply chain."
+      },
+      "adviseren": {
+        "name": "Advise",
+        "sub": "Advising on improvements & innovations",
+        "desc": "You advise on possible improvements and/or applicable innovations in the supply chain."
+      },
+      "managen": {
+        "name": "Manage",
+        "sub": "Project & process management",
+        "desc": "You manage a project or process to achieve the intended result."
+      },
+      "ontwerpen": {
+        "name": "Design",
+        "sub": "(Re)designing logistics processes",
+        "desc": "You (re)design a feasible improvement or innovation for a process/product in the supply chain."
+      },
+      "onderzoeken": {
+        "name": "Research",
+        "sub": "Researching supply chain challenges",
+        "desc": "You research supply chain challenges in a broader context, considering sustainability, internationalisation and technology."
+      },
+      "implementeren": {
+        "name": "Implement",
+        "sub": "Implementing improvements",
+        "desc": "You implement improvements and/or innovations in the supply chain."
+      }
+    }
+  },
+
+  "years": {
+    "nl": [
+      {"k": "1", "name": "Jaar 1", "sub": "Projecten, simulaties, cases"},
+      {"k": "2", "name": "Jaar 2", "sub": "Cases, cross-border, onderzoek"},
+      {"k": "stage", "name": "Stage", "sub": "Jaar 3 — werkplek"},
+      {"k": "afstuderen", "name": "Afstuderen", "sub": "Jaar 4 — eindniveau"}
+    ],
+    "en": [
+      {"k": "1", "name": "Year 1", "sub": "Projects, simulations, cases"},
+      {"k": "2", "name": "Year 2", "sub": "Cases, cross-border, research"},
+      {"k": "stage", "name": "Placement", "sub": "Year 3 — workplace"},
+      {"k": "afstuderen", "name": "Graduation", "sub": "Year 4 — final level"}
+    ]
+  },
+
+  "jargon": {
+    "1": "supply chain, fysieke/informatie/financiële stromen, procesflow, bottleneck/knelpunt, doorlooptijd, voorraadbeheer, transportmodaliteiten (weg/water/rail/lucht), warehousing, distributie, KPI, dashboard, forecasting, informatieladder, kosten per eenheid, break-even, vaste/variabele kosten, winst- en verliesrekening, kasstroomoverzicht, balans, S&OP, capaciteitsplanning, projectplan, projectcharter, taakverdeling, rolverdeling, BPMN/Signavio, procesmodellering, warehouse lay-out, locatiekeuze, material handling, functioneel ontwerp, AUTO-ID (barcode/RFID), WMS (Odoo), ERP, simulatie, customer journey, dienstenlogistiek, maturiteitsscan, dataverzameling (interview/observatie), basisstatistiek, Excel-analyse, adviesrapport, businessplan, stakeholder, doelgroepgericht presenteren, service level agreement, portfolio, reflectie op competenties, teamrol, interculturele competentie",
+    "2": "+YEAR1+, TOC (Theory of Constraints), MRP-I/MRP-II, Lean, VSM (value stream mapping), lijnbalancering, lineair programmeren, netwerkanalyse/algoritmen, heuristiek, operations management, product-/service-ontwerp, inkoopstrategie, leveranciersevaluatie, activity-based costing, make-or-buy, insourcing/outsourcing, investeringsselectie (NCW/IRR/terugverdientijd), OPEX/CAPEX, intermodaal/multimodaal/synchromodaal transport, INCO-termen, werkkapitaal, supply chain finance, douane, havenlogistiek, internationale handel, valuta-impact, supply chain strategie, ketenintegratie (stroomop/stroomaf), prognosemodel, retourlogistiek/recycling, duurzaamheid/CSR/circulariteit, businessmodel (innovatie), veranderingsmanagement, organisatiestructuur/-cultuur, leiderschapsstijlen, ethiek/integriteit, DMU/PSU, contractmanagement, waardestroomanalyse, ERP-engineering, standaardisatie, kwaliteitsmanagement, flow/borging, werkinstructies, plan van aanpak, onderzoeksontwerp, kwantitatief/kwalitatief onderzoek, theoretisch kader, literatuurstudie, procesmapping, meetmethoden, hypothese, datavalidatieplan, Power BI/BI-tools, Python, CRISP-DM, classificatie/clustering/tijdreeks, datakwaliteit (DAMA-DMBOK), relationele databases, Big Data (3 V's), cloud vs on-premise, professioneel netwerk, solliciteren/stagevoorbereiding, internationale excursie, LPL-competenties",
+    "stage": "+YEAR2+, plan van aanpak (bedrijfscontext), zelfstandig opdracht uitvoeren, bedrijfscultuur, interne processen/externe factoren, tactisch niveau, beroepsproducten, competentieportfolio, hogeschoolbegeleider/bedrijfsbegeleider, terugkomdagen, intervisie, draagvlak creëren, professionele houding, beginnend professional, stakeholdermanagement (in de praktijk), procesanalyse op locatie, theoretische kennis toepassen in praktijk, betrouwbaarheid van resultaten, Design Thinking (Clarify/Ideate/Prototype/Test), innovatieve uitdaging, interdisciplinaire samenwerking, verkennend onderzoek, complexe bedrijfssituatie, besluitvormingsproces, ROI/gevoeligheidsanalyse/risicoanalyse, business case opzetten, bedrijfssimulatiespel, PLC-besturing, logistieke simulatie (Flexsim), ritplanning (OrtecRS), distributieplanning, automatiseringstechnieken, Decision Support Systems, supply chain execution, zelfkritische houding, ontwikkelpunten voor vervolgstudie",
+    "afstuderen": "+STAGE+, strategisch niveau, (logistieke) strategie van het bedrijf, interne/externe ontwikkelingen vertalen naar organisatie, verantwoord gekozen methoden en technieken, economisch/technisch logistiek vraagstuk, ontwerp aansluitend bij opdrachtgever en supply chain, onderbouwd advies met draagvlak op alle niveaus, implementatieplan met logistieke doelstellingen, effectief leiding geven aan proces/project, persoonlijk leiderschap, eigen ontwikkeling sturen (soft + hard skills), internationale logistieke processen beheersen, interdisciplinaire invalshoek, dynamiek bedrijfsomgeving, culturele verschillen, effectief en zakelijk communiceren in bedrijfstaal op alle niveaus, eindniveau competenties, professionele identiteit"
+  },
+
+  "ploProbes": {
+    "nl": {
+      "ontwikkelen": "Doorvraagtips: Wat deed je anders dan je gewend was? Waar merkte je groei? Wat kostte je de meeste moeite — en waarom?",
+      "analyseren": "Doorvraagtips: Welke KPI keek je naar? Wat zei de data concreet? Waar zat de bottleneck?",
+      "adviseren": "Doorvraagtips: Hoe heb je je advies onderbouwd? Hoe ben je omgegaan met tegenwerpingen? Wat was de reactie van de stakeholder?",
+      "managen": "Doorvraagtips: Wat week af van je planning? Hoe heb je bijgestuurd? Wat had je eerder moeten zien?",
+      "ontwerpen": "Doorvraagtips: Waarom deze oplossing en niet een alternatief? Wat heb je vergeleken? Wat verandert er concreet door jouw ontwerp?",
+      "onderzoeken": "Doorvraagtips: Hoe heb je bronnen gekozen? Wat deed je met tegenstrijdige info? Waar twijfel je aan je conclusie?",
+      "implementeren": "Doorvraagtips: Wat ging mis bij de uitvoering? Hoe heb je mensen meegekregen? Wat werkte anders dan gepland?"
+    },
+    "en": {
+      "ontwikkelen": "Probing: What did you do differently? Where did you notice growth? What cost the most effort — and why?",
+      "analyseren": "Probing: Which KPI? What did the data show? Where was the bottleneck?",
+      "adviseren": "Probing: How did you substantiate? How did you handle objections? What was the stakeholder reaction?",
+      "managen": "Probing: What deviated from your plan? How did you adjust? What should you have seen earlier?",
+      "ontwerpen": "Probing: Why this solution? What did you compare? What changes concretely through your design?",
+      "onderzoeken": "Probing: How did you choose sources? What did you do with conflicting info? Where do you doubt your conclusion?",
+      "implementeren": "Probing: What went wrong? How did you get people on board? What worked differently than planned?"
+    }
+  },
+
+  "fieldCriteria": {
+    "S": "WHERE and WHEN. Concrete moment + who was involved (name or role + context) + relevant context so an outsider understands, jargon explained.",
+    "S_adv": " Workplace/organisation context described.",
+    "T": "WHAT WAS YOUR JOB. Own responsibility in \"ik/I\" form + what student needed to achieve + why the student was the one to take this on. NOT what happened (that is Actie), NOT what the group had to do.",
+    "T_adv": " Linked to professional challenge.",
+    "A": "WHAT YOU DID. Concrete steps in \"ik/I\" form, NOT \"wij/we\" + reasoning for each step: \"I did X because Y\". Do NOT assess the outcome here (that is Resultaat). Do NOT ask for alternatives (that is Reflectie).",
+    "A_adv": " Tools/methods/systems mentioned if relevant.",
+    "R1": "WHAT HAPPENED as a consequence. Concrete effect on process, team, stakeholder or KPI. Evidence: external feedback, visible effect, or own observation with stated uncertainty. Do NOT ask what the student learned (that is Reflectie). \"I am satisfied\" alone NOT accepted.",
+    "R1_adv": " Measurable outcome recommended.",
+
+    "R2": {
+      "1": "YEAR 1 — BEWUSTWORDING: What student learned about own approach from this specific situation. At least one honest improvement point. What could have been done differently (considered alternative). Pattern recognition is a bonus, not required. One concrete lesson is enough if it is specific to the student.",
+      "2": "YEAR 2 — ZELFINZICHT: What student learned about own approach + how the student has GROWN compared to year 1 (what has changed in how they work, think, or collaborate?). Name own qualities and development points — how are qualities used, how will development points be improved? Considered alternative. Pattern across multiple situations from year 1 and 2 is expected.",
+      "stage": "STAGE — ZELFKRITIEK: Two levels of reflection required: (1) reflection on this specific situation AND (2) reflection on development PROCESS over weeks/months of the placement. Patterns in own behaviour across the placement period. Link between theory from studies and practice at the workplace — not just which theory was used, but what happened when it was applied: what worked, what did not, what had to be adjusted. Personal learning goals as compass — how has the student steered their own development? Self-critical attitude. Considered alternative. Connection to professional context and company culture. The student must describe WHERE they stood at the START on this point — growth is invisible without a baseline.",
+      "afstuderen": "AFSTUDEREN — ZELFSTURING: Everything from Stage level, PLUS: shift from \"I\" to \"we\" — how does the student's development contribute to TEAM goals and ORGANISATION development? Link personal learning to organisational improvement. Share reflections with colleagues/stakeholders. Position as beginning professional who adds value to collective learning. New learning goals for career after graduation. Personal leadership over own development (soft + hard skills). Strategic level awareness."
+    },
+
+    "T2": {
+      "1": "Specific upcoming moment + concrete action + strategy for when it gets difficult. Vague intentions NOT accepted.",
+      "2": "Specific upcoming moment + concrete action + strategy for when it gets difficult. Link to identified development points — how will the student work on these in the next phase (preparation for placement)? Vague intentions NOT accepted.",
+      "stage": "Specific upcoming moment + concrete action + strategy for when it gets difficult. Connected to personal learning goals. Include how the student will continue to develop the identified patterns/qualities in the remainder of the placement or in preparation for graduation. Concrete actions, not vague intentions. If the student would encounter the same situation at their graduation placement: what would they do differently from day 1, and why?",
+      "afstuderen": "Specific upcoming moment + concrete action + strategy for when it gets difficult. New learning goals for career after graduation or further education. How will the student continue their professional development independently? How will insights be shared with or applied in the organisation? Concrete actions, not vague intentions."
+    }
+  },
+
+  "concretenessChecks": {
+    "S": "must contain at least one of: a date/timeframe, a name or role, a location or setting.",
+    "T": "must describe a specific deliverable or responsibility, not a generic role description.",
+    "A": "must contain at least one specific step (not \"ik heb gewerkt aan...\" / \"I worked on...\").",
+    "R1": "must contain a concrete effect (number, reaction, decision, change) — not just \"het ging goed\" / \"it went well\".",
+    "R2": {
+      "1": "must name something specific about the student's own behaviour — not a general life lesson. One concrete lesson with improvement point is sufficient.",
+      "2": "must show growth compared to year 1 + name own qualities and development points + pattern across situations from year 1 and 2.",
+      "stage": "must reflect on TWO levels: (1) this situation and (2) development process over weeks/months. Must include pattern recognition, link to learning goals, and connection between theory and practice. Must name WHERE the student stood at the START on this point — growth is invisible without a starting point. The theory-practice link must go beyond \"I applied model X\" — describe what happened when you applied it: what worked, what didn't, what did you adjust?",
+      "afstuderen": "must include shift from personal to shared reflection — how does own development contribute to team/organisation? Must include new learning goals for career."
+    },
+    "T2": {
+      "1": "must name a specific moment (when, where) — not \"in de toekomst\" / \"in the future\".",
+      "2": "must name a specific moment + link to development points for the next phase (placement preparation).",
+      "stage": "must connect to personal learning goals + concrete actions for remainder of placement or preparation for graduation. Must go beyond \"in het vervolg ga ik...\" — name the specific moment/project, the exact action, and a fallback plan. If the same improvement point appears that the student mentioned before: ask explicitly what they will do DIFFERENTLY this time.",
+      "afstuderen": "must include new career learning goals + how to continue professional development independently + contribution to organisation."
+    }
+  },
+
+  "hints": {
+    "nl": {
+      "S": {
+        "default": "Beschrijf één concreet moment dit semester — niet een heel project. Noem wie erbij was (naam of rol), en leg vakjargon uit zodat een buitenstaander het snapt.",
+        "adv": "Beschrijf één concreet moment op je werkplek — niet een heel project. Noem wie erbij was (naam of rol), en leg vakjargon uit zodat een buitenstaander het snapt.",
+        "example": "Bijv.: \"Op dinsdag 12 maart was ik op het distributiecentrum van PostNL in Breda. Tijdens het ochtendoverleg met mijn stagebegeleider Mark (teamleider sorteerhal) en twee collega-planners bespraken we de afleverscores — het percentage pakketten dat op de beloofde dag wordt bezorgd.\""
+      },
+      "T": {
+        "default": "Wat was jóuw specifieke verantwoordelijkheid? Niet het groepsdoel, maar wat JIJ moest doen en waarom jij degene was die dit oppakte.",
+        "example": "Bijv.: \"Mijn taak was om de oorzaak van de dalende afleverscores te achterhalen en een verbetervoorstel voor te bereiden. Ik pakte dit op omdat ik als stagiair op de planningsafdeling het meest met de sorteerdata werkte.\""
+      },
+      "A": {
+        "default": "Wat deed jij precies — stap voor stap, in \"ik\"-vorm? Leg bij elke stap uit waarom je daarvoor koos. Beschrijf hier alleen je handelingen, niet het resultaat ervan.",
+        "example": "Bijv.: \"Ik exporteerde de sorteerdata van drie maanden uit het WMS en filterde op de drie regio's met de laagste scores. Ik koos drie maanden om seizoenseffecten uit te sluiten. Daarna interviewde ik twee chauffeurs — ik wilde niet alleen op data afgaan maar ook het perspectief vanaf de weg meenemen.\""
+      },
+      "R1": {
+        "default": "Wat was het concrete effect van je acties — op het proces, het team of een KPI? Voeg bewijs toe als je dat hebt: feedback die je kreeg, een meetbaar resultaat, of je eigen observatie (noem eerlijk wat je niet zeker weet). Beschrijf hier alleen wat er GEBEURDE, niet wat je ervan LEERDE.",
+        "example": "Bijv.: \"Uit mijn analyse bleek dat 60% van de vertragingen kwam door onjuiste adresgegevens, niet door capaciteitsproblemen. Het MT besloot op basis van mijn voorstel om een adresvalidatie-check in te bouwen. Mark noemde in mijn tussenevaluatie dat de onderbouwing helder was.\""
+      },
+      "R2": {
+        "1": "Wat leerde je over jezelf en je eigen aanpak? Niet wat het resultaat was (dat staat hierboven), maar wat dit zegt over hoe jij werkt. Noem minimaal één ding dat je anders had kunnen doen.",
+        "1_example": "Bijv.: \"Ik merkte dat ik direct naar de data greep zonder eerst met mensen te praten. Ik had de chauffeurs in week 1 al kunnen interviewen — dan had ik sneller de juiste richting gehad. Wat ik anders had kunnen doen: eerst een kort rondje langs het team voordat ik achter mijn laptop kroop.\"",
+        "2": "Wat leerde je over jezelf en je aanpak? Hoe ben je hierin GEGROEID ten opzichte van jaar 1 — wat doe je nu anders dan toen? Welke kwaliteiten herken je bij jezelf, en welke ontwikkelpunten? Herken je een patroon over meerdere situaties uit jaar 1 en 2? Wat had je anders kunnen doen?",
+        "2_example": "Bijv.: \"In jaar 1 bij het Blokko-project liet ik de analyse over aan teamleden omdat ik het spannend vond. Nu bij het Production Project pakte ik de data-analyse juist zelf op. Ik merk dat ik gegroeid ben in zelfvertrouwen bij kwantitatief werk. Mijn ontwikkelpunt blijft dat ik te lang zelf puzzel voordat ik hulp vraag — dat zag ik ook bij Cross-Border terug.\"",
+        "stage": "Reflecteer op twee niveaus: (1) wat leerde je van DEZE specifieke situatie, en (2) welk patroon zie je in je ontwikkeling over de afgelopen weken/maanden van je stage? Waar stond je AAN HET BEGIN op dit punt — en waar sta je nu? Hoe stuur je bewust op je eigen leerdoelen? Waar zie je theorie uit je studie terug in de praktijk — niet alleen welke theorie, maar wat er gebeurde toen je die toepaste? Wees zelfkritisch. Wat had je anders kunnen doen?",
+        "stage_example": "Bijv.: \"In het begin van mijn stage wachtte ik altijd tot de stagebegeleider het initiatief nam voor feedbackgesprekken. In deze situatie merkte ik dat ik de chauffeurs pas in week 3 betrok, terwijl ik in mijn leerdoelen had opgeschreven dat ik eerder stakeholders wilde betrekken. Over de hele stage zie ik een patroon: ik voel me zekerder met data dan met mensen. Uit Operations Management (Krajewski) weet ik dat stakeholder-engagement kritisch is voor procesverbetering — in de praktijk merkte ik dat een informeel koffiegesprek meer opleverde dan een formeel interview.\"",
+        "afstuderen": "Reflecteer op twee niveaus: (1) deze situatie en (2) je ontwikkeling over de hele afstudeerperiode. Verschuif van \"ik\" naar \"wij\": hoe draagt jouw ontwikkeling bij aan het team en de organisatie? Welke inzichten uit jouw onderzoek kunnen de organisatie helpen? Hoe stuur je bewust je eigen ontwikkeling (soft + hard skills)? Formuleer nieuwe leerdoelen voor je loopbaan na je studie.",
+        "afstuderen_example": "Bijv.: \"Mijn groei in data-analyse hielp het team om de wekelijkse planningsbespreking te onderbouwen met cijfers in plaats van onderbuikgevoel. Ik merkte dat ik de rol van 'vertaler' tussen data en management op me nam — dat is iets waar ik me na mijn studie in wil specialiseren. Mijn leerdoel voor mijn eerste baan: binnen 3 maanden een dashboard opzetten dat het team zelfstandig kan gebruiken.\""
+      },
+      "T2": {
+        "1": "Noem een specifiek komend moment waarop je dit gaat toepassen. Wat ga je concreet doen? En wat is je plan als het tegenzit?",
+        "1_example": "Bijv.: \"Bij mijn volgende analyse-opdracht (de voorraadoptimalisatie in week 22) plan ik in de eerste week minimaal twee stakeholder-interviews vóórdat ik de data induik. Als ik merk dat ik het toch uitstel: ik zet een harde deadline op woensdag en vraag Mark om me eraan te houden.\"",
+        "2": "Noem een specifiek komend moment waarop je dit gaat toepassen. Koppel het aan je ontwikkelpunten: hoe ga je hieraan werken in de volgende fase (voorbereiding op stage)? Wat ga je concreet doen, en wat als het tegenzit?",
+        "2_example": "Bijv.: \"Tijdens mijn stage wil ik in de eerste twee weken actief feedback vragen aan mijn begeleider over hoe ik samenwerk, in plaats van te wachten tot de tussenevaluatie. Als ik merk dat ik het uitstelt: ik plan een vast weekmoment in mijn agenda.\"",
+        "stage": "Hoe ga je de inzichten uit je reflectie concreet toepassen — in de rest van je stage of ter voorbereiding op je afstuderen? Koppel het aan je persoonlijke leerdoelen. Wat ga je concreet doen, wanneer, en wat als het tegenzit?",
+        "stage_example": "Bijv.: \"In de resterende 8 weken van mijn stage ga ik bij elk nieuw deelproject in week 1 een stakeholder-interview plannen. Ik neem dit op in mijn weekplanning. Als terugvalstrategie: ik bespreek mijn voortgang hierop elke twee weken met mijn bedrijfsbegeleider.\"",
+        "afstuderen": "Welke nieuwe leerdoelen stel je voor je loopbaan na je studie? Hoe ga je je professionele ontwikkeling zelfstandig voortzetten? Hoe kunnen je inzichten bijdragen aan de organisatie waar je gaat werken? Wees concreet.",
+        "afstuderen_example": "Bijv.: \"In mijn eerste baan wil ik binnen 3 maanden een operationeel dashboard opzetten dat het team zelf kan gebruiken. Mijn leerdoel: leren hoe ik data-inzichten toegankelijk maak voor niet-technische collega's. Als eerste stap ga ik een Power BI-training volgen in mijn eerste maand.\""
+      },
+      "evidence": {
+        "hint": "Beschrijf welk bewijs je hebt voor deze reflectie. Denk aan: een screenshot, feedback-mail, beoordeling, KPI-rapport, foto, of een link naar een document. Je kunt ook beschrijven wat iemand tegen je zei en wanneer. Voorbeelden: een e-mail waarin je zelf het initiatief nam, een citaat uit een feedbackgesprek met je begeleider, een screenshot van je planning, een transcript van een overleg.",
+        "placeholder": "Bijv.: \"Screenshot van de afleverscores uit het WMS (bijgevoegd in portfolio). Feedback-mail van Mark d.d. 15 maart.\""
+      }
+    },
+    "en": {
+      "S": {
+        "default": "Describe one specific moment this semester — not an entire project. Name who was involved (name or role), explain jargon so an outsider understands.",
+        "adv": "Describe one specific moment at your workplace — not an entire project. Name who was involved (name or role), explain jargon so an outsider understands.",
+        "example": "E.g.: \"On Tuesday March 12th, I was at the PostNL distribution centre in Breda. During the morning meeting with my supervisor Mark (team leader sorting hall) and two fellow planners, we discussed delivery scores — the percentage of parcels delivered on the promised day.\""
+      },
+      "T": {
+        "default": "What was YOUR specific responsibility? Not the group goal, but what YOU had to do and why you were the one to take this on.",
+        "example": "E.g.: \"My task was to identify the cause of declining delivery scores and prepare an improvement proposal. I took this on because as an intern in the planning department, I worked most with the sorting data.\""
+      },
+      "A": {
+        "default": "What exactly did you do — step by step, in \"I\" form? For each step, explain why you chose that approach. Only describe your actions here, not the outcome.",
+        "example": "E.g.: \"I exported three months of sorting data from the WMS and filtered by the three regions with the lowest scores. I chose three months to rule out seasonal effects. Then I interviewed two drivers — I didn't want to rely on data alone but also include the perspective from the road.\""
+      },
+      "R1": {
+        "default": "What was the concrete effect of your actions — on the process, team, or a KPI? Add evidence: feedback received, a measurable result, or your own observation (honestly state uncertainty). Only describe what HAPPENED here, not what you LEARNED from it.",
+        "example": "E.g.: \"My analysis showed that 60% of delays came from incorrect address data, not capacity issues. The management team decided, based on my proposal, to implement an address validation check. Mark noted in my interim evaluation that the substantiation was clear.\""
+      },
+      "R2": {
+        "1": "What did you learn about yourself and your own approach? Not the result (that's above), but what this says about how you work. Name at least one thing you could have done differently.",
+        "1_example": "E.g.: \"I noticed I went straight to the data without talking to people first. I could have interviewed the drivers in week 1 — I would have found the right direction sooner. What I could have done differently: a quick round past the team before sitting behind my laptop.\"",
+        "2": "What did you learn about yourself? How have you GROWN compared to year 1 — what do you do differently now? What qualities and development points do you recognise? Do you see a pattern across situations from year 1 and 2? What could you have done differently?",
+        "2_example": "E.g.: \"In year 1 during the Blokko project, I left the analysis to teammates because I found it daunting. Now in the Production Project I took on the data analysis myself. I notice I've grown in confidence with quantitative work. My development point remains that I puzzle too long on my own before asking for help — I saw that in Cross-Border too.\"",
+        "stage": "Reflect on two levels: (1) what did you learn from THIS specific situation, and (2) what pattern do you see in your development over the past weeks/months of your placement? Where did you STAND AT THE START on this point — and where are you now? How are you consciously steering towards your learning goals? Where do you see theory from your studies reflected in practice — not just which theory, but what happened when you applied it? Be self-critical. What could you have done differently?",
+        "stage_example": "E.g.: \"At the start of my placement I always waited for my supervisor to initiate feedback conversations. In this situation I noticed I only involved the drivers in week 3, while my learning goals stated I wanted to involve stakeholders earlier. Over the whole placement I see a pattern: I feel more confident with data than with people. From Operations Management (Krajewski) I know stakeholder engagement is critical for process improvement — in practice I found that an informal coffee chat yielded more than a formal interview.\"",
+        "afstuderen": "Reflect on two levels: (1) this situation and (2) your development over the entire graduation period. Shift from \"I\" to \"we\": how does your development contribute to team goals and the organisation? What insights from your research could help the organisation? How do you consciously steer your own development (soft + hard skills)? Formulate new learning goals for your career after graduation.",
+        "afstuderen_example": "E.g.: \"My growth in data analysis helped the team substantiate the weekly planning meeting with figures instead of gut feeling. I noticed I took on the role of 'translator' between data and management — that's something I want to specialise in after graduation. My learning goal for my first job: set up a dashboard within 3 months that the team can use independently.\""
+      },
+      "T2": {
+        "1": "Name a specific upcoming moment when you'll apply this. What concretely? And what if it gets tough?",
+        "1_example": "E.g.: \"For my next analysis task (inventory optimisation in week 22), I'll schedule at least two stakeholder interviews in week 1 before diving into data. If I notice myself postponing: hard deadline on Wednesday, and I'll ask Mark to hold me accountable.\"",
+        "2": "Name a specific upcoming moment when you'll apply this. Link it to your development points: how will you work on these in the next phase (preparation for placement)? What concretely, and what if it gets tough?",
+        "2_example": "E.g.: \"During my placement I want to actively ask my supervisor for feedback on my collaboration in the first two weeks, instead of waiting for the mid-term evaluation. If I notice I'm postponing: I'll schedule a fixed weekly moment in my calendar.\"",
+        "stage": "How will you concretely apply the insights from your reflection — in the remainder of your placement or in preparation for graduation? Link to your personal learning goals. What concretely, when, and what if it gets tough?",
+        "stage_example": "E.g.: \"In the remaining 8 weeks of my placement, I will schedule a stakeholder interview in week 1 of each new sub-project. I'll add this to my weekly planning. As fallback: I'll discuss my progress on this with my company supervisor every two weeks.\"",
+        "afstuderen": "What new learning goals do you set for your career after graduation? How will you continue your professional development independently? How can your insights contribute to the organisation where you'll work? Be concrete.",
+        "afstuderen_example": "E.g.: \"In my first job I want to set up an operational dashboard within 3 months that the team can use independently. My learning goal: learn how to make data insights accessible for non-technical colleagues. As a first step, I'll complete a Power BI training in my first month.\""
+      },
+      "evidence": {
+        "hint": "Describe what evidence you have for this reflection. Think of: a screenshot, feedback email, assessment, KPI report, photo, or a link to a document. You can also describe what someone said to you and when. Examples: an email where you took initiative, a quote from a feedback session with your supervisor, a screenshot of your planning, a transcript of a meeting.",
+        "placeholder": "E.g.: \"Screenshot of delivery scores from WMS (attached in portfolio). Feedback email from Mark dated March 15th.\""
+      }
+    }
+  },
+
+  "toneRules": "TONE RULES (critical):\n- NEVER use: \"perfect\", \"sterk\", \"mooi\", \"geweldig\", \"goed gedaan\", \"excellent\", \"well done\", \"nice\", \"great\"\n- NEVER use superlatives: \"heel concreet\", \"erg duidelijk\", \"zeer helder\"\n- NEVER give vague feedback: \"dit kan concreter\" without saying WHAT\n- NEVER use therapeutic language: \"ik begrijp dat...\", \"het is logisch dat je...\"\n- When field is OK: name WHAT is there, without qualification.\n  GOOD: \"Je beschrijft het moment, de betrokkenen en de context.\"\n  BAD: \"Helder.\" / \"Duidelijk.\" / \"Clear.\" (too little info)\n  BAD: \"Dit is een duidelijke situatieschets.\" (hidden value judgment)\n- When field needs work: name what IS there + what is NOT there, grounded in student's text.\n  GOOD: \"Je beschrijft wat je deed. Wat ik niet lees is waarom je daarvoor koos.\"\n  BAD: \"Dit kan concreter.\" / \"Probeer eens...\"\n- ALWAYS start observations with what you read in the student's text.\n- NEVER write text for the student.",
+
+  "qualityGates": {
+    "antiGeneric": "1. ANTI-GENERIC CHECK: Reject text that any student could write about any situation.\n   These are NEVER accepted, even if grammatically correct:\n   - \"Ik heb geleerd dat communicatie belangrijk is\" / \"I learned that communication is important\"\n   - \"Ik ga hier volgende keer beter op letten\" / \"I will pay more attention to this next time\"\n   - \"Het ging goed en ik ben tevreden\" / \"It went well and I am satisfied\"\n   - \"Ik moet beter plannen\" / \"I need to plan better\"\n   If the text could be copy-pasted into any other student's reflection and still make sense, it is too generic.\n   When you detect this: status \"needs_work\", feedback: \"Je schrijft [quote]. Dit zou in elke reflectie kunnen staan. Wat maakt jouw situatie specifiek?\" / \"You write [quote]. This could appear in any reflection. What makes your situation specific?\"\n\n   FORMULAIC CHECK (sub-check of anti-generic):\n   - If the student opens Reflectie with a formulaic sentence like \"Tijdens het uitvoeren heb ik belangrijke vaardigheden ontwikkeld\" / \"During this task I developed important skills\" — this is a template opening that says nothing specific.\n   - If the student uses the same opening structure across multiple fields (e.g. every field starts with \"Tijdens deze fase...\" / \"During this phase...\"), flag it.\n   - When you detect this: \"Je opent je reflectie met een standaardzin die bij elke situatie zou passen. Wat maakt DEZE situatie anders voor jou persoonlijk?\" / \"You open your reflection with a template sentence that fits any situation. What makes THIS situation different for you personally?\"",
+    "repetitionCheck": "3. REPETITION CHECK: Compare Reflectie and Transfer.\n   If the student writes essentially the same content in both fields (e.g. Reflectie says \"ik moet eerder communiceren\" and Transfer says \"ik ga eerder communiceren\"):\n   → flag this: \"Je Reflectie en Transfer zeggen bijna hetzelfde. Reflectie gaat over het inzicht (waarom deed je het zo?). Transfer gaat over het concrete plan (wanneer, wat precies, en wat als het tegenzit?).\" / \"Your Reflection and Transfer say nearly the same thing. Reflection is about the insight (why did you act this way?). Transfer is about the concrete plan (when, what exactly, and what if it gets tough?).\"\n   Also check Resultaat vs Reflectie: if the student puts learning/insight in Resultaat, redirect to Reflectie.",
+    "patternProbe": "PATTERN PROBE (stage/graduation):\nWhen the student names an improvement point in Reflectie or Transfer, ask:\n\"Je noemt [improvement point]. Is dit iets dat je bij eerdere reflecties of eerder in je stage ook bent tegengekomen? Zo ja: wat zegt dat patroon over jou als professional?\" / \"You mention [improvement point]. Is this something you have encountered in earlier reflections or earlier in your placement? If so: what does that pattern tell you about yourself as a professional?\"\nThis probe helps the student connect individual reflections into a growth narrative across the placement period. Only ask this once per round, for the most prominent improvement point."
+  },
+
+  "logisticsLenses": "KPIs, service vs cost, planning vs disruption, safety, sustainability, stakeholder interests, data quality, bottlenecks, variability."
+}
