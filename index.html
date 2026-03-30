@@ -1246,7 +1246,19 @@ function renderFeedback(parsed,raw,values){
   const steps=nl?NL_STEPS:EN_STEPS;
   const accepted=new Set();
 
+  // Map field index to priority letter
+  const prioLetterMap=['S','T','A','R1','R2','T2'];
+
   if(parsed&&parsed.fields){
+    // Collect priorities per field for inline display
+    const priosByField={};
+    if(parsed.priorities){
+      parsed.priorities.forEach(p=>{
+        if(!priosByField[p.field])priosByField[p.field]=[];
+        priosByField[p.field].push(p.question);
+      });
+    }
+
     parsed.fields.forEach((f,i)=>{
       const wrap=document.getElementById('field-wrap-'+i);
       const fb=document.getElementById('fb-'+i);
@@ -1264,7 +1276,18 @@ function renderFeedback(parsed,raw,values){
         wrap.style.borderColor='var(--orange)';
         fb.style.background='var(--orange-soft)';
         fb.style.color='#8a4a10';
-        fb.innerHTML=`<strong>→</strong> ${f.feedback}`;
+        // Build inline feedback with doorvragen directly attached
+        let fbHtml=`<strong>→</strong> ${f.feedback}`;
+        const fieldPrios=priosByField[prioLetterMap[i]];
+        if(fieldPrios&&fieldPrios.length>0){
+          fbHtml+=`<div style="margin-top:8px;padding-top:8px;border-top:1px dashed rgba(138,74,16,.25)">`;
+          fbHtml+=`<div style="font-family:var(--font-display);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--orange);margin-bottom:4px">${nl?'Doorvraag':'Follow-up'}</div>`;
+          fieldPrios.forEach(q=>{
+            fbHtml+=`<div style="font-size:12px;line-height:1.55;color:#6b4a1e;margin-top:3px">💬 ${q}</div>`;
+          });
+          fbHtml+=`</div>`;
+        }
+        fb.innerHTML=fbHtml;
       }
     });
   } else {
@@ -1291,19 +1314,17 @@ function renderFeedback(parsed,raw,values){
     </div>`;
   }
 
-  // Priorities block
+  // Priorities summary — compact, since doorvragen are now inline at each field
   if(parsed&&parsed.priorities&&parsed.priorities.length>0){
     const fieldNames={S:steps[0],T:steps[1],A:steps[2],R1:steps[3],R2:steps[4],T2:steps[5]};
-    html+=`<div style="font-family:var(--font-display);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:10px">${nl?`Prioriteiten ronde ${S.round}`:`Priorities round ${S.round}`}</div>`;
-    parsed.priorities.forEach((p,i)=>{
-      html+=`<div style="display:flex;gap:10px;padding:8px 0;${i<parsed.priorities.length-1?'border-bottom:1px solid var(--line)':''}">
-        <div style="width:22px;height:22px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px">${i+1}</div>
-        <div style="font-size:12px;line-height:1.6">
-          <span style="font-family:var(--font-display);font-weight:700;color:var(--orange);text-transform:uppercase;font-size:10px;letter-spacing:.04em">${fieldNames[p.field]||p.field}</span><br>
-          <span style="color:var(--ink2)">${p.question}</span>
-        </div>
-      </div>`;
-    });
+    const focusFields=[...new Set(parsed.priorities.map(p=>fieldNames[p.field]||p.field))];
+    html+=`<div style="background:var(--orange-soft);border:1.5px solid var(--orange);border-radius:var(--r);padding:12px 16px;margin-bottom:14px">
+      <div style="font-family:var(--font-display);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:4px">${nl?`Focus ronde ${S.round}`:`Focus round ${S.round}`}</div>
+      <div style="font-size:12px;line-height:1.6;color:#8a4a10">${nl
+        ?'Kijk naar de doorvragen (💬) bij: <strong>'+focusFields.join(', ')+'</strong>. Begin daar met aanpassen.'
+        :'Check the follow-up questions (💬) at: <strong>'+focusFields.join(', ')+'</strong>. Start revising there.'
+      }</div>
+    </div>`;
   }
 
   // Responsibility reminder
