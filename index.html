@@ -1264,8 +1264,6 @@ function renderFeedback(parsed,raw,values){
     finishBtn.style.display='none';
   }
 
-  document.getElementById('btn-revise').textContent=nl?'Aanpassen →':'Revise →';
-
   // Scroll to first field with feedback needed
   const firstNeedsWork=parsed&&parsed.fields?parsed.fields.findIndex(f=>f.status!=='ok'):-1;
   if(firstNeedsWork>=0){
