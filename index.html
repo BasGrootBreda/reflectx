@@ -1185,21 +1185,29 @@ OUTPUT FORMAT — respond with exactly this JSON structure:
     const data=await res.json();
     const raw=data.content[0].text;
 
-    // Parse JSON response
-    let parsed;
-    try{
-      const jsonMatch=raw.match(/\{[\s\S]*\}/);
-      parsed=JSON.parse(jsonMatch?jsonMatch[0]:raw);
-    }catch(e){
-      // Fallback: show raw text
-      parsed=null;
+    let parsed = null;
+    try {
+      // Try to extract JSON from response
+      const jsonMatch = raw.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        parsed = JSON.parse(jsonMatch[0]);
+      }
+    } catch(e) {
+      console.log('JSON parse failed, using raw fallback');
+      parsed = null;
     }
 
     S.round++;
-    renderFeedback(parsed,raw,values);
+    renderFeedback(parsed, raw, values);
 
-  }catch(e){
-    alert(nl?'Er ging iets mis. Probeer opnieuw.':'Something went wrong. Please try again.');
+  } catch(e) {
+    console.error('Feedback error:', e.message);
+    // Show error in feedback panel instead of alert
+    document.getElementById('feedback-panel').style.display = 'block';
+    document.getElementById('feedback-title').textContent = nl ? 'Probeer opnieuw' : 'Please try again';
+    document.getElementById('feedback-content').textContent = nl
+      ? 'De tool kon geen feedback genereren. Controleer je verbinding en probeer opnieuw.'
+      : 'The tool could not generate feedback. Check your connection and try again.';
   }
 
   S.loading=false;
