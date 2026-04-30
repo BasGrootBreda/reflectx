@@ -12,7 +12,7 @@
 :root{
   --ink:#0e0d0b;
   --ink2:#3a3830;
-  --ink3:#7a7770;
+  --ink3:#5a5650;
   --paper:#f7f5f0;
   --paper2:#edeae3;
   --paper3:#e3e0d8;
@@ -431,8 +431,8 @@ html,body{
   width:28px;height:28px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-display);font-size:11px;font-weight:800;
-  flex-shrink:0;border:2px solid rgba(255,255,255,.12);
-  color:rgba(255,255,255,.3);transition:all .2s;
+  flex-shrink:0;border:2px solid rgba(255,255,255,.45);
+  color:rgba(255,255,255,.7);transition:all .2s;
 }
 
 .starrt-step-btn.active .step-circle{background:var(--orange);border-color:var(--orange);color:white}
@@ -442,20 +442,20 @@ html,body{
 
 .step-info-name{
   font-family:var(--font-display);font-size:12px;font-weight:700;
-  color:rgba(255,255,255,.3);transition:color .2s;
+  color:rgba(255,255,255,.65);transition:color .2s;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
 .starrt-step-btn.active .step-info-name{color:white}
-.starrt-step-btn.done .step-info-name{color:rgba(255,255,255,.7)}
+.starrt-step-btn.done .step-info-name{color:rgba(255,255,255,.85)}
 
 .step-info-sub{
-  font-size:10px;color:rgba(255,255,255,.18);margin-top:1px;
+  font-size:10px;color:rgba(255,255,255,.4);margin-top:1px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
-.starrt-step-btn.active .step-info-sub{color:rgba(255,255,255,.45)}
-.starrt-step-btn.done .step-info-sub{color:rgba(255,255,255,.3)}
+.starrt-step-btn.active .step-info-sub{color:rgba(255,255,255,.6)}
+.starrt-step-btn.done .step-info-sub{color:rgba(255,255,255,.5)}
 
 .starrt-panel-footer{
   padding-top:14px;border-top:1px solid rgba(255,255,255,.07);
@@ -481,7 +481,7 @@ html,body{
   .starrt-panel-top,.starrt-panel-footer{display:none}
   .starrt-steps-nav{flex-direction:row;gap:3px}
   .starrt-step-btn{padding:5px 8px;border-radius:16px;min-width:44px;flex-direction:column;gap:2px;align-items:center}
-  .step-circle{width:22px;height:22px;font-size:9px}
+  .step-circle{width:22px;height:22px;font-size:9px;border-color:rgba(255,255,255,.5);color:rgba(255,255,255,.75)}
   .step-info-name{font-size:9px;text-align:center}
   .step-info-sub{display:none}
 }
@@ -736,7 +736,7 @@ html,body{
       <div class="brand-name">Reflect<span>X</span></div>
     </div>
     <h1 class="welcome-title">Reflectie<br>die <em>werkt.</em></h1>
-    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op — en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.<br><br><span style="color:var(--ink2);font-weight:400">Deze tool helpt je reflecteren — maar de reflectie is van jou. De AI geeft feedback, jij bepaalt wat je ermee doet. Wat je inlevert, is jouw verantwoordelijkheid.</span></p>
+    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op — en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.</p>
     <div class="lang-row">
       <button class="lang-btn" onclick="setLang('nl')">
         <span class="lg-flag">🇳🇱</span>
@@ -815,16 +815,19 @@ html,body{
 
     <!-- RIGHT: FORM + FEEDBACK -->
     <div class="chat-col" style="overflow-y:auto">
-      <div style="padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+      <div style="padding:20px 24px 0;flex-shrink:0">
         <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--ink3)" id="form-round-label"></div>
+      </div>
+
+      <!-- STARRT FORM FIELDS -->
+      <div id="starrt-form" style="padding:16px 24px 0;display:flex;flex-direction:column;gap:16px"></div>
+
+      <!-- FEEDBACK BUTTON AT BOTTOM -->
+      <div style="padding:16px 24px 24px;display:flex;justify-content:flex-end">
         <button class="btn-primary" id="btn-feedback" onclick="getFeedback()" style="font-size:12px;padding:9px 18px">
           <span id="btn-feedback-text">Geef feedback →</span>
         </button>
       </div>
-      <div style="padding:4px 24px 0;font-size:10px;color:var(--ink3);text-align:right;line-height:1.4" id="autosave-notice"></div>
-
-      <!-- STARRT FORM FIELDS -->
-      <div id="starrt-form" style="padding:16px 24px 24px;display:flex;flex-direction:column;gap:16px"></div>
 
       <!-- FEEDBACK PANEL -->
       <div id="feedback-panel" style="display:none;padding:0 24px 24px">
@@ -832,7 +835,6 @@ html,body{
           <div style="font-family:var(--font-display);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:14px" id="feedback-title">Feedback</div>
           <div id="feedback-content"></div>
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn-primary" id="btn-revise" onclick="revise()" style="font-size:12px;padding:9px 18px" id="btn-revise-text">Aanpassen →</button>
             <button class="btn-secondary" id="btn-finish" onclick="finishReflection()" style="display:none;font-size:12px">Afronden</button>
           </div>
         </div>
@@ -858,34 +860,47 @@ html,body{
 
 <script>
 // ─── STATE ───
-const S={lang:null,plo:null,year:null,round:0,loading:false,lastParsed:null,
-  // Consistency tracking
-  lockedFields:{},    // {0:'ok', 2:'ok'} — fields that were accepted
-  lastValues:['','','','','',''],  // snapshot of values at last feedback
-  prevFeedback:null   // previous round's JSON for context
-};
+const S={lang:null,plo:null,year:null,round:0,loading:false};
 // round = feedback round counter (0 = not started)
 
 const NL_STEPS=['Situatie','Taak','Actie','Resultaat','Reflectie','Transfer'];
 const EN_STEPS=['Situation','Task','Action','Result','Reflection','Transfer'];
 
-// PLO, YEARS, and HINTS loaded from server config
-let PLO={nl:{},en:{}};
-let YEARS={nl:[],en:[]};
-let HINTS={nl:{},en:{}};
-
-// Load config from server on startup
-(async function loadConfig(){
-  try{
-    const res=await fetch('/api/config');
-    const cfg=await res.json();
-    PLO=cfg.plo;
-    YEARS=cfg.years;
-    HINTS=cfg.hints;
-  }catch(e){
-    console.error('Failed to load config:',e);
+const PLO={
+  nl:{
+    ontwikkelen:{name:'Ontwikkelen',sub:'Professionele groei & reflectie',desc:'Je ontwikkelt je als logistiek professional, geïnspireerd door trends in de sector en persoonlijke reflectie.',j1:'professionele identiteit, persoonlijk leiderschap, feedback, soft skills',j2:'competentieframework, 360-feedback, persoonlijk ontwikkelplan',js:'professionele beroepshouding, werkveldnormen, zelfsturing',ja:'professionele identiteit, eindniveau, persoonlijk leiderschap'},
+    analyseren:{name:'Analyseren',sub:'Supply chain stromen & verbeteringen',desc:'Je analyseert financiële, informatie- en fysieke stromen om verbetermogelijkheden en/of mogelijke innovaties in de supply chain te identificeren.',j1:'supply chain, stromen (fysiek/informatie/financieel), knelpunt, bottleneck',j2:'KPI, doorlooptijd (lead time), voorraadbeheer, SWOT, data-analyse',js:'KPI, ERP, WMS, order fulfilment, leverbetrouwbaarheid, kostenbesparing',ja:'KPI-analyse, procesoptimalisatie, ERP/WMS, benchmarking, data-driven'},
+    adviseren:{name:'Adviseren',sub:'Verbeteringen & innovaties adviseren',desc:'Je adviseert over mogelijke verbeteringen en/of toepasbare innovaties in de supply chain.',j1:'advies, stakeholder, onderbouwing, veldonderzoek',j2:'stakeholderanalyse, kosten-batenanalyse, implementatieplan, business case',js:'change management, ROI, leveranciersselectie, procesverbetering',ja:'strategisch advies, business case, ROI, implementatieroadmap'},
+    managen:{name:'Managen',sub:'Project & procesmanagement',desc:'Je managet een project of proces om het beoogde resultaat te bereiken.',j1:'planning, taakverdeling, samenwerking, deadlines, SMART',j2:'projectmanagement, Gantt, risicomanagement, voortgangsmeting',js:'procesbeheersing, KPI, capaciteitsplanning, escalatie',ja:'projectportfolio, stakeholdermanagement, risicoregister, change management'},
+    ontwerpen:{name:'Ontwerpen',sub:'Logistieke processen (her)ontwerpen',desc:'Je (her)ontwerpt een haalbare verbetering of innovatie voor een proces/product in de supply chain.',j1:'supply chain diagram, swimlane, procesflow, BPMN-basis',j2:'BPMN, value stream mapping, lay-out optimalisatie, simulatie',js:'WMS-selectie, automatisering, warehouse lay-out, cross-docking',ja:'herontwerp, implementatieplan, haalbaarheidsanalyse, pilots'},
+    onderzoeken:{name:'Onderzoeken',sub:'Supply chain uitdagingen onderzoeken',desc:'Je onderzoekt supply chain-uitdagingen in een bredere context, rekening houdend met duurzaamheid, internationalisering en technologie.',j1:'onderzoeksvraag, bronnen, primaire/secundaire data, literatuuronderzoek',j2:'onderzoeksontwerp, validiteit, kwalitatief/kwantitatief, interview, survey',js:'praktijkonderzoek, bedrijfsdata, aanbevelingen, rapportage',ja:'wetenschappelijke methoden, triangulatie, generaliseerbaarheid'},
+    implementeren:{name:'Implementeren',sub:'Verbeteringen doorvoeren',desc:'Je implementeert verbeteringen en/of innovaties in de supply chain.',j1:'uitvoeren, knelpunt oplossen, procesverbetering, evalueren',j2:'PDCA, Lean, pilotproject, implementatiefases',js:'ERP-implementatie, change management, training, KPI-meting, adoptie',ja:'implementatiestrategie, borgingsplan, ROI-meting, scaling'}
+  },
+  en:{
+    ontwikkelen:{name:'Develop',sub:'Professional growth & reflection',desc:'You develop as a logistics professional, inspired by sector trends and personal reflection.',j1:'professional identity, personal leadership, feedback, soft skills',j2:'competency framework, 360-feedback, personal development plan',js:'professional conduct, industry standards, self-direction',ja:'professional identity, graduation level, personal leadership'},
+    analyseren:{name:'Analyse',sub:'Supply chain flows & improvements',desc:'You analyse financial, information and physical flows to identify improvement opportunities and/or possible innovations in the supply chain.',j1:'supply chain, flows (physical/information/financial), bottleneck',j2:'KPI, lead time, inventory management, SWOT, data analysis',js:'KPI, ERP, WMS, order fulfilment, delivery reliability, cost savings',ja:'KPI analysis, process optimisation, ERP/WMS, benchmarking, data-driven'},
+    adviseren:{name:'Advise',sub:'Advising on improvements & innovations',desc:'You advise on possible improvements and/or applicable innovations in the supply chain.',j1:'advice, stakeholder, substantiation, field research',j2:'stakeholder analysis, cost-benefit analysis, implementation plan, business case',js:'change management, ROI, supplier selection, process improvement',ja:'strategic advice, business case, ROI, implementation roadmap'},
+    managen:{name:'Manage',sub:'Project & process management',desc:'You manage a project or process to achieve the intended result.',j1:'planning, task allocation, collaboration, deadlines, SMART',j2:'project management, Gantt, risk management, progress monitoring',js:'process control, KPI, capacity planning, escalation',ja:'project portfolio, stakeholder management, risk register, change management'},
+    ontwerpen:{name:'Design',sub:'(Re)designing logistics processes',desc:'You (re)design a feasible improvement or innovation for a process/product in the supply chain.',j1:'supply chain diagram, swimlane, process flow, BPMN basics',j2:'BPMN, value stream mapping, layout optimisation, simulation',js:'WMS selection, automation, warehouse layout, cross-docking',ja:'redesign, implementation plan, feasibility analysis, pilots'},
+    onderzoeken:{name:'Research',sub:'Researching supply chain challenges',desc:'You research supply chain challenges in a broader context, considering sustainability, internationalisation and technology.',j1:'research question, sources, primary/secondary data, literature review',j2:'research design, validity, qualitative/quantitative, interview, survey',js:'applied research, company data, recommendations, reporting',ja:'scientific methods, triangulation, generalisability'},
+    implementeren:{name:'Implement',sub:'Implementing improvements',desc:'You implement improvements and/or innovations in the supply chain.',j1:'execute, solve bottleneck, process improvement, evaluate',j2:'PDCA, Lean, pilot project, implementation phases',js:'ERP implementation, change management, training, KPI measurement, adoption',ja:'implementation strategy, consolidation plan, ROI measurement, scaling'}
   }
-})();
+};
+
+const YEARS={
+  nl:[
+    {k:'1',name:'Jaar 1',sub:'Projecten, simulaties, cases'},
+    {k:'2',name:'Jaar 2',sub:'Cases, cross-border, onderzoek'},
+    {k:'stage',name:'Stage',sub:'Jaar 3 — werkplek'},
+    {k:'afstuderen',name:'Afstuderen',sub:'Jaar 4 — eindniveau'}
+  ],
+  en:[
+    {k:'1',name:'Year 1',sub:'Projects, simulations, cases'},
+    {k:'2',name:'Year 2',sub:'Cases, cross-border, research'},
+    {k:'stage',name:'Placement',sub:'Year 3 — workplace'},
+    {k:'afstuderen',name:'Graduation',sub:'Year 4 — final level'}
+  ]
+};
 
 // ─── WELCOME ───
 function setLang(l){
@@ -974,8 +989,8 @@ function buildStarrtPanel(){
   const nl=S.lang==='nl';
   const steps=nl?NL_STEPS:EN_STEPS;
   const descs=nl
-    ?['Wanneer, waar, wie?','Jóuw verantwoordelijkheid — en waarom jij?','Wat deed jij precies, en waarom?','Wat was het concrete effect?','Wat leerde je over jezelf en je aanpak?','Hoe pas je dit concreet toe?']
-    :['When, where, who?','Your responsibility — and why you?','What did you do exactly, and why?','What was the concrete effect?','What did you learn about yourself?','How will you apply this?'];
+    ?['Wanneer, waar, wie?','Jóuw verantwoordelijkheid','Wat deed jij precies?','Wat leerde je over jezelf?','Wat betekent dit voor jou?','Hoe pas je dit toe?']
+    :['When, where, who?','Your responsibility','What did you do exactly?','What did you learn?','What does this mean for you?','How will you apply this?'];
   const letters=['S','T','A','R','R','T'];
   const nav=document.getElementById('starrt-steps-nav');
   nav.innerHTML=steps.map((s,i)=>`
@@ -999,33 +1014,29 @@ function updatePanel(accepted){
   }
 }
 
-// ─── FORM HINTS (from server config) ───
+// ─── FORM HINTS ───
 function getHints(){
   const nl=S.lang==='nl';
-  const lang=nl?'nl':'en';
-  const h=HINTS[lang];
-  if(!h||!h.S) return ['','','','','',''];
   const adv=S.year==='stage'||S.year==='afstuderen';
-  const yr=S.year;
-
-  function fieldHint(field){
-    const f=h[field];
-    if(!f) return '';
-    // For S field: use adv variant if available
-    if(field==='S') return (adv&&f.adv?f.adv:f.default)+'\n\n'+f.example;
-    // For R2 and T2: year-specific
-    if(field==='R2'||field==='T2'){
-      const text=f[yr]||f['1']||f.default||'';
-      const ex=f[yr+'_example']||f['1_example']||'';
-      return text+(ex?'\n\n'+ex:'');
-    }
-    return (f.default||'')+'\n\n'+(f.example||'');
-  }
-
-  return [fieldHint('S'),fieldHint('T'),fieldHint('A'),fieldHint('R1'),fieldHint('R2'),fieldHint('T2')];
+  if(nl) return[
+    `Beschrijf een concreet moment${adv?' op je werkplek':' dit semester'}. Noem namen, het vak of project, en leg vakjargon uit zodat een buitenstaander het begrijpt.`,
+    `Wat was jóuw specifieke verantwoordelijkheid in deze situatie / gedurende dit moment? Schrijf in "ik"-vorm, niet wat de groep moest doen.`,
+    `Wat deed jij precies — en waarom die aanpak? Schrijf "ik deed X omdat Y". Niet "wij deden".`,
+    `Wat was het resultaat? En wat leerde je over jezelf — niet alleen of het goed afliep.`,
+    `Wat neem je hiervan mee als leermoment? Wat doe je een volgende keer anders of juist hetzelfde?`,
+    `Wanneer ga je dit concreet toepassen? Noem een specifiek moment en wat je dan doet.`
+  ];
+  return[
+    `Describe a concrete moment${adv?' at your workplace':' this semester'}. Use names, explain jargon so an outsider understands.`,
+    `What was YOUR specific responsibility? Write in "I" form.`,
+    `What exactly did you do — and why that approach? Write "I did X because Y". Not "we did".`,
+    `What was the result? And what did you learn about yourself — not just whether it went well.`,
+    `What do you take away as a lesson? What would you do differently or the same next time?`,
+    `When will you apply this concretely? Name a specific moment and what you will do.`
+  ];
 }
 
-// ─── START CHAT (builds form + evidence + autosave) ───
+// ─── START ───
 async function startChat(){
   if(!S.plo||!S.year)return;
   S.round=0;S.loading=false;
@@ -1046,18 +1057,13 @@ async function startChat(){
   const letters=['S','T','A','R','R','T'];
   const hints=getHints();
   const form=document.getElementById('starrt-form');
-  const hintParts=hints.map(h=>{
-    const parts=h.split('\n\n');
-    return {hint:parts[0],example:parts[1]||''};
-  });
   form.innerHTML=steps.map((step,i)=>`
     <div style="background:white;border:1.5px solid var(--line);border-radius:var(--r-lg);overflow:hidden" id="field-wrap-${i}">
       <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg2)">
         <div style="width:26px;height:26px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:11px;font-weight:800;flex-shrink:0">${letters[i]}</div>
         <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--ink)">${step}</div>
       </div>
-      <div style="padding:4px 16px 8px;font-size:11px;color:var(--ink3);line-height:1.5">${hintParts[i].hint}</div>
-      ${hintParts[i].example?`<div style="font-size:11px;color:var(--blue);background:var(--blue-soft);margin:0 12px 8px;padding:8px 12px;border-radius:8px;border-left:3px solid var(--blue);line-height:1.55;font-style:italic">${hintParts[i].example}</div>`:''}
+      <div style="padding:4px 16px 8px;font-size:11px;color:var(--ink3);line-height:1.5">${hints[i]}</div>
       <div style="padding:0 12px 12px">
         <textarea
           id="ta-${i}"
@@ -1070,81 +1076,37 @@ async function startChat(){
       </div>
     </div>`).join('');
 
-  // Evidence field
-  const evLabel=nl?'Bewijsmateriaal':'Evidence';
-  const evData=HINTS[nl?'nl':'en']?.evidence||{};
-  const evHint=evData.hint||(nl
-    ?'Beschrijf welk bewijs je hebt voor deze reflectie.'
-    :'Describe what evidence you have for this reflection.');
-  const evPlaceholder=evData.placeholder||(nl
-    ?'Bijv.: "Screenshot van de afleverscores uit het WMS."'
-    :'E.g.: "Screenshot of delivery scores from WMS."');
-  form.innerHTML+=`
-    <div style="background:white;border:1.5px solid var(--line);border-radius:var(--r-lg);overflow:hidden" id="field-wrap-evidence">
-      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)">
-        <div style="width:26px;height:26px;border-radius:50%;background:var(--paper3);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📎</div>
-        <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--ink)">${evLabel}</div>
-      </div>
-      <div style="padding:4px 16px 8px;font-size:11px;color:var(--ink3);line-height:1.5">${evHint}</div>
-      <div style="padding:0 12px 12px">
-        <textarea
-          id="ta-evidence"
-          placeholder="${evPlaceholder}"
-          style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:60px;outline:none;transition:border-color .15s"
-          onfocus="this.style.borderColor='var(--ink2)'"
-          onblur="this.style.borderColor='var(--line)'"
-        ></textarea>
-      </div>
-    </div>`;
-
-  // Autosave
-  const saveKey='reflectx-'+S.plo+'-'+S.year;
-  try{
-    const saved=JSON.parse(localStorage.getItem(saveKey)||'null');
-    if(saved&&saved.fields){
-      for(let i=0;i<6;i++){
-        const ta=document.getElementById('ta-'+i);
-        if(ta&&saved.fields[i])ta.value=saved.fields[i];
-      }
-      const evTa=document.getElementById('ta-evidence');
-      if(evTa&&saved.evidence)evTa.value=saved.evidence;
-      document.getElementById('form-round-label').textContent=nl
-        ?'Eerder werk hersteld — je kunt verdergaan.'
-        :'Previous work restored — you can continue.';
-    }
-  }catch(e){}
-
-  form.addEventListener('input',()=>{
-    try{
-      const fields=[];
-      for(let i=0;i<6;i++){
-        const ta=document.getElementById('ta-'+i);
-        fields.push(ta?ta.value:'');
-      }
-      const evTa=document.getElementById('ta-evidence');
-      localStorage.setItem(saveKey,JSON.stringify({
-        fields,
-        evidence:evTa?evTa.value:'',
-        ts:Date.now()
-      }));
-    }catch(e){}
-  });
-
   document.getElementById('feedback-panel').style.display='none';
   document.getElementById('form-round-label').textContent=nl?'Vul alle velden in en klik op "Geef feedback"':'Fill in all fields and click "Get feedback"';
-  document.getElementById('autosave-notice').textContent=nl
-    ?'Je werk wordt automatisch in je browser bewaard. Kopieer je tekst naar een eigen document als je zeker wilt zijn dat het niet verloren gaat.'
-    :'Your work is automatically saved in your browser. Copy your text to your own document to make sure it is not lost.';
   document.getElementById('btn-feedback-text').textContent=nl?'Geef feedback →':'Get feedback →';
   document.getElementById('btn-feedback').disabled=false;
 }
 
-// ─── FEEDBACK (server-side prompt building) ───
+// ─── FEEDBACK ───
 function getFieldValues(){
   return Array.from({length:6},(_,i)=>{
     const ta=document.getElementById('ta-'+i);
     return ta?ta.value.trim():'';
   });
+}
+
+function jargon(){
+  const d=PLO[S.lang][S.plo];
+  return {1:d.j1,2:d.j2,stage:d.js,afstuderen:d.ja}[S.year]||d.j1;
+}
+
+function ploProbes(){
+  const nl=S.lang==='nl';
+  const probes={
+    ontwikkelen:nl?'Doorvraagtips: Wat deed je anders dan je gewend was? Waar merkte je groei? Wat kostte je de meeste moeite — en waarom?':'Probing: What did you do differently? Where did you notice growth? What cost the most effort — and why?',
+    analyseren:nl?'Doorvraagtips: Welke KPI keek je naar? Wat zei de data concreet? Waar zat de bottleneck?':'Probing: Which KPI? What did the data show? Where was the bottleneck?',
+    adviseren:nl?'Doorvraagtips: Hoe heb je je advies onderbouwd? Hoe ben je omgegaan met tegenwerpingen? Wat was de reactie van de stakeholder?':'Probing: How did you substantiate? How did you handle objections? What was the stakeholder reaction?',
+    managen:nl?'Doorvraagtips: Wat week af van je planning? Hoe heb je bijgestuurd? Wat had je eerder moeten zien?':'Probing: What deviated from your plan? How did you adjust? What should you have seen earlier?',
+    ontwerpen:nl?'Doorvraagtips: Waarom deze oplossing en niet een alternatief? Wat heb je vergeleken? Wat verandert er concreet door jouw ontwerp?':'Probing: Why this solution? What did you compare? What changes concretely through your design?',
+    onderzoeken:nl?'Doorvraagtips: Hoe heb je bronnen gekozen? Wat deed je met tegenstrijdige info? Waar twijfel je aan je conclusie?':'Probing: How did you choose sources? What did you do with conflicting info? Where do you doubt your conclusion?',
+    implementeren:nl?'Doorvraagtips: Wat ging mis bij de uitvoering? Hoe heb je mensen meegekregen? Wat werkte anders dan gepland?':'Probing: What went wrong? How did you get people on board? What worked differently than planned?'
+  };
+  return probes[S.plo]||'';
 }
 
 async function getFeedback(){
@@ -1165,41 +1127,54 @@ async function getFeedback(){
 
   const steps=nl?NL_STEPS:EN_STEPS;
   const letters=['S','T','A','R','R','T'];
+  const plo=PLO[S.lang][S.plo];
+  const adv=S.year==='stage'||S.year==='afstuderen';
+  const yr1=S.year==='1';
 
-  // Determine which fields changed since last feedback
-  const changed=[];const lockedOk=[];
-  for(let i=0;i<6;i++){
-    if(S.lockedFields[i]==='ok'&&values[i]===S.lastValues[i]){
-      lockedOk.push(i);
-    } else if(S.lockedFields[i]==='ok'&&values[i]!==S.lastValues[i]){
-      changed.push(i);
-      delete S.lockedFields[i];
-    } else {
-      changed.push(i);
-    }
-  }
+  const system=`You are a STARRT reflection coach for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY.
+Student: ${nl?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]:{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year]} | PLO: ${plo.name} — ${plo.desc}
+Relevant jargon: ${jargon()}
 
-  const evTa=document.getElementById('ta-evidence');
-  const evText=evTa?evTa.value.trim():'';
-  const userMessage=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n')
-    +`\n\nEvidence/Bewijsmateriaal:\n${evText||'(not provided / niet ingevuld)'}`;
+TASK: Give feedback on all 6 STARRT fields. For each field:
+- If the field meets the criteria: write ✓ and one neutral sentence confirming what works (NO praise words: not "perfect/sterk/mooi/geweldig/excellent/well done")
+- If the field needs improvement: write → and max 2 numbered questions asking for what's missing
+
+NEUTRAL ACKNOWLEDGEMENTS ONLY: "Helder.", "Duidelijk.", "Oké.", "Clear.", "Got it." — nothing more positive than this.
+
+TONE: Direct, practical, never therapeutic. Never analyse the student's personality. Never write text for the student.
+
+CRITERIA per field:
+S (Situatie/Situation): Concrete moment + names with context + jargon explained for outsider${adv?'+ workplace context':''}
+T (Taak/Task): Own responsibility in "ik/I" form — not just formal role${adv?'+ linked to professional challenge':''}
+A (Actie/Action): Concrete actions + "ik/I" not "wij/we" + reasoning for choice + considered alternative${adv?'+ tools/methods mentioned if relevant':''}
+R (Resultaat/Result): What student learned about THEMSELVES + honest improvement point${yr1?'(one lesson enough for year 1)':''} + external feedback or result
+R (Reflectie/Reflection): ${yr1?'One concrete lesson + improvement point (pattern optional)':'Pattern across situations + underlying mechanism'}
+T (Transfer): Specific upcoming moment + concrete action + strategy for when difficult
+
+THEORY CHECK: If student does not mention theory, knowledge or skills developed during their studies that they applied, ask: "Je noemt geen theorie, kennis of ontwikkelde vaardigheden uit je studie die je hebt toegepast — welke heb je gebruikt in deze situatie?"
+
+PLO-SPECIFIC PROBES: ${ploProbes()}
+
+OUTPUT FORMAT — respond with exactly this JSON structure:
+{
+  "fields": [
+    {"letter": "S", "status": "ok|needs_work", "feedback": "..."},
+    {"letter": "T", "status": "ok|needs_work", "feedback": "..."},
+    {"letter": "A", "status": "ok|needs_work", "feedback": "..."},
+    {"letter": "R1", "status": "ok|needs_work", "feedback": "..."},
+    {"letter": "R2", "status": "ok|needs_work", "feedback": "..."},
+    {"letter": "T2", "status": "ok|needs_work", "feedback": "..."}
+  ],
+  "summary": "one sentence overall status in ${nl?'Dutch':'English'}"
+}`;
+
+  const userMsg=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n');
 
   try{
-    // Send context to server — server builds the prompt
     const res=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        lang:S.lang,
-        plo:S.plo,
-        year:S.year,
-        round:S.round,
-        prevFeedback:S.prevFeedback,
-        lockedFields:S.lockedFields,
-        changedFields:changed,
-        lockedOkFields:lockedOk,
-        userMessage
-      })
+      body:JSON.stringify({system,messages:[{role:'user',content:userMsg}]})
     });
     const data=await res.json();
     const raw=data.content[0].text;
@@ -1210,26 +1185,11 @@ async function getFeedback(){
       const jsonMatch=raw.match(/\{[\s\S]*\}/);
       parsed=JSON.parse(jsonMatch?jsonMatch[0]:raw);
     }catch(e){
+      // Fallback: show raw text
       parsed=null;
     }
 
-    // Enforce consistency: for locked fields, override AI response with previous feedback
-    if(parsed&&parsed.fields&&S.prevFeedback&&S.prevFeedback.fields){
-      lockedOk.forEach(i=>{
-        if(parsed.fields[i]&&S.prevFeedback.fields[i]){
-          parsed.fields[i].status='ok';
-          parsed.fields[i].feedback=S.prevFeedback.fields[i].feedback;
-        }
-      });
-      if(parsed.priorities){
-        const lockedLetters=lockedOk.map(i=>letters[i]);
-        parsed.priorities=parsed.priorities.filter(p=>!lockedLetters.includes(p.field));
-      }
-    }
-
     S.round++;
-    S.lastValues=[...values];
-    S.prevFeedback=parsed;
     renderFeedback(parsed,raw,values);
 
   }catch(e){
@@ -1246,19 +1206,7 @@ function renderFeedback(parsed,raw,values){
   const steps=nl?NL_STEPS:EN_STEPS;
   const accepted=new Set();
 
-  // Map field index to priority letter
-  const prioLetterMap=['S','T','A','R1','R2','T2'];
-
   if(parsed&&parsed.fields){
-    // Collect priorities per field for inline display
-    const priosByField={};
-    if(parsed.priorities){
-      parsed.priorities.forEach(p=>{
-        if(!priosByField[p.field])priosByField[p.field]=[];
-        priosByField[p.field].push(p.question);
-      });
-    }
-
     parsed.fields.forEach((f,i)=>{
       const wrap=document.getElementById('field-wrap-'+i);
       const fb=document.getElementById('fb-'+i);
@@ -1266,74 +1214,29 @@ function renderFeedback(parsed,raw,values){
       fb.style.display='block';
       if(f.status==='ok'){
         accepted.add(i);
-        S.lockedFields[i]='ok'; // Lock this field
         wrap.style.borderColor='var(--green)';
         fb.style.background='var(--green-soft)';
         fb.style.color='var(--green)';
         fb.innerHTML=`<strong>✓</strong> ${f.feedback}`;
       } else {
-        delete S.lockedFields[i]; // Ensure not locked
         wrap.style.borderColor='var(--orange)';
         fb.style.background='var(--orange-soft)';
-        fb.style.color='#8a4a10';
-        // Build inline feedback with doorvragen directly attached
-        let fbHtml=`<strong>→</strong> ${f.feedback}`;
-        const fieldPrios=priosByField[prioLetterMap[i]];
-        if(fieldPrios&&fieldPrios.length>0){
-          fbHtml+=`<div style="margin-top:8px;padding-top:8px;border-top:1px dashed rgba(138,74,16,.25)">`;
-          fbHtml+=`<div style="font-family:var(--font-display);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--orange);margin-bottom:4px">${nl?'Doorvraag':'Follow-up'}</div>`;
-          fieldPrios.forEach(q=>{
-            fbHtml+=`<div style="font-size:12px;line-height:1.55;color:#6b4a1e;margin-top:3px">💬 ${q}</div>`;
-          });
-          fbHtml+=`</div>`;
-        }
-        fb.innerHTML=fbHtml;
+        fb.style.color='var(--warn)';
+        fb.innerHTML=f.feedback;
       }
     });
   } else {
+    // Fallback: show raw AI response in first field's feedback area
     const fb=document.getElementById('fb-0');
     if(fb){
       fb.style.display='block';
-      fb.style.background='var(--paper2)';
-      fb.style.color='var(--ink2)';
+      fb.style.background='var(--info-light)';
+      fb.style.color='var(--info)';
       fb.innerHTML=raw.replace(/\n/g,'<br>');
     }
   }
 
   updatePanel(accepted);
-
-  // Build feedback content
-  const content=document.getElementById('feedback-content');
-  let html='';
-
-  // PLO alignment alert
-  if(parsed&&parsed.plo_alignment==='mismatch'&&parsed.plo_note){
-    html+=`<div style="background:#fef3cd;border:2px solid #e8c547;border-radius:var(--r);padding:12px 16px;margin-bottom:14px">
-      <div style="font-size:12px;color:#6b5a1e;line-height:1.6">${parsed.plo_note}</div>
-      <button class="btn-secondary" onclick="this.parentElement.remove()" style="font-size:11px;padding:6px 12px;margin-top:8px">${nl?'Ik houd mijn keuze':'I\'ll keep my choice'}</button>
-    </div>`;
-  }
-
-  // Priorities summary — compact, since doorvragen are now inline at each field
-  if(parsed&&parsed.priorities&&parsed.priorities.length>0){
-    const fieldNames={S:steps[0],T:steps[1],A:steps[2],R1:steps[3],R2:steps[4],T2:steps[5]};
-    const focusFields=[...new Set(parsed.priorities.map(p=>fieldNames[p.field]||p.field))];
-    html+=`<div style="background:var(--orange-soft);border:1.5px solid var(--orange);border-radius:var(--r);padding:12px 16px;margin-bottom:14px">
-      <div style="font-family:var(--font-display);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange);margin-bottom:4px">${nl?`Focus ronde ${S.round}`:`Focus round ${S.round}`}</div>
-      <div style="font-size:12px;line-height:1.6;color:#8a4a10">${nl
-        ?'Kijk naar de doorvragen (💬) bij: <strong>'+focusFields.join(', ')+'</strong>. Begin daar met aanpassen.'
-        :'Check the follow-up questions (💬) at: <strong>'+focusFields.join(', ')+'</strong>. Start revising there.'
-      }</div>
-    </div>`;
-  }
-
-  // Responsibility reminder
-  html+=`<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3);line-height:1.5">${nl
-    ?'Deze feedback helpt je op weg — maar de reflectie is van jou. Jij beslist wat je overneemt, aanpast of naast je neerlegt. Wat je inlevert, is jouw werk.'
-    :'This feedback helps you along — but the reflection is yours. You decide what to take on board, adjust, or set aside. What you hand in is your own work.'
-  }</div>`;
-
-  content.innerHTML=html;
 
   // Show feedback panel
   const panel=document.getElementById('feedback-panel');
@@ -1341,37 +1244,32 @@ function renderFeedback(parsed,raw,values){
   const allOk=accepted.size===6;
   const title=document.getElementById('feedback-title');
 
-  if(parsed&&parsed.summary&&parsed.summary!=='null'){
+  if(parsed&&parsed.summary){
     title.textContent=parsed.summary;
   } else {
-    title.textContent=nl?`Ronde ${S.round} — ${accepted.size}/6 velden compleet`:`Round ${S.round} — ${accepted.size}/6 fields complete`;
+    title.textContent=nl?`Ronde ${S.round} — zie feedback per veld`:`Round ${S.round} — see feedback per field`;
   }
 
-  // Finish button logic — improved
   const finishBtn=document.getElementById('btn-finish');
-  if(allOk){
+  if(allOk||S.round>=3){
     finishBtn.style.display='inline-block';
     finishBtn.textContent=nl?'Afronden →':'Finish →';
-    finishBtn.style.background='var(--green)';
-  } else if(S.round>=3){
-    finishBtn.style.display='inline-block';
-    finishBtn.textContent=nl?'Toch afronden':'Finish anyway';
-    finishBtn.style.background='var(--ink)';
   } else {
     finishBtn.style.display='none';
   }
 
-  S.lastParsed=parsed;
   document.getElementById('btn-revise').textContent=nl?'Aanpassen →':'Revise →';
-  panel.scrollIntoView({behavior:'smooth',block:'start'});
+
+  // Scroll to first field with feedback needed
+  const firstNeedsWork=parsed&&parsed.fields?parsed.fields.findIndex(f=>f.status!=='ok'):-1;
+  if(firstNeedsWork>=0){
+    const el=document.getElementById('field-wrap-'+firstNeedsWork);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+  } else {
+    panel.scrollIntoView({behavior:'smooth',block:'start'});
+  }
 }
 
-function revise(){
-  document.getElementById('feedback-panel').style.display='none';
-  document.getElementById('form-round-label').textContent=
-    S.lang==='nl'?`Ronde ${S.round+1} — pas aan op basis van de feedback`:`Round ${S.round+1} — revise based on feedback`;
-  window.scrollTo({top:0,behavior:'smooth'});
-}
 
 function finishReflection(){
   const nl=S.lang==='nl';
@@ -1381,32 +1279,16 @@ function finishReflection(){
   const plo=PLO[S.lang][S.plo];
 
   showScreen('s-done');
-  document.getElementById('done-badge').textContent=nl?'✓ Afgerond':'✓ Complete';
-  document.getElementById('done-title').textContent=nl?`Jouw reflectietekst`:`Your reflection text`;
+  document.getElementById('done-badge').textContent=nl?'✓ Reflectie voltooid':'✓ Reflection complete';
+  document.getElementById('done-title').textContent=nl?`${plo.name} — afgerond.`:`${plo.name} — complete.`;
   document.getElementById('done-sub').textContent=nl
-    ?`Hieronder vind je jouw reflectietekst voor PLO "${plo.name}". Gebruik dit als basis voor je portfolio — schrijf uit in 3-5 zinnen per onderdeel, in je eigen woorden.`
-    :`Below you will find your reflection text for PLO "${plo.name}". Use this as the basis for your portfolio — expand to 3-5 sentences per section, in your own words.`;
+    ?'Je tekst staat hieronder. Gebruik dit als basis voor je portfolio — schrijf eventueel uit in 3-5 zinnen per onderdeel.'
+    :'Your text is below. Use this as the basis for your portfolio — expand to 3-5 sentences per section if needed.';
   document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
   document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
 
-  // Quality indication based on last feedback
-  let qualHtml='';
-  if(S.lastParsed&&S.lastParsed.fields){
-    const okFields=[];const workFields=[];
-    S.lastParsed.fields.forEach((f,i)=>{
-      if(f.status==='ok') okFields.push(steps[i]);
-      else workFields.push({name:steps[i],fb:f.feedback});
-    });
-    qualHtml=`<div style="background:white;border:2px solid var(--line);border-radius:var(--r-lg);padding:16px 20px;margin-bottom:20px">
-      <div style="font-family:var(--font-display);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:10px">${nl?'Kwaliteitsindicatie':'Quality indication'}</div>
-      ${okFields.length?`<div style="font-size:12px;color:var(--green);margin-bottom:6px;line-height:1.6"><strong>${nl?'Compleet':'Complete'}:</strong> ${okFields.join(', ')}</div>`:''}
-      ${workFields.length?`<div style="font-size:12px;color:var(--orange);line-height:1.6"><strong>${nl?'Verdieping mogelijk':'Could go deeper'}:</strong> ${workFields.map(w=>`${w.name}`).join(', ')}</div>`
-        :`<div style="font-size:12px;color:var(--green);line-height:1.6">${nl?'Alle velden zijn inhoudelijk compleet.':'All fields are substantively complete.'}</div>`}
-    </div>`;
-  }
-
   const wrap=document.getElementById('structure-wrap');
-  wrap.innerHTML=qualHtml+`<div class="structure-head">
+  wrap.innerHTML=`<div class="structure-head">
     <div class="structure-head-title">${nl?'Jouw portfoliotekst':'Your portfolio text'}</div>
     <div class="structure-head-sub">${nl?'Pas aan waar nodig':'Edit where needed'}</div>
   </div>`+steps.map((step,i)=>`
@@ -1415,29 +1297,11 @@ function finishReflection(){
       <div class="s-label">${step}</div>
       <textarea
         id="final-${i}"
-        style="width:100%;margin-top:8px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:80px;outline:none;transition:border-color .15s"
+        style="width:100%;margin-top:8px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:120px;outline:none;transition:border-color .15s"
         onfocus="this.style.borderColor='var(--ink2)'"
         onblur="this.style.borderColor='var(--line)'"
       >${values[i]}</textarea>
-    </div>`).join('')
-    +`<div class="structure-item">
-      <div class="s-letter" style="color:var(--paper3)">📎</div>
-      <div class="s-label">${nl?'Bewijsmateriaal':'Evidence'}</div>
-      <textarea
-        id="final-evidence"
-        style="width:100%;margin-top:8px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:60px;outline:none;transition:border-color .15s"
-        onfocus="this.style.borderColor='var(--ink2)'"
-        onblur="this.style.borderColor='var(--line)'"
-      >${(document.getElementById('ta-evidence')||{}).value||''}</textarea>
-    </div>`
-    +`<div style="padding:16px 20px;border-top:1px solid var(--line)">
-      <div style="font-family:var(--font-display);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:8px">${nl?'Optioneel — wat neem je mee uit dit reflectieproces?':'Optional — what do you take away from this reflection process?'}</div>
-      <textarea
-        id="meta-reflection"
-        placeholder="${nl?'Niet verplicht. Dit wordt niet beoordeeld.':'Not required. This is not assessed.'}"
-        style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:60px;outline:none"
-      ></textarea>
-    </div>`;
+    </div>`).join('');
 }
 
 function copyAll(){
@@ -1450,15 +1314,6 @@ function copyAll(){
     const val=field?field.value.trim():'';
     text+=`${letters[i]}. ${step}\n${val||'(niet ingevuld)'}\n\n`;
   });
-  const evField=document.getElementById('final-evidence');
-  const evVal=evField?evField.value.trim():'';
-  if(evVal){
-    text+=`${nl?'Bewijsmateriaal':'Evidence'}:\n${evVal}\n\n`;
-  }
-  const meta=document.getElementById('meta-reflection');
-  if(meta&&meta.value.trim()){
-    text+=`---\n${nl?'Reflectie op het proces':'Process reflection'}: ${meta.value.trim()}\n`;
-  }
   navigator.clipboard.writeText(text).then(()=>{
     const btn=document.getElementById('btn-copy-all');
     const orig=btn.textContent;
@@ -1475,14 +1330,23 @@ function showScreen(id){
 }
 
 function restart(){
-  // Clear saved data for this PLO+year combination
-  if(S.plo&&S.year){
-    try{localStorage.removeItem('reflectx-'+S.plo+'-'+S.year);}catch(e){}
-  }
-  S.lang=null;S.plo=null;S.year=null;S.round=0;S.loading=false;S.lastParsed=null;
-  S.lockedFields={};S.lastValues=['','','','','',''];S.prevFeedback=null;
+  S.lang=null;S.plo=null;S.year=null;S.round=0;S.loading=false;
   setupPanel=0;
-  showScreen('s-welcome');
+  // Reset setup UI fully
+  document.querySelectorAll('.plo-card').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('.year-card').forEach(b=>b.classList.remove('sel'));
+  const def=document.getElementById('plo-def');
+  if(def){def.className='plo-def-box';def.innerHTML='';}
+  document.getElementById('btn-plo-next').disabled=true;
+  document.getElementById('btn-year-next').disabled=true;
+  // Show PLO step, hide year step
+  document.getElementById('sp-plo').classList.add('active');
+  document.getElementById('sp-year').classList.remove('active');
+  // Reset sidebar
+  document.querySelectorAll('[id^="sbstep-"]').forEach((el,i)=>{
+    el.className='sidebar-step'+(i===0?' active':'');
+  });
+  showScreen('s-setup');
 }
 </script>
 </body>
