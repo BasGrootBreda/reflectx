@@ -41,7 +41,9 @@ async function callAnthropic(payload, retries = 3) {
         res.on('end', () => {
           const result = Buffer.concat(chunks).toString();
           console.log(`Anthropic status: ${res.statusCode} (attempt ${attempt})`);
-          if (res.statusCode !== 200) {
+          if (res.statusCode === 200) {
+            console.log('Response preview:', result.substring(0, 300));
+          } else {
             console.log('Error body:', result.substring(0, 300));
           }
           resolve({ status: res.statusCode, body: result });
