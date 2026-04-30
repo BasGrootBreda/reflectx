@@ -1161,18 +1161,10 @@ THEORY CHECK: If student does not mention theory, knowledge or skills developed 
 
 PLO-SPECIFIC PROBES: ${ploProbes()}
 
-OUTPUT FORMAT — respond with exactly this JSON structure:
-{
-  "fields": [
-    {"letter": "S", "status": "ok|needs_work", "feedback": "..."},
-    {"letter": "T", "status": "ok|needs_work", "feedback": "..."},
-    {"letter": "A", "status": "ok|needs_work", "feedback": "..."},
-    {"letter": "R1", "status": "ok|needs_work", "feedback": "..."},
-    {"letter": "R2", "status": "ok|needs_work", "feedback": "..."},
-    {"letter": "T2", "status": "ok|needs_work", "feedback": "..."}
-  ],
-  "summary": "one sentence overall status in ${nl?'Dutch':'English'}"
-}`;
+CRITICAL: You MUST respond with ONLY valid JSON. No text before or after the JSON. No markdown. No questions outside the JSON structure. All feedback and questions go INSIDE the "feedback" field of the JSON.
+
+RESPOND WITH EXACTLY THIS JSON — nothing else:
+{"fields":[{"letter":"S","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"T","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"A","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"R1","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"R2","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"T2","status":"ok|needs_work","feedback":"your feedback here"}],"summary":"one sentence in ${nl?'Dutch':'English'}"}`;
 
   const userMsg=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n');
 
