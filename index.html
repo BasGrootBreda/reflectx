@@ -853,6 +853,7 @@ html,body{
     <div class="structure-wrap" id="structure-wrap"></div>
     <div class="done-actions">
       <button class="btn-primary" id="btn-copy-all" onclick="copyAll()">Kopieer alles</button>
+      <button class="btn-secondary" id="btn-download-word" onclick="downloadWord()">⬇ Download Word</button>
       <button class="btn-secondary" onclick="restart()" id="btn-restart">← Nieuwe reflectie</button>
     </div>
   </div>
@@ -1075,6 +1076,14 @@ async function startChat(){
         <div id="fb-${i}" style="display:none;margin-top:8px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.6"></div>
       </div>
     </div>`).join('');
+
+  // Bewijs-melding toevoegen onder het formulier
+  const bewijsMsg=document.createElement('div');
+  bewijsMsg.className='msg-bewijs';
+  bewijsMsg.innerHTML=nl
+    ?'<strong>📎 Bewijs</strong>Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed — niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
+    :'<strong>📎 Evidence</strong>Which evidence do you choose for this reflection? Pick something that truly shows what you did — not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
+  form.appendChild(bewijsMsg);
 
   document.getElementById('feedback-panel').style.display='none';
   document.getElementById('form-round-label').textContent=nl?'Vul alle velden in en klik op "Geef feedback"':'Fill in all fields and click "Get feedback"';
@@ -1300,10 +1309,11 @@ function finishReflection(){
   document.getElementById('done-badge').textContent=nl?'✓ Reflectie voltooid':'✓ Reflection complete';
   document.getElementById('done-title').textContent=nl?`${plo.name} — afgerond.`:`${plo.name} — complete.`;
   document.getElementById('done-sub').textContent=nl
-    ?'Je tekst staat hieronder. Gebruik dit als basis voor je portfolio — schrijf eventueel uit in 3-5 zinnen per onderdeel.'
-    :'Your text is below. Use this as the basis for your portfolio — expand to 3-5 sentences per section if needed.';
+    ?'Klaar? Voordat je afrondt: is dit jouw reflectie? Laat het zien wie je bent, wat jij weet, kunt en hoe jij je ontwikkelt. De tool helpt, jij bent verantwoordelijk voor wat je inlevert.'
+    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps — you are responsible for what you hand in.';
   document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
   document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
+  document.getElementById('btn-download-word').textContent=nl?'⬇ Download Word':'⬇ Download Word';
 
   const wrap=document.getElementById('structure-wrap');
   wrap.innerHTML=`<div class="structure-head">
@@ -1340,6 +1350,57 @@ function copyAll(){
   }).catch(()=>{
     alert(nl?'Selecteer de tekst handmatig om te kopiëren.':'Select the text manually to copy.');
   });
+}
+
+function downloadWord(){
+  const nl=S.lang==='nl';
+  const steps=nl?NL_STEPS:EN_STEPS;
+  const letters=['S','T','A','R','R','T'];
+  const plo=PLO[S.lang][S.plo];
+  const yearLabel=nl
+    ?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]
+    :{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year];
+
+  let rows='';
+  steps.forEach((step,i)=>{
+    const field=document.getElementById('final-'+i);
+    const val=(field?field.value.trim():'')||'(niet ingevuld)';
+    rows+=`<tr>
+      <td style="width:80px;font-weight:bold;vertical-align:top;padding:8px 12px;background:#f5f5f5;border:1px solid #ccc">${letters[i]}. ${step}</td>
+      <td style="padding:8px 12px;border:1px solid #ccc;white-space:pre-wrap">${val.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td>
+    </tr>`;
+  });
+
+  const bewijsText=nl
+    ?'Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed — niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
+    :'Which evidence do you choose for this reflection? Pick something that truly shows what you did — not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
+  const eigenText=nl
+    ?'Klaar? Voordat je afrondt: is dit jouw reflectie? Laat het zien wie je bent, wat jij weet, kunt en hoe jij je ontwikkelt. De tool helpt, jij bent verantwoordelijk voor wat je inlevert.'
+    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps — you are responsible for what you hand in.';
+
+  const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="utf-8"><title>ReflectX</title></head>
+<body style="font-family:Calibri,sans-serif;font-size:11pt;margin:2cm">
+  <h2 style="color:#1a1a2e">ReflectX — STARRT Reflectie</h2>
+  <p><strong>${nl?'Leeruitkomst':'Learning Outcome'}:</strong> ${plo.name}<br>
+  <strong>${nl?'Context':'Context'}:</strong> ${yearLabel}</p>
+  <hr style="border:1px solid #ccc">
+  <table style="width:100%;border-collapse:collapse;margin-top:12px">${rows}</table>
+  <div style="margin-top:24px;padding:12px;background:#fff8e8;border-left:4px solid #e8a020;font-size:10pt">
+    <strong>${nl?'📎 Bewijs':'📎 Evidence'}</strong><br>${bewijsText}
+  </div>
+  <div style="margin-top:16px;padding:12px;background:#f0f4ff;border-left:4px solid #3a5fc8;font-size:10pt">
+    <em>${eigenText}</em>
+  </div>
+</body></html>`;
+
+  const blob=new Blob([html],{type:'application/msword'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`ReflectX_${plo.name.replace(/\s+/g,'_')}_${yearLabel}.doc`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function showScreen(id){
