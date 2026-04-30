@@ -1180,7 +1180,12 @@ RESPOND WITH EXACTLY THIS JSON — nothing else:
     let parsed = null;
     try {
       // Try to extract JSON from response
-      const jsonMatch = raw.match(/\{[\s\S]*\}/);
+      // Strip markdown code fences if present
+      const cleaned = raw
+        .replace(/```json\s*/gi, '')
+        .replace(/```\s*/g, '')
+        .trim();
+      const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         parsed = JSON.parse(jsonMatch[0]);
       }
