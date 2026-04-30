@@ -27,6 +27,7 @@ async function callAnthropic(payload, retries = 3) {
         hostname: 'api.anthropic.com',
         path: '/v1/messages',
         method: 'POST',
+        timeout: 30000,
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': API_KEY,
@@ -39,30 +40,33 @@ async function callAnthropic(payload, retries = 3) {
         res.on('data', chunk => chunks.push(chunk));
         res.on('end', () => {
           const result = Buffer.concat(chunks).toString();
+          console.log(`Anthropic status: ${res.statusCode} (attempt ${attempt})`);
           if (res.statusCode !== 200) {
-            console.log(`Anthropic status: ${res.statusCode} (attempt ${attempt}/${retries})`);
-            console.log('Error body:', result.substring(0, 200));
+            console.log('Error body:', result.substring(0, 300));
           }
           resolve({ status: res.statusCode, body: result });
         });
       });
-      req.on('error', reject);
+      req.on('timeout', () => {
+        console.error('Anthropic request timed out');
+        req.destroy();
+        reject(new Error('Request timed out after 30s'));
+      });
+      req.on('error', (e) => {
+        console.error('HTTPS error:', e.message);
+        reject(e);
+      });
       req.write(body);
       req.end();
     });
 
-    // Success
     if (result.status === 200) return result;
-
-    // Overloaded (529) or server error (500) — retry with backoff
     if ((result.status === 529 || result.status === 500) && attempt < retries) {
-      const wait = attempt * 2000; // 2s, 4s
+      const wait = attempt * 2000;
       console.log(`Retrying in ${wait}ms...`);
       await sleep(wait);
       continue;
     }
-
-    // Other error or retries exhausted
     return result;
   }
 }
