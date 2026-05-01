@@ -1127,7 +1127,7 @@ Analyseer de tekst van de student per STARRT-veld. Bepaal voor elk veld welke la
 - Laag 3 (Wat leerde je): reflectie op zichzelf, verrassing, twijfel, wat anders
 
 Kies de vraag uit de laag die ontbreekt. Formuleer altijd op basis van wat de student concreet schreef.
-${yr2?'Voeg aan het einde van de Reflectie-feedback altijd één Laag-4 vraag toe als uitnodiging: "Herken je dit gedrag ook in andere situaties — of is dit de eerste keer dat je dit bij jezelf ziet?"':''}
+${yr2?'Voeg aan het einde van de Reflectie-feedback altijd TWEE Laag-4 vragen toe als uitnodiging: (1) "Herken je dit gedrag ook in andere situaties — of is dit de eerste keer dat je dit bij jezelf ziet?" (2) "Wat doe je nu anders dan in jaar 1 — en hoe merk je dat aan jezelf?"':''}
 ${yr3plus?'Activeer Laag 4 volledig: stel bij de Reflectie-feedback altijd minimaal één patroon- of identiteitsvraag.':''}`
     :`PROBING LOGIC:
 Analyse the student's text per STARRT field. Determine which layer is missing or too thin:
@@ -1249,7 +1249,7 @@ async function getFeedback(){
   const adv=S.year==='stage'||S.year==='afstuderen';
   const yr1=S.year==='1';
 
-  const system=`You are a STARRT reflection coach for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY.
+  const system=`You are a STARRT reflection coach for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY. CRITICAL: You MUST respond exclusively in ${nl?'Dutch (Nederlands)':'English'}. Every word of your feedback must be in ${nl?'Dutch':'English'}. Do not mix languages under any circumstance.
 Student: ${nl?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]:{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year]} | PLO: ${plo.name} — ${plo.desc}
 Relevant jargon: ${jargon()}
 
@@ -1267,6 +1267,7 @@ When asking questions, always use the specific content the student wrote. Never 
 - Bad: "Beschrijf de situatie concreter." Good: "Je noemt Blokko maar niet welke rol jij had — was je inkoop, productie of transport?"
 
 NEUTRAL ACKNOWLEDGEMENTS ONLY: "Helder.", "Duidelijk.", "Oké.", "Clear.", "Got it." — nothing more positive than this.
+NEVER use evaluative phrases like "Je beschrijft de basis goed", "Je hebt dit goed opgepakt", "Good start", "Well done", "This is solid" or any sentence that judges the quality of the student's work positively. Not in field feedback, not in summary sentences. Neutral only.
 
 TONE: Direct, practical, never therapeutic. Never analyse the student's personality. Never write text for the student.
 
@@ -1276,7 +1277,7 @@ T (Taak/Task): Own responsibility in "ik/I" form — not just formal role${adv?'
 A (Actie/Action): Concrete actions + "ik/I" not "wij/we" + reasoning for choice + considered alternative${adv?'+ tools/methods mentioned if relevant':''}
 R (Resultaat/Result): What student learned about THEMSELVES + honest improvement point${yr1?'(one lesson enough for year 1)':''} + external feedback or result
 R (Reflectie/Reflection): ${yr1?'One concrete lesson + improvement point (pattern optional)':'Pattern across situations + underlying mechanism'}
-T (Transfer): Specific upcoming moment + concrete action + strategy for when difficult
+T (Transfer): ONLY green if student names ALL THREE: (1) specific upcoming moment/situation, (2) concrete action they will take, (3) strategy for when it gets difficult. Vague intentions like 'next time I will...' or 'I want to...' are NEVER green — always needs_work with questions: Wat ga je concreet doen? Wanneer precies? Hoe ga je om met tegenslag?
 
 BUAS PROJECTS (ask targeted questions when student mentions these):
 Jaar1: Getting Started(SCM-basis,IKEA-advies), Blokko/ESCM1(simulatie eigen fabriek,rollen:CEO/inkoop/productie/warehouse/transport/sales), Blokko/ESCM2(strategie,S&OP,businessplan), Modelling&Planning(BPMN,MRP,ERP/Odoo), Material Logistics Basics(transport,warehousing,WMS), Service Logistics(dienstenlogistiek,customer journey), Material Logistics Improvement(voorraadbeheer,DC-locatie,warehouse ontwerp), CIR1(werkervaringsopdracht)
@@ -1355,7 +1356,7 @@ function renderFeedback(parsed,raw,values){
         wrap.style.borderColor='var(--green)';
         fb.style.background='var(--green-soft)';
         fb.style.color='var(--green)';
-        fb.innerHTML=`<strong>✓</strong> ${f.feedback}`;
+        fb.innerHTML=f.feedback;
       } else {
         wrap.style.borderColor='var(--orange)';
         fb.style.background='var(--orange-soft)';
