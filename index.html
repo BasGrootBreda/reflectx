@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ReflectX — BUas Logistiek</title>
+<title>ReflectX - BUas Logistiek</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -161,6 +161,16 @@ html,body{
 
 .welcome-note::before{content:'';display:block;width:20px;height:1px;background:var(--line)}
 .welcome-note::after{content:'';display:block;width:20px;height:1px;background:var(--line)}
+.welcome-intro-kern{font-size:13px;color:var(--text-secondary);line-height:1.6;margin:12px 0 6px;text-align:center;padding:0 8px}
+.welcome-meer-btn{background:none;border:none;color:var(--accent);font-size:12px;cursor:pointer;padding:2px 0;text-decoration:underline;font-family:inherit;margin-bottom:8px}
+.welcome-meer-btn:hover{opacity:0.8}
+.welcome-uitleg{display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:16px;margin:8px 0 12px;text-align:left}
+.welcome-uitleg.open{display:block}
+.welcome-uitleg h4{font-size:12px;font-weight:700;color:var(--accent);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.05em}
+.welcome-uitleg ul{margin:0;padding:0 0 0 16px;list-style:disc}
+.welcome-uitleg ul li{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:4px}
+.welcome-uitleg p{font-size:12px;color:var(--text-secondary);line-height:1.6;margin:8px 0 0}
+.welcome-uitleg .uitleg-sluit{display:block;text-align:right;font-size:11px;color:var(--accent);cursor:pointer;margin-top:8px;text-decoration:underline}
 
 /* ─── SETUP SCREEN ─── */
 #s-setup{
@@ -736,7 +746,7 @@ html,body{
       <div class="brand-name">Reflect<span>X</span></div>
     </div>
     <h1 class="welcome-title">Reflectie<br>die <em>werkt.</em></h1>
-    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op — en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.</p>
+    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op - en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.</p>
     <div class="lang-row">
       <button class="lang-btn" onclick="setLang('nl')">
         <span class="lg-flag">🇳🇱</span>
@@ -748,6 +758,37 @@ html,body{
         <div class="lg-name">English</div>
         <div class="lg-sub">Language: English</div>
       </button>
+    </div>
+    <p class="welcome-intro-kern" id="intro-kern">ReflectX helpt je scherper te reflecteren op je ontwikkeling als logistiek professional. Schrijf zelf - de AI vraagt door. Jij bepaalt wat je inlevert.</p>
+    <button class="welcome-meer-btn" id="meer-btn" onclick="toggleUitleg()">Meer informatie</button>
+    <div class="welcome-uitleg" id="welcome-uitleg">
+      <h4>Wat is ReflectX?</h4>
+      <ul>
+        <li>ReflectX is een hulpmiddel, geen beoordelingstool.</li>
+        <li>Je schrijft zelf een STARRT-reflectie - de AI geeft gerichte feedback op wat jij concreet schrijft.</li>
+        <li>Je kunt iedere keer andere vragen krijgen. Dat is normaal - de tool reageert op wat jij schrijft.</li>
+        <li>Het kan zijn dat een veld dat eerst groen was, daarna oranje wordt. Dat betekent niet dat je het fout deed, maar dat er een nieuwe laag zichtbaar wordt.</li>
+        <li>Door de vragen te beantwoorden wordt je reflectie concreter en dieper.</li>
+      </ul>
+      <p><strong>Jij bepaalt zelf of je reflectie goed genoeg is om in te leveren.</strong> De tool helpt je daarbij - het oordeel is aan jou.</p>
+      <h4>Wat doet de AI wel, en wat niet?</h4>
+      <ul>
+        <li>De AI leest wat jij schrijft en vraagt gericht door op wat nog ontbreekt of te dun is.</li>
+        <li>De AI schrijft nooit tekst voor jou - dat blijft jouw werk.</li>
+        <li>De AI geeft geen cijfer of oordeel, alleen gerichte vragen en korte observaties.</li>
+        <li>De AI kent jouw BUas-projecten: Blokko, IKEA-casus, stage, afstuderen.</li>
+      </ul>
+      <h4>Tips voor een goede reflectie</h4>
+      <ul>
+        <li>Schrijf over een concrete situatie, en kijk ook of je hierin een patroon herkent dat je vaker ziet bij jezelf.</li>
+        <li>Gebruik 'ik' in plaats van 'wij' - het gaat om jouw bijdrage.</li>
+        <li>Wees eerlijk, ook over wat niet goed ging - dat levert het beste inzicht en de meeste ontwikkeling op.</li>
+        <li>Beschrijf je bewijs concreet: wat laat zien dat dit echt zo ging?</li>
+        <li>Transfer is meer dan 'de volgende keer wil ik...' - noem een specifiek moment, wat je gaat doen, en een strategie voor als het tegenzit.</li>
+      </ul>
+      <h4>Vragen of problemen?</h4>
+      <p>Neem contact op met je docent of stuur een mail naar <a href="mailto:groot.b@buas.nl" style="color:var(--accent)">groot.b@buas.nl</a></p>
+      <span class="uitleg-sluit" onclick="toggleUitleg()">Sluiten</span>
     </div>
     <p class="welcome-note">BUas · Logistics Management / Engineering</p>
   </div>
@@ -892,14 +933,14 @@ const YEARS={
   nl:[
     {k:'1',name:'Jaar 1',sub:'Projecten, simulaties, cases'},
     {k:'2',name:'Jaar 2',sub:'Cases, cross-border, onderzoek'},
-    {k:'stage',name:'Stage',sub:'Jaar 3 — werkplek'},
-    {k:'afstuderen',name:'Afstuderen',sub:'Jaar 4 — eindniveau'}
+    {k:'stage',name:'Stage',sub:'Jaar 3 - werkplek'},
+    {k:'afstuderen',name:'Afstuderen',sub:'Jaar 4 - eindniveau'}
   ],
   en:[
     {k:'1',name:'Year 1',sub:'Projects, simulations, cases'},
     {k:'2',name:'Year 2',sub:'Cases, cross-border, research'},
-    {k:'stage',name:'Placement',sub:'Year 3 — workplace'},
-    {k:'afstuderen',name:'Graduation',sub:'Year 4 — final level'}
+    {k:'stage',name:'Placement',sub:'Year 3 - workplace'},
+    {k:'afstuderen',name:'Graduation',sub:'Year 4 - final level'}
   ]
 };
 
@@ -955,7 +996,7 @@ function pickPlo(k,btn){
   const def=document.getElementById('plo-def');
   const p=PLO[S.lang][k];
   def.className='plo-def-box show';
-  def.innerHTML=`<strong>${p.name}</strong> — ${p.desc}`;
+  def.innerHTML=`<strong>${p.name}</strong> - ${p.desc}`;
   document.getElementById('btn-plo-next').disabled=false;
 }
 
@@ -1022,16 +1063,16 @@ function getHints(){
   if(nl) return[
     `Beschrijf een concreet moment${adv?' op je werkplek':' dit semester'}. Noem namen, het vak of project, en leg vakjargon uit zodat een buitenstaander het begrijpt.`,
     `Wat was jóuw specifieke verantwoordelijkheid in deze situatie / gedurende dit moment? Schrijf in "ik"-vorm, niet wat de groep moest doen.`,
-    `Wat deed jij precies — en waarom die aanpak? Schrijf "ik deed X omdat Y". Niet "wij deden".`,
-    `Wat was het resultaat? En wat leerde je over jezelf — niet alleen of het goed afliep.`,
+    `Wat deed jij precies - en waarom die aanpak? Schrijf "ik deed X omdat Y". Niet "wij deden".`,
+    `Wat was het resultaat? En wat leerde je over jezelf - niet alleen of het goed afliep.`,
     `Wat neem je hiervan mee als leermoment? Wat doe je een volgende keer anders of juist hetzelfde?`,
     `Wanneer ga je dit concreet toepassen? Noem een specifiek moment en wat je dan doet.`
   ];
   return[
     `Describe a concrete moment${adv?' at your workplace':' this semester'}. Use names, explain jargon so an outsider understands.`,
     `What was YOUR specific responsibility? Write in "I" form.`,
-    `What exactly did you do — and why that approach? Write "I did X because Y". Not "we did".`,
-    `What was the result? And what did you learn about yourself — not just whether it went well.`,
+    `What exactly did you do - and why that approach? Write "I did X because Y". Not "we did".`,
+    `What was the result? And what did you learn about yourself - not just whether it went well.`,
     `What do you take away as a lesson? What would you do differently or the same next time?`,
     `When will you apply this concretely? Name a specific moment and what you will do.`
   ];
@@ -1081,8 +1122,8 @@ async function startChat(){
   const bewijsMsg=document.createElement('div');
   bewijsMsg.className='msg-bewijs';
   bewijsMsg.innerHTML=nl
-    ?'<strong>📎 Bewijs</strong>Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed — niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
-    :'<strong>📎 Evidence</strong>Which evidence do you choose for this reflection? Pick something that truly shows what you did — not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
+    ?'<strong>📎 Bewijs</strong>Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed - niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
+    :'<strong>📎 Evidence</strong>Which evidence do you choose for this reflection? Pick something that truly shows what you did - not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
   form.appendChild(bewijsMsg);
 
   document.getElementById('feedback-panel').style.display='none';
@@ -1115,7 +1156,7 @@ function ploProbes(){
   // De AI gebruikt onderstaande instructie als beslisregel:
   // 1. Bepaal welke laag ontbreekt of te dun is in de tekst van de student
   // 2. Kies maximaal 2 vragen uit die laag
-  // 3. Formuleer de vraag altijd op basis van wat de student concreet schreef — nooit generiek
+  // 3. Formuleer de vraag altijd op basis van wat de student concreet schreef - nooit generiek
   // 4. Bij jaar 2: voeg altijd één Laag-4 vraag toe als uitnodiging
   // 5. Bij jaar 3/4/stage/afstuderen: activeer Laag 4 volledig
 
@@ -1127,7 +1168,7 @@ Analyseer de tekst van de student per STARRT-veld. Bepaal voor elk veld welke la
 - Laag 3 (Wat leerde je): reflectie op zichzelf, verrassing, twijfel, wat anders
 
 Kies de vraag uit de laag die ontbreekt. Formuleer altijd op basis van wat de student concreet schreef.
-${yr2?'Voeg aan het einde van de Reflectie-feedback altijd TWEE Laag-4 vragen toe als uitnodiging: (1) "Herken je dit gedrag ook in andere situaties — of is dit de eerste keer dat je dit bij jezelf ziet?" (2) "Wat doe je nu anders dan in jaar 1 — en hoe merk je dat aan jezelf?"':''}
+${yr2?'Voeg aan het einde van de Reflectie-feedback altijd één Laag-4 vraag toe als uitnodiging: "Herken je dit gedrag ook in andere situaties - of is dit de eerste keer dat je dit bij jezelf ziet?"':''}
 ${yr3plus?'Activeer Laag 4 volledig: stel bij de Reflectie-feedback altijd minimaal één patroon- of identiteitsvraag.':''}`
     :`PROBING LOGIC:
 Analyse the student's text per STARRT field. Determine which layer is missing or too thin:
@@ -1136,93 +1177,93 @@ Analyse the student's text per STARRT field. Determine which layer is missing or
 - Layer 3 (What did you learn): reflection on self, surprise, doubt, what differently
 
 Choose the question from the missing layer. Always formulate based on what the student specifically wrote.
-${yr2?'At the end of the Reflection feedback, always add one Layer-4 question as an invitation: "Do you recognise this behaviour in other situations — or is this the first time you notice this in yourself?"':''}
+${yr2?'At the end of the Reflection feedback, always add one Layer-4 question as an invitation: "Do you recognise this behaviour in other situations - or is this the first time you notice this in yourself?"':''}
 ${yr3plus?'Activate Layer 4 fully: always include at least one pattern or identity question in the Reflection feedback.':''}`;
 
   const probes={
     analyseren:nl
-      ?`PLO ANALYSEREN — verdiepende vragen per laag:
-Laag 1 (Wat deed je): Welke stroom analyseerde je — financieel, informatie of fysiek? | Welke analysetools, methoden of technieken gebruikte je, en waarom die? | Welke data gebruikte je, en hoe betrouwbaar was die? | Wat was je vertrekpunt — een klacht, een KPI, een observatie?
+      ?`PLO ANALYSEREN - verdiepende vragen per laag:
+Laag 1 (Wat deed je): Welke stroom analyseerde je - financieel, informatie of fysiek? | Welke analysetools, methoden of technieken gebruikte je, en waarom die? | Welke data gebruikte je, en hoe betrouwbaar was die? | Wat was je vertrekpunt - een klacht, een KPI, een observatie?
 Laag 2 (Waarom zo): Waarom koos je voor deze aanpak en niet een andere? | Waar zat de bottleneck die je analyseerde, en hoe weet je dat? | Welke aannames deed je, en heb je die getoetst? | Wat deed je met informatie die tegenstrijdig of onvolledig was? | Tegen welke problemen of uitdagingen liep je aan, en wat deed je toen?
-Laag 3 (Wat leerde je): Welke inzichten leverde de analyse op, en hoe heb je die gebruikt voor verbeteringen of innovaties? | Hoe heb je de uitkomsten getoetst — bij een collega, opdrachtgever, of via een tweede methode? | Wat verraste je in de uitkomst? | Waar twijfel je aan je eigen conclusie, en waarom? | Wat zou je anders aanpakken als je opnieuw begint?`
-      :`PLO ANALYSING — probing questions per layer:
-Layer 1 (What did you do): Which flow did you analyse — financial, information or physical? | Which tools, methods or techniques did you use, and why? | Which data did you use, and how reliable was it? | What was your starting point — a complaint, a KPI, an observation?
+Laag 3 (Wat leerde je): Welke inzichten leverde de analyse op, en hoe heb je die gebruikt voor verbeteringen of innovaties? | Hoe heb je de uitkomsten getoetst - bij een collega, opdrachtgever, of via een tweede methode? | Wat verraste je in de uitkomst? | Waar twijfel je aan je eigen conclusie, en waarom? | Wat zou je anders aanpakken als je opnieuw begint?`
+      :`PLO ANALYSING - probing questions per layer:
+Layer 1 (What did you do): Which flow did you analyse - financial, information or physical? | Which tools, methods or techniques did you use, and why? | Which data did you use, and how reliable was it? | What was your starting point - a complaint, a KPI, an observation?
 Layer 2 (Why that way): Why this approach and not another? | Where was the bottleneck and how do you know? | What assumptions did you make, and did you test them? | What did you do with contradictory or incomplete information? | What problems or challenges did you encounter, and what did you do?
 Layer 3 (What did you learn): What insights did the analysis produce, and how did you use them? | How did you validate the outcomes? | What surprised you? | Where do you doubt your own conclusion? | What would you do differently?`,
 
     adviseren:nl
-      ?`PLO ADVISEREN — verdiepende vragen per laag:
-Laag 1 (Wat deed je): Wat was de kern van je advies — een verbetering, een innovatie, of beide? | Voor wie was het advies bedoeld, en wat was hun rol in de besluitvorming? | Welke informatie of analyse lag ten grondslag aan je advies? | Hoe heb je je advies gepresenteerd — mondeling, schriftelijk, of anders?
-Laag 2 (Waarom zo): Waarom dit advies en niet een alternatief — hoe heb je die keuze gemaakt? | Hoe heb je je advies onderbouwd — met data, theorie, of praktijkvoorbeelden? | Hoe ben je omgegaan met tegenwerpingen of twijfels van de ontvanger? | Welke aannames zitten in je advies, en heb je die benoemd? | Hoe heb je getoetst of er draagvlak was voor je advies?
+      ?`PLO ADVISEREN - verdiepende vragen per laag:
+Laag 1 (Wat deed je): Wat was de kern van je advies - een verbetering, een innovatie, of beide? | Voor wie was het advies bedoeld, en wat was hun rol in de besluitvorming? | Welke informatie of analyse lag ten grondslag aan je advies? | Hoe heb je je advies gepresenteerd - mondeling, schriftelijk, of anders?
+Laag 2 (Waarom zo): Waarom dit advies en niet een alternatief - hoe heb je die keuze gemaakt? | Hoe heb je je advies onderbouwd - met data, theorie, of praktijkvoorbeelden? | Hoe ben je omgegaan met tegenwerpingen of twijfels van de ontvanger? | Welke aannames zitten in je advies, en heb je die benoemd? | Hoe heb je getoetst of er draagvlak was voor je advies?
 Laag 3 (Wat leerde je): Wat was de reactie van de stakeholder, en wat zegt dat over hoe je het advies bracht? | Wat is de mogelijke impact van je advies op andere afdelingen of bedrijven in de supply chain? | Waar was je onzeker tijdens het adviseren, en hoe ben je daarmee omgegaan? | Wat zou je in je advies aanpassen met de kennis en ervaring van nu? | Wat leerde je over het verschil tussen een goed onderbouwd advies en een advies dat ook écht landt?`
-      :`PLO ADVISING — probing questions per layer:
-Layer 1 (What did you do): What was the core of your advice — improvement, innovation, or both? | Who was the advice for, and what was their role in decision-making? | What information or analysis underpinned your advice? | How did you present your advice?
-Layer 2 (Why that way): Why this advice and not an alternative? | How did you substantiate your advice — data, theory, or practice? | How did you handle objections or doubts? | What assumptions are in your advice, and did you name them? | How did you test whether there was support for your advice?
+      :`PLO ADVISING - probing questions per layer:
+Layer 1 (What did you do): What was the core of your advice - improvement, innovation, or both? | Who was the advice for, and what was their role in decision-making? | What information or analysis underpinned your advice? | How did you present your advice?
+Layer 2 (Why that way): Why this advice and not an alternative? | How did you substantiate your advice - data, theory, or practice? | How did you handle objections or doubts? | What assumptions are in your advice, and did you name them? | How did you test whether there was support for your advice?
 Layer 3 (What did you learn): What was the stakeholder reaction, and what does that say about how you presented? | What is the potential impact on other departments or supply chain partners? | Where were you uncertain, and how did you handle that? | What would you change with the knowledge you have now? | What did you learn about the difference between a well-substantiated and a well-landing advice?`,
 
     managen:nl
-      ?`PLO MANAGEN — verdiepende vragen per laag:
+      ?`PLO MANAGEN - verdiepende vragen per laag:
 Laag 1 (Wat deed je): Wat was jouw specifieke bijdrage/rol in het project? | Wat was het beoogde resultaat, en wie had daar belang bij? | Welke projectmanagementtechniek heb je gebruikt, en waarom die keuze? | Hoe hield je overzicht over voortgang, taken en tijd?
-Laag 2 (Waarom zo): Waar ben je afgeweken van je plan — inhoudelijk of in planning — en waarom? | Welke aanpassingen heb je gedaan in je projectplan of planning, en wat was de aanleiding? | Hoe heb je beslissingen genomen onder tijdsdruk of bij onvolledige informatie? | Hoe zorgde je ervoor dat iedereen in het team een bijdrage leverde? | Welke risico's had je vooraf geïdentificeerd, en welke had je niet zien aankomen?
-Laag 3 (Wat leerde je): Waaruit blijkt dat je het beoogde resultaat hebt gehaald? Of waarom heb je het doel niet gehaald? | Wat waren de lastigste momenten, en hoe ben je daarmee omgegaan? | Geef een voorbeeld van een compliment of kritische feedback die jij hebt gegeven — wat was het effect? | Wat is de impact van jouw aanpak op het team of de andere betrokkenen? | Wat zou je anders doen met de kennis en ervaring van nu?`
-      :`PLO MANAGING — probing questions per layer:
+Laag 2 (Waarom zo): Waar ben je afgeweken van je plan - inhoudelijk of in planning - en waarom? | Welke aanpassingen heb je gedaan in je projectplan of planning, en wat was de aanleiding? | Hoe heb je beslissingen genomen onder tijdsdruk of bij onvolledige informatie? | Hoe zorgde je ervoor dat iedereen in het team een bijdrage leverde? | Welke risico's had je vooraf geïdentificeerd, en welke had je niet zien aankomen?
+Laag 3 (Wat leerde je): Waaruit blijkt dat je het beoogde resultaat hebt gehaald? Of waarom heb je het doel niet gehaald? | Wat waren de lastigste momenten, en hoe ben je daarmee omgegaan? | Geef een voorbeeld van een compliment of kritische feedback die jij hebt gegeven - wat was het effect? | Wat is de impact van jouw aanpak op het team of de andere betrokkenen? | Wat zou je anders doen met de kennis en ervaring van nu?`
+      :`PLO MANAGING - probing questions per layer:
 Layer 1 (What did you do): What was your specific contribution/role in the project? | What was the intended result, and who had a stake in it? | Which project management technique did you use, and why? | How did you keep overview of progress, tasks and time?
 Layer 2 (Why that way): Where did you deviate from your plan and why? | What adjustments did you make to the project plan or schedule? | How did you make decisions under time pressure or with incomplete information? | How did you ensure everyone contributed? | Which risks did you identify upfront, and which did you miss?
-Layer 3 (What did you learn): What shows you achieved the intended result? Or why did you not reach the goal? | What were the hardest moments, and how did you handle them? | Give an example of a compliment or critical feedback you gave — what was the effect? | What is the impact of your approach on the team?`,
+Layer 3 (What did you learn): What shows you achieved the intended result? Or why did you not reach the goal? | What were the hardest moments, and how did you handle them? | Give an example of a compliment or critical feedback you gave - what was the effect? | What is the impact of your approach on the team?`,
 
     ontwerpen:nl
-      ?`PLO ONTWERPEN — verdiepende vragen per laag:
-Laag 1 (Wat deed je): Wat was het vertrekpunt — een probleem, een kans, of een opdracht? | Wat heb je precies ontworpen — een proces, een product, een systeem, of een combinatie? | Welke ontwerptools of methoden heb je gebruikt, en waarom? | Hoe zag je ontwerpproces eruit — stap voor stap?
-Laag 2 (Waarom zo): Welke alternatieven heb je overwogen, en hoe heb je de keuze gemaakt? | Aan welke eisen of randvoorwaarden moest je ontwerp voldoen? | Hoe draagt dit ontwerp bij aan het beoogde doel? | Hoe leg je de link tussen je onderzoek, je analyse en het uiteindelijke ontwerp? | Hoe heb je getoetst of je ontwerp haalbaar is — technisch, financieel, organisatorisch? | Waar ben je tijdens het ontwerpen vastgelopen, en hoe heb je dat opgelost? | Welke aannames zitten in je ontwerp, en heb je die gevalideerd?
-Laag 3 (Wat leerde je): Wat verandert er concreet door jouw ontwerp — voor het proces, de organisatie, of de keten? | Wat is de mogelijke impact op andere afdelingen of schakels in de supply chain? | Waar twijfel je aan je eigen ontwerp, en waarom? | Wat zou je anders aanpakken met de kennis en ervaring van nu? | Wat leerde je over het verschil tussen een ontwerp dat klopt op papier en een ontwerp dat werkt in de praktijk?`
-      :`PLO DESIGNING — probing questions per layer:
-Layer 1 (What did you do): What was the starting point — a problem, an opportunity, or an assignment? | What exactly did you design — a process, product, system, or combination? | Which design tools or methods did you use, and why? | How did your design process unfold step by step?
-Layer 2 (Why that way): Which alternatives did you consider, and how did you make the choice? | What requirements or constraints did your design need to meet? | How does this design contribute to the intended goal? | How do you link your research, analysis and final design? | How did you test feasibility — technically, financially, organisationally? | Where did you get stuck, and how did you solve it?
+      ?`PLO ONTWERPEN - verdiepende vragen per laag:
+Laag 1 (Wat deed je): Wat was het vertrekpunt - een probleem, een kans, of een opdracht? | Wat heb je precies ontworpen - een proces, een product, een systeem, of een combinatie? | Welke ontwerptools of methoden heb je gebruikt, en waarom? | Hoe zag je ontwerpproces eruit - stap voor stap?
+Laag 2 (Waarom zo): Welke alternatieven heb je overwogen, en hoe heb je de keuze gemaakt? | Aan welke eisen of randvoorwaarden moest je ontwerp voldoen? | Hoe draagt dit ontwerp bij aan het beoogde doel? | Hoe leg je de link tussen je onderzoek, je analyse en het uiteindelijke ontwerp? | Hoe heb je getoetst of je ontwerp haalbaar is - technisch, financieel, organisatorisch? | Waar ben je tijdens het ontwerpen vastgelopen, en hoe heb je dat opgelost? | Welke aannames zitten in je ontwerp, en heb je die gevalideerd?
+Laag 3 (Wat leerde je): Wat verandert er concreet door jouw ontwerp - voor het proces, de organisatie, of de keten? | Wat is de mogelijke impact op andere afdelingen of schakels in de supply chain? | Waar twijfel je aan je eigen ontwerp, en waarom? | Wat zou je anders aanpakken met de kennis en ervaring van nu? | Wat leerde je over het verschil tussen een ontwerp dat klopt op papier en een ontwerp dat werkt in de praktijk?`
+      :`PLO DESIGNING - probing questions per layer:
+Layer 1 (What did you do): What was the starting point - a problem, an opportunity, or an assignment? | What exactly did you design - a process, product, system, or combination? | Which design tools or methods did you use, and why? | How did your design process unfold step by step?
+Layer 2 (Why that way): Which alternatives did you consider, and how did you make the choice? | What requirements or constraints did your design need to meet? | How does this design contribute to the intended goal? | How do you link your research, analysis and final design? | How did you test feasibility - technically, financially, organisationally? | Where did you get stuck, and how did you solve it?
 Layer 3 (What did you learn): What changes concretely through your design? | What is the potential impact on other departments or supply chain links? | Where do you doubt your own design? | What would you do differently? | What did you learn about the difference between a design that works on paper and one that works in practice?`,
 
     onderzoeken:nl
-      ?`PLO ONDERZOEKEN — verdiepende vragen per laag:
-Laag 1 (Wat deed je): Wat was je onderzoeksvraag of -doel, en hoe ben je daarop gekomen? | Welke onderzoeksmethoden heb je gebruikt, en waarop heb je die keuze gebaseerd? | Welke theorieën en data heb je gebruikt in je onderzoek? | Welke bronnen heb je gebruikt, en hoe heb je die geselecteerd? | Hoe heb je je onderzoek afgebakend — wat viel buiten scope en waarom?
+      ?`PLO ONDERZOEKEN - verdiepende vragen per laag:
+Laag 1 (Wat deed je): Wat was je onderzoeksvraag of -doel, en hoe ben je daarop gekomen? | Welke onderzoeksmethoden heb je gebruikt, en waarop heb je die keuze gebaseerd? | Welke theorieën en data heb je gebruikt in je onderzoek? | Welke bronnen heb je gebruikt, en hoe heb je die geselecteerd? | Hoe heb je je onderzoek afgebakend - wat viel buiten scope en waarom?
 Laag 2 (Waarom zo): Waarom koos je voor deze onderzoeksmethoden en niet andere? | Hoe ben je omgegaan met tegenstrijdige of onbetrouwbare informatie? | Hoe kun je de betrouwbaarheid en validiteit van je onderzoek aantonen? | Welke aanpassingen heb je gaandeweg het onderzoek gedaan, en waarom? | Welke verbinding heb je gelegd met duurzaamheid, internationalisering of technologie? | Welke aannames liggen onder je onderzoek, en heb je die geëxpliciteerd?
-Laag 3 (Wat leerde je): Welke conclusies trok je, en hoe onderbouw je die met je bevindingen? | Waar twijfel je aan je eigen conclusie, en waarom? | Wat is de bredere betekenis van je bevindingen — voor de organisatie, de keten, of de sector? | Wat zou je anders aanpakken met de kennis en ervaring van nu? | Wat leerde je over het verschil tussen informatie verzamelen en echt onderzoeken?`
-      :`PLO RESEARCHING — probing questions per layer:
+Laag 3 (Wat leerde je): Welke conclusies trok je, en hoe onderbouw je die met je bevindingen? | Waar twijfel je aan je eigen conclusie, en waarom? | Wat is de bredere betekenis van je bevindingen - voor de organisatie, de keten, of de sector? | Wat zou je anders aanpakken met de kennis en ervaring van nu? | Wat leerde je over het verschil tussen informatie verzamelen en echt onderzoeken?`
+      :`PLO RESEARCHING - probing questions per layer:
 Layer 1 (What did you do): What was your research question or goal, and how did you arrive at it? | Which research methods did you use, and what was the basis for that choice? | Which theories and data did you use? | Which sources did you use, and how did you select them? | How did you scope your research?
 Layer 2 (Why that way): Why these methods and not others? | How did you handle contradictory or unreliable information? | How can you demonstrate the reliability and validity of your research? | What adjustments did you make along the way? | What connection did you make with sustainability, internationalisation or technology?
 Layer 3 (What did you learn): What conclusions did you draw, and how do your findings support them? | Where do you doubt your own conclusion? | What is the broader significance of your findings? | What would you do differently? | What did you learn about the difference between collecting information and truly researching?`,
 
     implementeren:nl
-      ?`PLO IMPLEMENTEREN — verdiepende vragen per laag:
+      ?`PLO IMPLEMENTEREN - verdiepende vragen per laag:
 Let op: sommige vragen zijn conditioneel. Kies 'Bij een plan' als student een implementatieplan beschrijft (gebruikelijk t/m jaar 3). Kies 'Bij uitvoering' als student daadwerkelijke implementatie beschrijft (gebruikelijk bij stage/afstuderen).
-Laag 1 (Wat deed je): Wat heb je gedaan — een implementatieplan gemaakt, iets daadwerkelijk ingevoerd, of beide? | Wat was jouw specifieke rol en bijdrage? | Welke stappen heb je gezet om de implementatie of het plan voor te bereiden? | Welke tools, methoden of technieken heb je gebruikt?
-Laag 2 (Waarom zo): Hoe lost je implementatieplan of implementatie het eerdere probleem op, of speelt het in op de uitdaging of kans? | [Bij een plan] Hoe heb je bepaald welke stappen nodig zijn, in welke volgorde, en waarom? | [Bij een plan] Welke risico's en weerstanden heb je voorzien, en hoe speel je daarop in? | [Bij uitvoering] Wat ging anders dan gepland, en hoe heb je bijgestuurd? | [Bij uitvoering] Welke weerstand kwam je tegen, en hoe ben je daarmee omgegaan? | Hoe heb je mensen betrokken — collega's, opdrachtgever, of andere betrokkenen?
-Laag 3 (Wat leerde je): [Bij een plan] Hoe realistisch is je plan — wat maakt het haalbaar, en waar zit de kwetsbaarheid? | [Bij uitvoering] Waaruit blijkt dat de implementatie succesvol was — of waarom niet? | Wat is de impact op de organisatie of de supply chain? | Wat waren de lastigste momenten of keuzes, en hoe ben je daarmee omgegaan? | Wat zou je anders aanpakken met de kennis en ervaring van nu?`
-      :`PLO IMPLEMENTING — probing questions per layer:
+Laag 1 (Wat deed je): Wat heb je gedaan - een implementatieplan gemaakt, iets daadwerkelijk ingevoerd, of beide? | Wat was jouw specifieke rol en bijdrage? | Welke stappen heb je gezet om de implementatie of het plan voor te bereiden? | Welke tools, methoden of technieken heb je gebruikt?
+Laag 2 (Waarom zo): Hoe lost je implementatieplan of implementatie het eerdere probleem op, of speelt het in op de uitdaging of kans? | [Bij een plan] Hoe heb je bepaald welke stappen nodig zijn, in welke volgorde, en waarom? | [Bij een plan] Welke risico's en weerstanden heb je voorzien, en hoe speel je daarop in? | [Bij uitvoering] Wat ging anders dan gepland, en hoe heb je bijgestuurd? | [Bij uitvoering] Welke weerstand kwam je tegen, en hoe ben je daarmee omgegaan? | Hoe heb je mensen betrokken - collega's, opdrachtgever, of andere betrokkenen?
+Laag 3 (Wat leerde je): [Bij een plan] Hoe realistisch is je plan - wat maakt het haalbaar, en waar zit de kwetsbaarheid? | [Bij uitvoering] Waaruit blijkt dat de implementatie succesvol was - of waarom niet? | Wat is de impact op de organisatie of de supply chain? | Wat waren de lastigste momenten of keuzes, en hoe ben je daarmee omgegaan? | Wat zou je anders aanpakken met de kennis en ervaring van nu?`
+      :`PLO IMPLEMENTING - probing questions per layer:
 Note: some questions are conditional. Choose 'For a plan' if student describes an implementation plan (common up to year 3). Choose 'For execution' if student describes actual implementation (common for placement/graduation).
-Layer 1 (What did you do): What did you do — create an implementation plan, actually implement something, or both? | What was your specific role and contribution? | Which steps did you take to prepare? | Which tools, methods or techniques did you use?
+Layer 1 (What did you do): What did you do - create an implementation plan, actually implement something, or both? | What was your specific role and contribution? | Which steps did you take to prepare? | Which tools, methods or techniques did you use?
 Layer 2 (Why that way): How does your plan or implementation solve the earlier problem, or respond to the challenge or opportunity? | [For a plan] How did you determine which steps are needed, in what order? | [For a plan] Which risks and resistance did you anticipate, and how? | [For execution] What went differently than planned, and how did you adjust? | [For execution] What resistance did you encounter? | How did you involve people?
-Layer 3 (What did you learn): [For a plan] How realistic is your plan — what makes it feasible, and where is it vulnerable? | [For execution] What shows the implementation was successful — or why not? | What is the impact on the organisation or supply chain? | What were the hardest moments? | What would you do differently?`,
+Layer 3 (What did you learn): [For a plan] How realistic is your plan - what makes it feasible, and where is it vulnerable? | [For execution] What shows the implementation was successful - or why not? | What is the impact on the organisation or supply chain? | What were the hardest moments? | What would you do differently?`,
 
     ontwikkelen:nl
-      ?`PLO ONTWIKKELEN — verdiepende vragen per laag:
-Laag 1 (Wat deed je): Welke concrete situaties of ervaringen hebben bijgedragen aan jouw ontwikkeling? | Wat deed je anders dan je gewend was — en wat waren de aanleidingen daarvoor? | Welke feedback heb je ontvangen, van wie, en wat deed je daarmee? | Welke bijeenkomsten, vakken of inzichten hebben jou geïnspireerd of uitgedaagd, en hoe? | Welke trends in de logistieke sector hebben jou geïnspireerd of uitgedaagd, en hoe reageerde je daarop?
-Laag 2 (Waarom zo): Waarom koos je ervoor om het op deze manieren aan te pakken? | Wat kostte je de meeste moeite, en wat zeggen die dingen over jou? | Hoe heb je jezelf bijgestuurd toen dingen niet gingen zoals je wilde? | Welke keuzes heb je bewust gemaakt in je eigen ontwikkeling — en waarom die? | Hoe verbind je wat je hebt geleerd aan je beeld van jezelf als logistiek professional?
-Laag 3 (Wat leerde je): Waar ben je trots op — en waar baal je van? | Waar merkte je concrete groei — niet wat je deed, maar wat dat zegt over wie je bent? | Waar loop je nog tegenaan, en wat heb je nodig om daar verder in te groeien? | Hoe passen de ervaringen die je hier beschrijft in het bredere beeld van jouw ontwikkeling over dit semester? | Wat neem je concreet mee naar de volgende fasen van je studie of loopbaan?`
-      :`PLO DEVELOPING — probing questions per layer:
-Layer 1 (What did you do): Which concrete situations or experiences contributed to your development? | What did you do differently than usual — and what triggered that? | What feedback did you receive, from whom, and what did you do with it? | Which meetings, courses or insights inspired or challenged you, and how? | Which logistics sector trends inspired or challenged you, and how did you respond?
-Layer 2 (Why that way): Why did you choose to approach things this way? | What cost you the most effort, and what does that say about you? | How did you adjust when things didn't go as planned? | What conscious choices did you make in your own development — and why? | How do you connect what you learned to your image of yourself as a logistics professional?
-Layer 3 (What did you learn): What are you proud of — and what disappoints you? | Where did you notice concrete growth — not what you did, but what it says about who you are? | Where do you still struggle, and what do you need to grow further? | How do the experiences you describe fit the broader picture of your development this semester? | What do you take with you to the next phases of your studies or career?`
+      ?`PLO ONTWIKKELEN - verdiepende vragen per laag:
+Laag 1 (Wat deed je): Welke concrete situaties of ervaringen hebben bijgedragen aan jouw ontwikkeling? | Wat deed je anders dan je gewend was - en wat waren de aanleidingen daarvoor? | Welke feedback heb je ontvangen, van wie, en wat deed je daarmee? | Welke bijeenkomsten, vakken of inzichten hebben jou geïnspireerd of uitgedaagd, en hoe? | Welke trends in de logistieke sector hebben jou geïnspireerd of uitgedaagd, en hoe reageerde je daarop?
+Laag 2 (Waarom zo): Waarom koos je ervoor om het op deze manieren aan te pakken? | Wat kostte je de meeste moeite, en wat zeggen die dingen over jou? | Hoe heb je jezelf bijgestuurd toen dingen niet gingen zoals je wilde? | Welke keuzes heb je bewust gemaakt in je eigen ontwikkeling - en waarom die? | Hoe verbind je wat je hebt geleerd aan je beeld van jezelf als logistiek professional?
+Laag 3 (Wat leerde je): Waar ben je trots op - en waar baal je van? | Waar merkte je concrete groei - niet wat je deed, maar wat dat zegt over wie je bent? | Waar loop je nog tegenaan, en wat heb je nodig om daar verder in te groeien? | Hoe passen de ervaringen die je hier beschrijft in het bredere beeld van jouw ontwikkeling over dit semester? | Wat neem je concreet mee naar de volgende fasen van je studie of loopbaan?`
+      :`PLO DEVELOPING - probing questions per layer:
+Layer 1 (What did you do): Which concrete situations or experiences contributed to your development? | What did you do differently than usual - and what triggered that? | What feedback did you receive, from whom, and what did you do with it? | Which meetings, courses or insights inspired or challenged you, and how? | Which logistics sector trends inspired or challenged you, and how did you respond?
+Layer 2 (Why that way): Why did you choose to approach things this way? | What cost you the most effort, and what does that say about you? | How did you adjust when things didn't go as planned? | What conscious choices did you make in your own development - and why? | How do you connect what you learned to your image of yourself as a logistics professional?
+Layer 3 (What did you learn): What are you proud of - and what disappoints you? | Where did you notice concrete growth - not what you did, but what it says about who you are? | Where do you still struggle, and what do you need to grow further? | How do the experiences you describe fit the broader picture of your development this semester? | What do you take with you to the next phases of your studies or career?`
   };
 
-  // ── LAAG 4 — PATROON & PROFESSIONELE IDENTITEIT ──
+  // ── LAAG 4 - PATROON & PROFESSIONELE IDENTITEIT ──
   const laag4=nl
-    ?`LAAG 4 — PATROON & PROFESSIONELE IDENTITEIT (${yr2?'één vraag als uitnodiging bij Reflectie':'volledig actief bij Reflectie'}):
-Patroonherkenning: Herken je dit gedrag of deze aanpak in andere situaties — of is dit de eerste keer dat je dit bij jezelf ziet? | Welke patronen zie je in de manier waarop jij problemen aanpakt of beslissingen neemt? | Zijn er situaties waarin je bewust anders hebt gehandeld dan je gewend bent — wat bracht je daartoe?
-Koppeling aan PLO-ontwikkeling: Hoe heeft jouw aanpak bij deze PLO zich ontwikkeld ten opzichte van eerdere semesters? | Waar zie je groei over meerdere situaties heen — niet alleen in dit ene geval?
-Professionele identiteit: Wat vind jij écht belangrijk in hoe je werkt? Geef een concreet voorbeeld waaruit dat blijkt. | Wat voor logistiek professional ben jij aan het worden — en klopt dat met wat je wilt? | Waar wil je over twee jaar staan, en wat laat deze reflectie zien over de afstand die je nog moet overbruggen?`
-    :`LAYER 4 — PATTERN & PROFESSIONAL IDENTITY (${yr2?'one question as invitation at Reflection':'fully active at Reflection'}):
-Pattern recognition: Do you recognise this behaviour or approach in other situations — or is this the first time you notice this in yourself? | Which patterns do you see in how you approach problems or make decisions? | Are there situations where you consciously acted differently than usual — what triggered that?
-PLO development link: How has your approach to this PLO developed compared to earlier semesters? | Where do you see growth across multiple situations — not just this one?
-Professional identity: What do you truly find important in how you work? Give a concrete example. | What kind of logistics professional are you becoming — and does that match what you want? | Where do you want to be in two years, and what does this reflection show about the gap?`;
+    ?`LAAG 4 - PATROON & PROFESSIONELE IDENTITEIT (${yr2?'één vraag als uitnodiging bij Reflectie':'volledig actief bij Reflectie'}):
+Patroonherkenning: Herken je dit gedrag of deze aanpak in andere situaties - of is dit de eerste keer dat je dit bij jezelf ziet? | Welke patronen zie je in de manier waarop jij problemen aanpakt of beslissingen neemt? | Zijn er situaties waarin je bewust anders hebt gehandeld dan je gewend bent - wat bracht je daartoe?
+Koppeling aan PLO-ontwikkeling: Hoe heeft jouw aanpak bij deze PLO zich ontwikkeld ten opzichte van eerdere semesters? | Waar zie je groei over meerdere situaties heen - niet alleen in dit ene geval?
+Professionele identiteit: Wat vind jij écht belangrijk in hoe je werkt? Geef een concreet voorbeeld waaruit dat blijkt. | Wat voor logistiek professional ben jij aan het worden - en klopt dat met wat je wilt? | Waar wil je over twee jaar staan, en wat laat deze reflectie zien over de afstand die je nog moet overbruggen?`
+    :`LAYER 4 - PATTERN & PROFESSIONAL IDENTITY (${yr2?'one question as invitation at Reflection':'fully active at Reflection'}):
+Pattern recognition: Do you recognise this behaviour or approach in other situations - or is this the first time you notice this in yourself? | Which patterns do you see in how you approach problems or make decisions? | Are there situations where you consciously acted differently than usual - what triggered that?
+PLO development link: How has your approach to this PLO developed compared to earlier semesters? | Where do you see growth across multiple situations - not just this one?
+Professional identity: What do you truly find important in how you work? Give a concrete example. | What kind of logistics professional are you becoming - and does that match what you want? | Where do you want to be in two years, and what does this reflection show about the gap?`;
 
   return logica + '\n\n' + (probes[S.plo]||'') + (yr2||yr3plus ? '\n\n' + laag4 : '');
 }
@@ -1249,35 +1290,34 @@ async function getFeedback(){
   const adv=S.year==='stage'||S.year==='afstuderen';
   const yr1=S.year==='1';
 
-  const system=`You are a STARRT reflection coach for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY. CRITICAL: You MUST respond exclusively in ${nl?'Dutch (Nederlands)':'English'}. Every word of your feedback must be in ${nl?'Dutch':'English'}. Do not mix languages under any circumstance.
-Student: ${nl?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]:{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year]} | PLO: ${plo.name} — ${plo.desc}
+  const system=`You are a STARRT reflection coach for HBO Logistics students (BUas). Language: ${nl?'Dutch':'English'} ONLY.
+Student: ${nl?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]:{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year]} | PLO: ${plo.name} - ${plo.desc}
 Relevant jargon: ${jargon()}
 
 TASK: Give feedback on all 6 STARRT fields. For each field:
 - If the field meets the criteria: write ✓ and one neutral sentence confirming what works
 - If the field needs improvement: write → and max 2 numbered questions asking for what's missing
 
-CONCRETE QUESTIONS — CRITICAL:
+CONCRETE QUESTIONS - CRITICAL:
 When asking questions, always use the specific content the student wrote. Never ask generic questions.
-- If student mentions Blokko: ask about their specific role, gamedag, their decisions — not "describe your situation"
+- If student mentions Blokko: ask about their specific role, gamedag, their decisions - not "describe your situation"
 - If student mentions a specific tool (Excel, Signavio, ERP): ask what they did with it specifically
 - If student mentions a person (Kiki, Rutger, etc.): use that name in your question
 - If student mentions a result: ask what they specifically did to achieve it
-- Bad: "Wat was jouw specifieke actie?" Good: "Je noemt dat je een inkoopplanning maakte — welke keuzes maakte jij daarin en waarom?"
-- Bad: "Beschrijf de situatie concreter." Good: "Je noemt Blokko maar niet welke rol jij had — was je inkoop, productie of transport?"
+- Bad: "Wat was jouw specifieke actie?" Good: "Je noemt dat je een inkoopplanning maakte - welke keuzes maakte jij daarin en waarom?"
+- Bad: "Beschrijf de situatie concreter." Good: "Je noemt Blokko maar niet welke rol jij had - was je inkoop, productie of transport?"
 
-NEUTRAL ACKNOWLEDGEMENTS ONLY: "Helder.", "Duidelijk.", "Oké.", "Clear.", "Got it." — nothing more positive than this.
-NEVER use evaluative phrases like "Je beschrijft de basis goed", "Je hebt dit goed opgepakt", "Good start", "Well done", "This is solid" or any sentence that judges the quality of the student's work positively. Not in field feedback, not in summary sentences. Neutral only.
+NEUTRAL ACKNOWLEDGEMENTS ONLY: "Helder.", "Duidelijk.", "Oké.", "Clear.", "Got it." - nothing more positive than this.
 
 TONE: Direct, practical, never therapeutic. Never analyse the student's personality. Never write text for the student.
 
 CRITERIA per field:
 S (Situatie/Situation): Concrete moment + names with context + jargon explained for outsider${adv?'+ workplace context':''}
-T (Taak/Task): Own responsibility in "ik/I" form — not just formal role${adv?'+ linked to professional challenge':''}
+T (Taak/Task): Own responsibility in "ik/I" form - not just formal role${adv?'+ linked to professional challenge':''}
 A (Actie/Action): Concrete actions + "ik/I" not "wij/we" + reasoning for choice + considered alternative${adv?'+ tools/methods mentioned if relevant':''}
 R (Resultaat/Result): What student learned about THEMSELVES + honest improvement point${yr1?'(one lesson enough for year 1)':''} + external feedback or result
 R (Reflectie/Reflection): ${yr1?'One concrete lesson + improvement point (pattern optional)':'Pattern across situations + underlying mechanism'}
-T (Transfer): ONLY green if student names ALL THREE: (1) specific upcoming moment/situation, (2) concrete action they will take, (3) strategy for when it gets difficult. Vague intentions like 'next time I will...' or 'I want to...' are NEVER green — always needs_work with questions: Wat ga je concreet doen? Wanneer precies? Hoe ga je om met tegenslag?
+T (Transfer): Specific upcoming moment + concrete action + strategy for when difficult
 
 BUAS PROJECTS (ask targeted questions when student mentions these):
 Jaar1: Getting Started(SCM-basis,IKEA-advies), Blokko/ESCM1(simulatie eigen fabriek,rollen:CEO/inkoop/productie/warehouse/transport/sales), Blokko/ESCM2(strategie,S&OP,businessplan), Modelling&Planning(BPMN,MRP,ERP/Odoo), Material Logistics Basics(transport,warehousing,WMS), Service Logistics(dienstenlogistiek,customer journey), Material Logistics Improvement(voorraadbeheer,DC-locatie,warehouse ontwerp), CIR1(werkervaringsopdracht)
@@ -1285,13 +1325,13 @@ Jaar2: Operations Management(TOC,Lean,Excel Solver), Information Management(ERP 
 Jaar3: Stage(18wk,beroepsproduct+competentieportfolio,2 SMART-ontwikkelpunten,mondeling assessment), Challenge1+2(Design Thinking,internationale groep), Deep Dive(exploratief onderzoek), DSS-LGE(Flexsim,routeplanning), SC Execution-LGM(ROI-analyses,simulatiegame)
 Jaar4: Afstuderen(17wk,beroepsproduct+productverslag+reflectie,verdediging 30min)
 
-THEORY CHECK: If student does not mention theory, knowledge or skills developed during their studies that they applied, ask: "Je noemt geen theorie, kennis of ontwikkelde vaardigheden uit je studie die je hebt toegepast — welke heb je gebruikt in deze situatie?"
+THEORY CHECK: If student does not mention theory, knowledge or skills developed during their studies that they applied, ask: "Je noemt geen theorie, kennis of ontwikkelde vaardigheden uit je studie die je hebt toegepast - welke heb je gebruikt in deze situatie?"
 
 PLO-SPECIFIC PROBES: ${ploProbes()}
 
 CRITICAL: You MUST respond with ONLY valid JSON. No text before or after the JSON. No markdown. No questions outside the JSON structure. All feedback and questions go INSIDE the "feedback" field of the JSON.
 
-RESPOND WITH EXACTLY THIS JSON — nothing else:
+RESPOND WITH EXACTLY THIS JSON - nothing else:
 {"fields":[{"letter":"S","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"T","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"A","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"R1","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"R2","status":"ok|needs_work","feedback":"your feedback here"},{"letter":"T2","status":"ok|needs_work","feedback":"your feedback here"}],"summary":"one sentence in ${nl?'Dutch':'English'}"}`;
 
   const userMsg=steps.map((step,i)=>`${letters[i]}. ${step}:\n${values[i]}`).join('\n\n');
@@ -1356,7 +1396,7 @@ function renderFeedback(parsed,raw,values){
         wrap.style.borderColor='var(--green)';
         fb.style.background='var(--green-soft)';
         fb.style.color='var(--green)';
-        fb.innerHTML=f.feedback;
+        fb.innerHTML=`<strong>✓</strong> ${f.feedback}`;
       } else {
         wrap.style.borderColor='var(--orange)';
         fb.style.background='var(--orange-soft)';
@@ -1386,7 +1426,7 @@ function renderFeedback(parsed,raw,values){
   if(parsed&&parsed.summary){
     title.textContent=parsed.summary;
   } else {
-    title.textContent=nl?`Ronde ${S.round} — zie feedback per veld`:`Round ${S.round} — see feedback per field`;
+    title.textContent=nl?`Ronde ${S.round} - zie feedback per veld`:`Round ${S.round} - see feedback per field`;
   }
 
   const finishBtn=document.getElementById('btn-finish');
@@ -1417,12 +1457,18 @@ function finishReflection(){
 
   showScreen('s-done');
   document.getElementById('done-badge').textContent=nl?'✓ Reflectie voltooid':'✓ Reflection complete';
-  document.getElementById('done-title').textContent=nl?`${plo.name} — afgerond.`:`${plo.name} — complete.`;
+  document.getElementById('done-title').textContent=nl?`${plo.name} - afgerond.`:`${plo.name} - complete.`;
   document.getElementById('done-sub').textContent=nl
     ?'Klaar? Voordat je afrondt: is dit jouw reflectie? Laat het zien wie je bent, wat jij weet, kunt en hoe jij je ontwikkelt. De tool helpt, jij bent verantwoordelijk voor wat je inlevert.'
-    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps — you are responsible for what you hand in.';
+    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps - you are responsible for what you hand in.';
   document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
   document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
+  const introKern=document.getElementById('intro-kern');
+  if(introKern) introKern.textContent=nl
+    ?'ReflectX helpt je scherper te reflecteren op je ontwikkeling als logistiek professional. Schrijf zelf - de AI vraagt door. Jij bepaalt wat je inlevert.'
+    :'ReflectX helps you reflect more sharply on your development as a logistics professional. You write - the AI asks follow-up questions. You decide what you hand in.';
+  const meerBtn=document.getElementById('meer-btn');
+  if(meerBtn) meerBtn.textContent=nl?'Meer informatie':'More information';
   document.getElementById('btn-download-word').textContent=nl?'⬇ Download Word':'⬇ Download Word';
 
   const wrap=document.getElementById('structure-wrap');
@@ -1483,16 +1529,16 @@ function downloadWord(){
   });
 
   const bewijsText=nl
-    ?'Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed — niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
-    :'Which evidence do you choose for this reflection? Pick something that truly shows what you did — not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
+    ?'Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed - niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
+    :'Which evidence do you choose for this reflection? Pick something that truly shows what you did - not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
   const eigenText=nl
     ?'Klaar? Voordat je afrondt: is dit jouw reflectie? Laat het zien wie je bent, wat jij weet, kunt en hoe jij je ontwikkelt. De tool helpt, jij bent verantwoordelijk voor wat je inlevert.'
-    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps — you are responsible for what you hand in.';
+    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps - you are responsible for what you hand in.';
 
   const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 <head><meta charset="utf-8"><title>ReflectX</title></head>
 <body style="font-family:Calibri,sans-serif;font-size:11pt;margin:2cm">
-  <h2 style="color:#1a1a2e">ReflectX — STARRT Reflectie</h2>
+  <h2 style="color:#1a1a2e">ReflectX - STARRT Reflectie</h2>
   <p><strong>${nl?'Leeruitkomst':'Learning Outcome'}:</strong> ${plo.name}<br>
   <strong>${nl?'Context':'Context'}:</strong> ${yearLabel}</p>
   <hr style="border:1px solid #ccc">
@@ -1512,6 +1558,19 @@ function downloadWord(){
   a.download=`ReflectX_${plo.name.replace(/\s+/g,'_')}_${yearLabel}.doc`;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+function toggleUitleg(){
+  const uitleg=document.getElementById('welcome-uitleg');
+  const btn=document.getElementById('meer-btn');
+  const nl=document.documentElement.lang!=='en';
+  if(uitleg.classList.contains('open')){
+    uitleg.classList.remove('open');
+    btn.textContent=nl?'Meer informatie':'More information';
+  } else {
+    uitleg.classList.add('open');
+    btn.textContent=nl?'Sluiten':'Close';
+  }
 }
 
 function showScreen(id){
