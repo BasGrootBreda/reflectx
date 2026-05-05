@@ -1110,9 +1110,10 @@ async function startChat(){
         <textarea
           id="ta-${i}"
           placeholder="${nl?'Schrijf hier...':'Write here...'}"
-          style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:80px;outline:none;transition:border-color .15s"
+          style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:none;min-height:80px;overflow:hidden;outline:none;transition:border-color .15s"
           onfocus="this.style.borderColor='var(--ink2)'"
           onblur="this.style.borderColor='var(--line)'"
+          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
         ></textarea>
         <div id="fb-${i}" style="display:none;margin-top:8px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.6"></div>
       </div>
@@ -1306,6 +1307,11 @@ When asking questions, always use the specific content the student wrote. Never 
 - If student mentions a result: ask what they specifically did to achieve it
 - Bad: "Wat was jouw specifieke actie?" Good: "Je noemt dat je een inkoopplanning maakte - welke keuzes maakte jij daarin en waarom?"
 - Bad: "Beschrijf de situatie concreter." Good: "Je noemt Blokko maar niet welke rol jij had - was je inkoop, productie of transport?"
+
+LANGUAGE CHECK: Before giving feedback, scan the student's input for profanity, offensive language, or discriminatory content. If detected, respond ONLY with this message (in the student's language) and nothing else:
+NL: "Je reflectie bevat taalgebruik dat niet past bij een professionele context. Pas je tekst aan voor je feedback vraagt."
+EN: "Your reflection contains language that is not appropriate in a professional context. Please adjust your text before requesting feedback."
+Do not give field feedback if this check fails. Do not explain or moralize - just the message above.
 
 NEUTRAL ACKNOWLEDGEMENTS ONLY: "Helder.", "Duidelijk.", "Oké.", "Clear.", "Got it." - nothing more positive than this.
 
