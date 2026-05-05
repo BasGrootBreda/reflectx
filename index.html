@@ -745,8 +745,10 @@ html,body{
       </div>
       <div class="brand-name">Reflect<span>X</span></div>
     </div>
-    <h1 class="welcome-title">Reflectie<br>die <em>werkt.</em></h1>
-    <p class="welcome-sub">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op - en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.</p>
+    <h1 class="welcome-title" id="welcome-title-nl">Reflectie<br>die <em>werkt.</em></h1>
+    <h1 class="welcome-title" id="welcome-title-en" style="display:none">Reflection<br>that <em>works.</em></h1>
+    <p class="welcome-sub" id="welcome-sub-nl">In de logistiek los je dagelijks problemen op. Wie begrijpt hoe je zelf denkt en handelt, lost ze sneller op - en wordt gevraagd voor uitdagende klussen, en kan uiteindelijk eigen keuzes maken.<br><br>ReflectX begeleidt je stap voor stap door een STARRT-reflectie. Concreet, eerlijk, geen bullshit bingo.</p>
+    <p class="welcome-sub" id="welcome-sub-en" style="display:none">In logistics, you solve problems every day. Those who understand how they think and act, solve them faster - get asked for the challenging jobs, and ultimately make their own choices.<br><br>ReflectX guides you step by step through a STARRT reflection. Concrete, honest, no bullshit bingo.</p>
     <div class="lang-row">
       <button class="lang-btn" onclick="setLang('nl')">
         <span class="lg-flag">🇳🇱</span>
@@ -759,35 +761,66 @@ html,body{
         <div class="lg-sub">Language: English</div>
       </button>
     </div>
-    <p class="welcome-intro-kern" id="intro-kern">ReflectX helpt je scherper te reflecteren op je ontwikkeling als logistiek professional. Schrijf zelf - de AI vraagt door. Jij bepaalt wat je inlevert.</p>
+    <p class="welcome-intro-kern" id="intro-kern-nl">ReflectX helpt je scherper te reflecteren op je ontwikkeling als logistiek professional. Schrijf zelf - de AI vraagt door. Jij bepaalt wat je inlevert.</p>
+    <p class="welcome-intro-kern" id="intro-kern-en" style="display:none">ReflectX helps you reflect more sharply on your development as a logistics professional. You write - the AI asks follow-up questions. You decide what you hand in.</p>
     <button class="welcome-meer-btn" id="meer-btn" onclick="toggleUitleg()">Meer informatie</button>
     <div class="welcome-uitleg" id="welcome-uitleg">
-      <h4>Wat is ReflectX?</h4>
-      <ul>
-        <li>ReflectX is een hulpmiddel, geen beoordelingstool.</li>
-        <li>Je schrijft zelf een STARRT-reflectie - de AI geeft gerichte feedback op wat jij concreet schrijft.</li>
-        <li>Je kunt iedere keer andere vragen krijgen. Dat is normaal - de tool reageert op wat jij schrijft.</li>
-        <li>Het kan zijn dat een veld dat eerst groen was, daarna oranje wordt. Dat betekent niet dat je het fout deed, maar dat er een nieuwe laag zichtbaar wordt.</li>
-        <li>Door de vragen te beantwoorden wordt je reflectie concreter en dieper.</li>
-      </ul>
-      <p><strong>Jij bepaalt zelf of je reflectie goed genoeg is om in te leveren.</strong> De tool helpt je daarbij - het oordeel is aan jou.</p>
-      <h4>Wat doet de AI wel, en wat niet?</h4>
-      <ul>
-        <li>De AI leest wat jij schrijft en vraagt gericht door op wat nog ontbreekt of te dun is.</li>
-        <li>De AI schrijft nooit tekst voor jou - dat blijft jouw werk.</li>
-        <li>De AI geeft geen cijfer of oordeel, alleen gerichte vragen en korte observaties.</li>
-        <li>De AI kent jouw BUas-projecten: Blokko, IKEA-casus, stage, afstuderen.</li>
-      </ul>
-      <h4>Tips voor een goede reflectie</h4>
-      <ul>
-        <li>Schrijf over een concrete situatie, en kijk ook of je hierin een patroon herkent dat je vaker ziet bij jezelf.</li>
-        <li>Gebruik 'ik' in plaats van 'wij' - het gaat om jouw bijdrage.</li>
-        <li>Wees eerlijk, ook over wat niet goed ging - dat levert het beste inzicht en de meeste ontwikkeling op.</li>
-        <li>Beschrijf je bewijs concreet: wat laat zien dat dit echt zo ging?</li>
-        <li>Transfer is meer dan 'de volgende keer wil ik...' - noem een specifiek moment, wat je gaat doen, en een strategie voor als het tegenzit.</li>
-      </ul>
-      <h4>Vragen of problemen?</h4>
-      <p>Neem contact op met je docent of stuur een mail naar <a href="mailto:groot.b@buas.nl" style="color:var(--accent)">groot.b@buas.nl</a></p>
+      <div id="uitleg-nl">
+        <h4>Wat is ReflectX?</h4>
+        <ul>
+          <li>ReflectX is een hulpmiddel, geen beoordelingstool.</li>
+          <li>Je schrijft zelf een STARRT-reflectie - de AI geeft gerichte feedback op wat jij concreet schrijft.</li>
+          <li>Je kunt iedere keer andere vragen krijgen. Dat is normaal - de tool reageert op wat jij schrijft.</li>
+          <li>Het kan zijn dat een veld dat eerst groen was, daarna oranje wordt. Dat betekent niet dat je het fout deed, maar dat er een nieuwe laag zichtbaar wordt.</li>
+          <li>Door de vragen te beantwoorden wordt je reflectie concreter en dieper.</li>
+        </ul>
+        <p><strong>Jij bepaalt zelf of je reflectie goed genoeg is om in te leveren.</strong> De tool helpt je daarbij - het oordeel is aan jou.</p>
+        <h4>Wat doet de AI wel, en wat niet?</h4>
+        <ul>
+          <li>De AI leest wat jij schrijft en vraagt gericht door op wat nog ontbreekt of te dun is.</li>
+          <li>De AI schrijft nooit tekst voor jou - dat blijft jouw werk.</li>
+          <li>De AI geeft geen cijfer of oordeel, alleen gerichte vragen en korte observaties.</li>
+          <li>De AI kent jouw BUas-projecten: Blokko, IKEA-casus, stage, afstuderen.</li>
+        </ul>
+        <h4>Tips voor een goede reflectie</h4>
+        <ul>
+          <li>Schrijf over een concrete situatie, en kijk ook of je hierin een patroon herkent dat je vaker ziet bij jezelf.</li>
+          <li>Gebruik 'ik' in plaats van 'wij' - het gaat om jouw bijdrage.</li>
+          <li>Wees eerlijk, ook over wat niet goed ging - dat levert het beste inzicht en de meeste ontwikkeling op.</li>
+          <li>Beschrijf je bewijs concreet: wat laat zien dat dit echt zo ging?</li>
+          <li>Transfer is meer dan 'de volgende keer wil ik...' - noem een specifiek moment, wat je gaat doen, en een strategie voor als het tegenzit.</li>
+        </ul>
+        <h4>Vragen of problemen?</h4>
+        <p>Neem contact op met je docent of stuur een mail naar <a href="mailto:groot.b@buas.nl" style="color:var(--accent)">groot.b@buas.nl</a></p>
+      </div>
+      <div id="uitleg-en" style="display:none">
+        <h4>What is ReflectX?</h4>
+        <ul>
+          <li>ReflectX is a support tool, not an assessment tool.</li>
+          <li>You write your own STARRT reflection - the AI gives targeted feedback on what you concretely write.</li>
+          <li>You may get different questions each time. That is normal - the tool responds to what you write.</li>
+          <li>A field that was green may turn orange. That does not mean you did something wrong - it means a new layer becomes visible.</li>
+          <li>By answering the questions, your reflection becomes more concrete and deeper.</li>
+        </ul>
+        <p><strong>You decide whether your reflection is good enough to hand in.</strong> The tool supports you - the judgement is yours.</p>
+        <h4>What does the AI do - and what not?</h4>
+        <ul>
+          <li>The AI reads what you write and asks targeted follow-up questions on what is missing or too thin.</li>
+          <li>The AI never writes text for you - that remains your work.</li>
+          <li>The AI gives no grade or judgement, only targeted questions and short observations.</li>
+          <li>The AI knows your BUas projects: Blokko, IKEA case, placement, graduation.</li>
+        </ul>
+        <h4>Tips for a good reflection</h4>
+        <ul>
+          <li>Write about a concrete situation, and also look for patterns you recognise in yourself more broadly.</li>
+          <li>Use 'I' instead of 'we' - it is about your contribution.</li>
+          <li>Be honest, also about what did not go well - that produces the best insight and most development.</li>
+          <li>Describe your evidence concretely: what shows that this really happened this way?</li>
+          <li>Transfer is more than 'next time I want to...' - name a specific moment, what you will do, and a strategy for when it gets difficult.</li>
+        </ul>
+        <h4>Questions or problems?</h4>
+        <p>Contact your lecturer or send an email to <a href="mailto:groot.b@buas.nl" style="color:var(--accent)">groot.b@buas.nl</a></p>
+      </div>
       <span class="uitleg-sluit" onclick="toggleUitleg()">Sluiten</span>
     </div>
     <p class="welcome-note">BUas · Logistics Management / Engineering</p>
@@ -1469,12 +1502,22 @@ function finishReflection(){
     :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps - you are responsible for what you hand in.';
   document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
   document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
-  const introKern=document.getElementById('intro-kern');
-  if(introKern) introKern.textContent=nl
-    ?'ReflectX helpt je scherper te reflecteren op je ontwikkeling als logistiek professional. Schrijf zelf - de AI vraagt door. Jij bepaalt wat je inlevert.'
-    :'ReflectX helps you reflect more sharply on your development as a logistics professional. You write - the AI asks follow-up questions. You decide what you hand in.';
+  // Welkomstscherm taalwisseling
+  ['welcome-title-nl','welcome-sub-nl','intro-kern-nl'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display=nl?'block':'none';
+  });
+  ['welcome-title-en','welcome-sub-en','intro-kern-en'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display=nl?'none':'block';
+  });
   const meerBtn=document.getElementById('meer-btn');
   if(meerBtn) meerBtn.textContent=nl?'Meer informatie':'More information';
+  // Sluit uitleg als open
+  const uitleg=document.getElementById('welcome-uitleg');
+  if(uitleg&&uitleg.classList.contains('open')){
+    uitleg.classList.remove('open');
+  }
   document.getElementById('btn-download-word').textContent=nl?'⬇ Download Word':'⬇ Download Word';
 
   const wrap=document.getElementById('structure-wrap');
@@ -1569,11 +1612,16 @@ function downloadWord(){
 function toggleUitleg(){
   const uitleg=document.getElementById('welcome-uitleg');
   const btn=document.getElementById('meer-btn');
-  const nl=document.documentElement.lang!=='en';
+  const sluit=uitleg.querySelector('.uitleg-sluit');
+  const nl=S.lang==='nl'||!S.lang;
   if(uitleg.classList.contains('open')){
     uitleg.classList.remove('open');
     btn.textContent=nl?'Meer informatie':'More information';
   } else {
+    // Toon juiste taalblok
+    document.getElementById('uitleg-nl').style.display=nl?'block':'none';
+    document.getElementById('uitleg-en').style.display=nl?'none':'block';
+    if(sluit) sluit.textContent=nl?'Sluiten':'Close';
     uitleg.classList.add('open');
     btn.textContent=nl?'Sluiten':'Close';
   }
