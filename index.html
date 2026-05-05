@@ -135,6 +135,17 @@ html,body{
   gap:12px;margin-bottom:16px;
 }
 
+.welcome-intro-kern{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin:12px 0 4px;text-align:center;padding:0 8px}
+.welcome-meer-btn{background:none;border:none;color:var(--accent);font-size:12px;cursor:pointer;padding:2px 0;text-decoration:underline;font-family:inherit;margin-bottom:8px}
+.welcome-meer-btn:hover{opacity:0.8}
+.welcome-uitleg{display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:16px;margin:8px 0 12px;text-align:left;max-height:55vh;overflow-y:auto;width:100%}
+.welcome-uitleg.open{display:block}
+.welcome-uitleg h4{font-size:11px;font-weight:700;color:var(--accent);margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.05em}
+.welcome-uitleg h4:first-child{margin-top:0}
+.welcome-uitleg ul{margin:0;padding:0 0 0 16px;list-style:disc}
+.welcome-uitleg ul li{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:4px}
+.welcome-uitleg p{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;margin:8px 0 0}
+.welcome-uitleg .uitleg-sluit{display:block;text-align:right;font-size:11px;color:var(--accent);cursor:pointer;margin-top:12px;text-decoration:underline}
 .lang-btn{
   padding:18px 20px;
   border-radius:var(--r-lg);
@@ -158,17 +169,6 @@ html,body{
   display:flex;align-items:center;gap:6px;
   justify-content:center;
 }
-.welcome-intro-kern{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin:12px 0 6px;text-align:center;padding:0 8px}
-.welcome-meer-btn{background:none;border:none;color:var(--accent);font-size:12px;cursor:pointer;padding:2px 0;text-decoration:underline;font-family:inherit;margin-bottom:8px}
-.welcome-meer-btn:hover{opacity:0.8}
-.welcome-uitleg{display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:16px;margin:8px 0 12px;text-align:left;max-height:60vh;overflow-y:auto}
-.welcome-uitleg.open{display:block}
-.welcome-uitleg h4{font-size:12px;font-weight:700;color:var(--accent);margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.05em}
-.welcome-uitleg h4:first-child{margin-top:0}
-.welcome-uitleg ul{margin:0;padding:0 0 0 16px;list-style:disc}
-.welcome-uitleg ul li{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:4px}
-.welcome-uitleg p{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;margin:8px 0 0}
-.welcome-uitleg .uitleg-sluit{display:block;text-align:right;font-size:11px;color:var(--accent);cursor:pointer;margin-top:12px;text-decoration:underline}
 
 .welcome-note::before{content:'';display:block;width:20px;height:1px;background:var(--line)}
 .welcome-note::after{content:'';display:block;width:20px;height:1px;background:var(--line)}
@@ -752,19 +752,17 @@ html,body{
     <p class="welcome-sub" id="welcome-sub-en" style="display:none">In logistics, you solve problems every day. Those who understand how they think and act, solve them faster - get asked for the challenging jobs, and ultimately make their own choices.<br><br>ReflectX guides you step by step through a STARRT reflection. Concrete, honest, no bullshit bingo.</p>
     <div class="lang-row">
       <button class="lang-btn" onclick="setLang('nl')">
-        <span class="lg-flag">🇳🇱</span>
         <div class="lg-name">Nederlands</div>
         <div class="lg-sub">Voertaal: Nederlands</div>
       </button>
       <button class="lang-btn" onclick="setLang('en')">
-        <span class="lg-flag">🇬🇧</span>
         <div class="lg-name">English</div>
         <div class="lg-sub">Language: English</div>
       </button>
     </div>
-    <p class="welcome-intro-kern" id="intro-kern-nl">ReflectX helpt je scherper te reflecteren op je ontwikkeling als logistiek professional. Schrijf zelf - de AI vraagt door. Jij bepaalt wat je inlevert.</p>
+    <p class="welcome-intro-kern" id="intro-kern-nl" style="display:none">ReflectX helpt je scherper te reflecteren op je ontwikkeling als logistiek professional. Schrijf zelf - de AI vraagt door. Jij bepaalt wat je inlevert.</p>
     <p class="welcome-intro-kern" id="intro-kern-en" style="display:none">ReflectX helps you reflect more sharply on your development as a logistics professional. You write - the AI asks follow-up questions. You decide what you hand in.</p>
-    <button class="welcome-meer-btn" id="meer-btn" onclick="toggleUitleg()">Meer informatie</button>
+    <button class="welcome-meer-btn" id="meer-btn" style="display:none" onclick="toggleUitleg()">Meer informatie</button>
     <div class="welcome-uitleg" id="welcome-uitleg">
       <div id="uitleg-nl">
         <h4>Wat is ReflectX?</h4>
@@ -822,7 +820,7 @@ html,body{
         <h4>Questions or problems?</h4>
         <p>Contact your lecturer or send an email to <a href="mailto:groot.b@buas.nl" style="color:var(--accent)">groot.b@buas.nl</a></p>
       </div>
-      <span class="uitleg-sluit" onclick="toggleUitleg()">Sluiten</span>
+      <span class="uitleg-sluit" onclick="toggleUitleg()" id="uitleg-sluit-btn">Sluiten</span>
     </div>
     <p class="welcome-note">BUas · Logistics Management / Engineering</p>
   </div>
@@ -1501,7 +1499,7 @@ function finishReflection(){
   ['welcome-title-nl','welcome-sub-nl','intro-kern-nl'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=nl?'':'none';});
   ['welcome-title-en','welcome-sub-en','intro-kern-en'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=nl?'none':'';});
   const meerBtn=document.getElementById('meer-btn');
-  if(meerBtn)meerBtn.textContent=nl?'Meer informatie':'More information';
+  if(meerBtn){meerBtn.style.display='';meerBtn.textContent=nl?'Meer informatie':'More information';}
   const uitlegDiv=document.getElementById('welcome-uitleg');
   if(uitlegDiv&&uitlegDiv.classList.contains('open'))uitlegDiv.classList.remove('open');
   document.getElementById('btn-download-word').textContent=nl?'⬇ Download Word':'⬇ Download Word';
@@ -1598,17 +1596,19 @@ function downloadWord(){
 function toggleUitleg(){
   const uitleg=document.getElementById('welcome-uitleg');
   const btn=document.getElementById('meer-btn');
-  const sluit=uitleg.querySelector('.uitleg-sluit');
+  const sluit=document.getElementById('uitleg-sluit-btn');
   const nl=!S.lang||S.lang==='nl';
   if(uitleg.classList.contains('open')){
     uitleg.classList.remove('open');
-    btn.textContent=nl?'Meer informatie':'More information';
+    if(btn)btn.textContent=nl?'Meer informatie':'More information';
   } else {
-    document.getElementById('uitleg-nl').style.display=nl?'block':'none';
-    document.getElementById('uitleg-en').style.display=nl?'none':'block';
-    if(sluit) sluit.textContent=nl?'Sluiten':'Close';
+    const nlDiv=document.getElementById('uitleg-nl');
+    const enDiv=document.getElementById('uitleg-en');
+    if(nlDiv)nlDiv.style.display=nl?'block':'none';
+    if(enDiv)enDiv.style.display=nl?'none':'block';
+    if(sluit)sluit.textContent=nl?'Sluiten':'Close';
     uitleg.classList.add('open');
-    btn.textContent=nl?'Sluiten':'Close';
+    if(btn)btn.textContent=nl?'Sluiten':'Close';
   }
 }
 
