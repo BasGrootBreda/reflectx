@@ -158,19 +158,20 @@ html,body{
   display:flex;align-items:center;gap:6px;
   justify-content:center;
 }
+.welcome-intro-kern{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin:12px 0 6px;text-align:center;padding:0 8px}
+.welcome-meer-btn{background:none;border:none;color:var(--accent);font-size:12px;cursor:pointer;padding:2px 0;text-decoration:underline;font-family:inherit;margin-bottom:8px}
+.welcome-meer-btn:hover{opacity:0.8}
+.welcome-uitleg{display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:16px;margin:8px 0 12px;text-align:left;max-height:60vh;overflow-y:auto}
+.welcome-uitleg.open{display:block}
+.welcome-uitleg h4{font-size:12px;font-weight:700;color:var(--accent);margin:12px 0 6px;text-transform:uppercase;letter-spacing:0.05em}
+.welcome-uitleg h4:first-child{margin-top:0}
+.welcome-uitleg ul{margin:0;padding:0 0 0 16px;list-style:disc}
+.welcome-uitleg ul li{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:4px}
+.welcome-uitleg p{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;margin:8px 0 0}
+.welcome-uitleg .uitleg-sluit{display:block;text-align:right;font-size:11px;color:var(--accent);cursor:pointer;margin-top:12px;text-decoration:underline}
 
 .welcome-note::before{content:'';display:block;width:20px;height:1px;background:var(--line)}
 .welcome-note::after{content:'';display:block;width:20px;height:1px;background:var(--line)}
-.welcome-intro-kern{font-size:13px;color:var(--text-secondary);line-height:1.6;margin:12px 0 6px;text-align:center;padding:0 8px}
-.welcome-meer-btn{background:none;border:none;color:var(--accent);font-size:12px;cursor:pointer;padding:2px 0;text-decoration:underline;font-family:inherit;margin-bottom:8px}
-.welcome-meer-btn:hover{opacity:0.8}
-.welcome-uitleg{display:none;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:16px;margin:8px 0 12px;text-align:left}
-.welcome-uitleg.open{display:block}
-.welcome-uitleg h4{font-size:12px;font-weight:700;color:var(--accent);margin:0 0 8px;text-transform:uppercase;letter-spacing:0.05em}
-.welcome-uitleg ul{margin:0;padding:0 0 0 16px;list-style:disc}
-.welcome-uitleg ul li{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:4px}
-.welcome-uitleg p{font-size:12px;color:var(--text-secondary);line-height:1.6;margin:8px 0 0}
-.welcome-uitleg .uitleg-sluit{display:block;text-align:right;font-size:11px;color:var(--accent);cursor:pointer;margin-top:8px;text-decoration:underline}
 
 /* ─── SETUP SCREEN ─── */
 #s-setup{
@@ -771,7 +772,7 @@ html,body{
           <li>ReflectX is een hulpmiddel, geen beoordelingstool.</li>
           <li>Je schrijft zelf een STARRT-reflectie - de AI geeft gerichte feedback op wat jij concreet schrijft.</li>
           <li>Je kunt iedere keer andere vragen krijgen. Dat is normaal - de tool reageert op wat jij schrijft.</li>
-          <li>Het kan zijn dat een veld dat eerst groen was, daarna oranje wordt. Dat betekent niet dat je het fout deed, maar dat er een nieuwe laag zichtbaar wordt.</li>
+          <li>Een veld dat eerst groen was, kan daarna oranje worden. Dat betekent niet dat je het fout deed, maar dat er een nieuwe laag zichtbaar wordt.</li>
           <li>Door de vragen te beantwoorden wordt je reflectie concreter en dieper.</li>
         </ul>
         <p><strong>Jij bepaalt zelf of je reflectie goed genoeg is om in te leveren.</strong> De tool helpt je daarbij - het oordeel is aan jou.</p>
@@ -1143,10 +1144,9 @@ async function startChat(){
         <textarea
           id="ta-${i}"
           placeholder="${nl?'Schrijf hier...':'Write here...'}"
-          style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:none;min-height:80px;overflow:hidden;outline:none;transition:border-color .15s"
+          style="width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:13px;line-height:1.6;resize:vertical;min-height:80px;outline:none;transition:border-color .15s"
           onfocus="this.style.borderColor='var(--ink2)'"
           onblur="this.style.borderColor='var(--line)'"
-          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
         ></textarea>
         <div id="fb-${i}" style="display:none;margin-top:8px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.6"></div>
       </div>
@@ -1341,11 +1341,6 @@ When asking questions, always use the specific content the student wrote. Never 
 - Bad: "Wat was jouw specifieke actie?" Good: "Je noemt dat je een inkoopplanning maakte - welke keuzes maakte jij daarin en waarom?"
 - Bad: "Beschrijf de situatie concreter." Good: "Je noemt Blokko maar niet welke rol jij had - was je inkoop, productie of transport?"
 
-LANGUAGE CHECK: Before giving feedback, scan the student's input for profanity, offensive language, or discriminatory content. If detected, respond ONLY with this message (in the student's language) and nothing else:
-NL: "Je reflectie bevat taalgebruik dat niet past bij een professionele context. Pas je tekst aan voor je feedback vraagt."
-EN: "Your reflection contains language that is not appropriate in a professional context. Please adjust your text before requesting feedback."
-Do not give field feedback if this check fails. Do not explain or moralize - just the message above.
-
 NEUTRAL ACKNOWLEDGEMENTS ONLY: "Helder.", "Duidelijk.", "Oké.", "Clear.", "Got it." - nothing more positive than this.
 
 TONE: Direct, practical, never therapeutic. Never analyse the student's personality. Never write text for the student.
@@ -1503,21 +1498,12 @@ function finishReflection(){
   document.getElementById('btn-copy-all').textContent=nl?'Kopieer alles':'Copy all';
   document.getElementById('btn-restart').textContent=nl?'← Nieuwe reflectie':'← New reflection';
   // Welkomstscherm taalwisseling
-  ['welcome-title-nl','welcome-sub-nl','intro-kern-nl'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.style.display=nl?'block':'none';
-  });
-  ['welcome-title-en','welcome-sub-en','intro-kern-en'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.style.display=nl?'none':'block';
-  });
+  ['welcome-title-nl','welcome-sub-nl','intro-kern-nl'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=nl?'':'none';});
+  ['welcome-title-en','welcome-sub-en','intro-kern-en'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=nl?'none':'';});
   const meerBtn=document.getElementById('meer-btn');
-  if(meerBtn) meerBtn.textContent=nl?'Meer informatie':'More information';
-  // Sluit uitleg als open
-  const uitleg=document.getElementById('welcome-uitleg');
-  if(uitleg&&uitleg.classList.contains('open')){
-    uitleg.classList.remove('open');
-  }
+  if(meerBtn)meerBtn.textContent=nl?'Meer informatie':'More information';
+  const uitlegDiv=document.getElementById('welcome-uitleg');
+  if(uitlegDiv&&uitlegDiv.classList.contains('open'))uitlegDiv.classList.remove('open');
   document.getElementById('btn-download-word').textContent=nl?'⬇ Download Word':'⬇ Download Word';
 
   const wrap=document.getElementById('structure-wrap');
@@ -1613,12 +1599,11 @@ function toggleUitleg(){
   const uitleg=document.getElementById('welcome-uitleg');
   const btn=document.getElementById('meer-btn');
   const sluit=uitleg.querySelector('.uitleg-sluit');
-  const nl=S.lang==='nl'||!S.lang;
+  const nl=!S.lang||S.lang==='nl';
   if(uitleg.classList.contains('open')){
     uitleg.classList.remove('open');
     btn.textContent=nl?'Meer informatie':'More information';
   } else {
-    // Toon juiste taalblok
     document.getElementById('uitleg-nl').style.display=nl?'block':'none';
     document.getElementById('uitleg-en').style.display=nl?'none':'block';
     if(sluit) sluit.textContent=nl?'Sluiten':'Close';
