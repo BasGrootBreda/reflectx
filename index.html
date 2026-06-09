@@ -822,6 +822,7 @@ html,body{
     </div>
     <button id="btn-start-reflectie" class="btn-primary" style="display:none;margin:12px auto 16px;min-width:200px" onclick="goToSetup()">Start reflectie</button>
     <p class="welcome-note">BUas · Logistics Management / Engineering</p>
+    <p id="cold-start-note" style="font-size:11px;color:var(--text-secondary);text-align:center;margin-top:4px;opacity:0.65">Bij eerste gebruik kan het opstarten 20-30 seconden duren.</p>
   </div>
 </div>
 
@@ -1211,6 +1212,23 @@ function ploProbes(){
   const yr3plus=yr==='3'||yr==='4'||adv;
   const yr2=yr==='2';
 
+  // Roterende Laag-4 uitnodigingszin voor jaar 2 (op basis van S.round)
+  const laag4VariantenNL=[
+    'Herken je dit gedrag ook in andere situaties, of is dit de eerste keer dat je dit bij jezelf ziet?',
+    'Zie je een patroon in hoe jij dit soort situaties aanpakt, of was dit situatiespecifiek?',
+    'Hoe verhoudt deze aanpak zich tot hoe je eerder in vergelijkbare situaties handelde?',
+    'Is dit gedrag of deze keuze voor jou herkenbaar, of verraste het je ook zelf?'
+  ];
+  const laag4VariantenEN=[
+    'Do you recognise this behaviour in other situations, or is this the first time you notice it in yourself?',
+    'Do you see a pattern in how you handle situations like this, or was this specific to this context?',
+    'How does this approach compare to how you acted in similar situations before?',
+    'Is this behaviour or choice familiar to you, or did it surprise you too?'
+  ];
+  const laag4Uitnodiging=nl
+    ? laag4VariantenNL[S.round % laag4VariantenNL.length]
+    : laag4VariantenEN[S.round % laag4VariantenEN.length];
+
   // ── GENERIEKE DOORVRAAGLOGICA ──
   // De AI gebruikt onderstaande instructie als beslisregel:
   // 1. Bepaal welke laag ontbreekt of te dun is in de tekst van de student
@@ -1227,7 +1245,7 @@ Analyseer de tekst van de student per STARRT-veld. Bepaal voor elk veld welke la
 - Laag 3 (Wat leerde je): reflectie op zichzelf, verrassing, twijfel, wat anders
 
 Kies de vraag uit de laag die ontbreekt. Formuleer altijd op basis van wat de student concreet schreef.
-${yr2?'Voeg aan het einde van de Reflectie-feedback altijd één Laag-4 vraag toe als uitnodiging: "Herken je dit gedrag ook in andere situaties - of is dit de eerste keer dat je dit bij jezelf ziet?"':''}
+${yr2?`Voeg aan het einde van de Reflectie-feedback altijd één Laag-4 vraag toe als uitnodiging: "${laag4Uitnodiging}"`:''}
 ${yr3plus?'Activeer Laag 4 volledig: stel bij de Reflectie-feedback altijd minimaal één patroon- of identiteitsvraag.':''}`
     :`PROBING LOGIC:
 Analyse the student's text per STARRT field. Determine which layer is missing or too thin:
@@ -1236,7 +1254,7 @@ Analyse the student's text per STARRT field. Determine which layer is missing or
 - Layer 3 (What did you learn): reflection on self, surprise, doubt, what differently
 
 Choose the question from the missing layer. Always formulate based on what the student specifically wrote.
-${yr2?'At the end of the Reflection feedback, always add one Layer-4 question as an invitation: "Do you recognise this behaviour in other situations - or is this the first time you notice this in yourself?"':''}
+${yr2?`At the end of the Reflection feedback, always add one Layer-4 question as an invitation: "${laag4Uitnodiging}"`:''}
 ${yr3plus?'Activate Layer 4 fully: always include at least one pattern or identity question in the Reflection feedback.':''}`;
 
   const probes={
@@ -1342,6 +1360,13 @@ async function getFeedback(){
   S.loading=true;
   document.getElementById('btn-feedback').disabled=true;
   document.getElementById('btn-feedback-text').textContent=nl?'Bezig...':'Loading...';
+  setTimeout(()=>{
+    if(S.loading){
+      document.getElementById('btn-feedback-text').textContent=nl
+        ?'Server start op, even geduld...'
+        :'Server starting up, please wait...';
+    }
+  },5000);
 
   const steps=nl?NL_STEPS:EN_STEPS;
   const letters=['S','T','A','R','R','T'];
@@ -1396,6 +1421,8 @@ IF pattern (1) or (2) is detected in ANY field:
 IF pattern (3) is detected: mark Reflectie as "needs_work", ask for one concrete moment where things were harder than expected.
 IF pattern (4) is detected: mark the relevant field as "needs_work", ask for the specific behaviour the student changed, not just the lesson they named.
 
+PERSONAL LANGUAGE CHECK: In every field except Situation (S), scan for passive constructions and third-person references ("het team deed", "er werd besloten", "we hebben", "the team decided", "it was agreed", "there was"). If present in T, A, R1, R2 or T2: flag it in your feedback question and ask the student to name their specific action. Example NL: "Je schrijft 'we maakten een planning' - wat deed jij specifiek in dat proces?" Example EN: "You write 'the team decided' - what specifically did you do or contribute to that decision?" Exception: Situation (S) field, where context-setting about the group or environment is expected.
+
 CRITERIA per field:
 S (Situatie/Situation): Concrete moment + names with context + jargon explained for outsider${adv?'+ workplace context':''}
 T (Taak/Task): Own responsibility in "ik/I" form - not just formal role${adv?'+ linked to professional challenge':''}
@@ -1413,6 +1440,8 @@ Jaar4: Afstuderen(17wk,beroepsproduct+productverslag+reflectie,verdediging 30min
 THEORY CHECK: If student does not mention theory, knowledge or skills developed during their studies that they applied, ask: "Je noemt geen theorie, kennis of ontwikkelde vaardigheden uit je studie die je hebt toegepast - welke heb je gebruikt in deze situatie?"
 
 PLO-SPECIFIC PROBES: ${ploProbes()}
+
+FIELD ORDER IS FIXED: You MUST return exactly 6 fields in this exact order: S, T, A, R1, R2, T2. Never skip, merge, or reorder fields. If you have nothing specific to say about a field, still return it with status "ok" and one neutral confirmation sentence.
 
 CRITICAL: You MUST respond with ONLY valid JSON. No text before or after the JSON. No markdown. No questions outside the JSON structure. All feedback and questions go INSIDE the "feedback" field of the JSON.
 
@@ -1471,7 +1500,10 @@ function renderFeedback(parsed,raw,values){
   const accepted=new Set();
 
   if(parsed&&parsed.fields){
-    parsed.fields.forEach((f,i)=>{
+    const letterMap={'S':0,'T':1,'A':2,'R1':3,'R2':4,'T2':5};
+    parsed.fields.forEach((f)=>{
+      const i=letterMap[f.letter];
+      if(i===undefined)return;
       const wrap=document.getElementById('field-wrap-'+i);
       const fb=document.getElementById('fb-'+i);
       if(!wrap||!fb)return;
