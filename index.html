@@ -1637,43 +1637,41 @@ function copyAll(){
 function downloadWord(){
   const nl=S.lang==='nl';
   const steps=nl?NL_STEPS:EN_STEPS;
-  const letters=['S','T','A','R','R','T'];
   const plo=PLO[S.lang][S.plo];
   const yearLabel=nl
     ?{1:'Jaar 1',2:'Jaar 2',stage:'Stage',afstuderen:'Afstuderen'}[S.year]
     :{1:'Year 1',2:'Year 2',stage:'Placement',afstuderen:'Graduation'}[S.year];
 
-  let rows='';
+  let paragraphs='';
   steps.forEach((step,i)=>{
     const field=document.getElementById('final-'+i);
-    const val=(field?field.value.trim():'')||'(niet ingevuld)';
-    const safe=val.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    rows+=`<tr>
-      <td style="width:100px;font-weight:bold;vertical-align:top;padding:8px 12px;background:#f5f5f5;border:1px solid #ccc">${letters[i]}. ${step}</td>
-      <td style="padding:8px 12px;border:1px solid #ccc;white-space:pre-wrap">${safe}</td>
-    </tr>`;
+    const val=(field?field.value.trim():'')||(nl?'(niet ingevuld)':'(not filled in)');
+    const safe=val.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    paragraphs+=`<p style="font-size:12pt;font-weight:bold;color:#1a1a2e;margin:0 0 6pt 0">${step}</p>
+<p style="font-size:11pt;line-height:1.5;margin:0 0 18pt 0">${safe}</p>`;
   });
 
   const bewijsText=nl
-    ?'Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed - niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
-    :'Which evidence do you choose for this reflection? Pick something that truly shows what you did - not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
+    ?'Welk bewijs kies je voor deze reflectie? Kies iets wat echt laat zien wat jij deed, niet wat het team deed, maar jij. En leg kort uit: waarom is dit bewijs relevant voor wat je hier beschrijft?'
+    :'Which evidence do you choose for this reflection? Pick something that truly shows what you did, not what the team did, but you. And briefly explain: why is this evidence relevant to what you describe here?';
   const eigenText=nl
     ?'Klaar? Voordat je afrondt: is dit jouw reflectie? Laat het zien wie je bent, wat jij weet, kunt en hoe jij je ontwikkelt. De tool helpt, jij bent verantwoordelijk voor wat je inlevert.'
-    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps - you are responsible for what you hand in.';
+    :'Done? Before you finish: is this your reflection? Let it show who you are, what you know, can do, and how you develop. The tool helps, you are responsible for what you hand in.';
 
   const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 <head><meta charset="utf-8"><title>ReflectX</title></head>
 <body style="font-family:Calibri,sans-serif;font-size:11pt;margin:2cm">
-  <h2 style="color:#1a1a2e">ReflectX - STARRT Reflectie</h2>
-  <p><strong>${nl?'Leeruitkomst':'Learning Outcome'}:</strong> ${plo.name}<br>
-  <strong>${nl?'Context':'Context'}:</strong> ${yearLabel}</p>
-  <hr style="border:1px solid #ccc">
-  <table style="width:100%;border-collapse:collapse;margin-top:12px">${rows}</table>
-  <div style="margin-top:24px;padding:12px;background:#fff8e8;border-left:4px solid #e8a020;font-size:10pt">
-    <strong>${nl?'📎 Bewijs':'📎 Evidence'}</strong><br>${bewijsText}
+  <h2 style="color:#1a1a2e;margin:0 0 12pt 0">ReflectX - STARRT Reflectie</h2>
+  <p style="margin:0 0 4pt 0"><strong>${nl?'Leeruitkomst':'Learning Outcome'}:</strong> ${plo.name}</p>
+  <p style="margin:0 0 18pt 0"><strong>${nl?'Context':'Context'}:</strong> ${yearLabel}</p>
+  <hr style="border:0;border-top:1px solid #ccc;margin:0 0 18pt 0">
+  ${paragraphs}
+  <div style="margin-top:12pt;padding:10pt 14pt;background:#fff8e8;border-left:4px solid #e8a020;font-size:10pt">
+    <p style="margin:0 0 4pt 0;font-weight:bold">${nl?'Bewijs':'Evidence'}</p>
+    <p style="margin:0">${bewijsText}</p>
   </div>
-  <div style="margin-top:16px;padding:12px;background:#f0f4ff;border-left:4px solid #3a5fc8;font-size:10pt">
-    <em>${eigenText}</em>
+  <div style="margin-top:12pt;padding:10pt 14pt;background:#f0f4ff;border-left:4px solid #3a5fc8;font-size:10pt">
+    <p style="margin:0;font-style:italic">${eigenText}</p>
   </div>
 </body></html>`;
 
