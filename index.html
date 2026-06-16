@@ -1456,6 +1456,9 @@ RESPOND WITH EXACTLY THIS JSON - nothing else:
       body:JSON.stringify({system,messages:[{role:'user',content:userMsg}]})
     });
     const data=await res.json();
+    if(!data.content || !data.content[0] || !data.content[0].text){
+      throw new Error('API RESPONSE WAS: ' + JSON.stringify(data).substring(0,400));
+    }
     const raw=data.content[0].text;
 
     let parsed = null;
@@ -1479,16 +1482,13 @@ RESPOND WITH EXACTLY THIS JSON - nothing else:
     renderFeedback(parsed, raw, values);
 
   } catch(e) {
-    console.error('Feedback error:', e);
-    // Show DETAILED error in feedback panel for debugging
+    console.error('Feedback error:', e.message);
+    // Show error in feedback panel instead of alert
     document.getElementById('feedback-panel').style.display = 'block';
-    document.getElementById('feedback-title').textContent = nl ? 'Foutmelding (debug)' : 'Error (debug)';
-    document.getElementById('feedback-content').textContent =
-      'DEBUG INFO:\n\n' +
-      'Error type: ' + (e.name || 'unknown') + '\n' +
-      'Error message: ' + (e.message || 'no message') + '\n' +
-      'Stack: ' + (e.stack ? e.stack.substring(0,500) : 'no stack') + '\n\n' +
-      (nl ? 'Stuur deze tekst door zodat de fout opgelost kan worden.' : 'Send this text so the error can be fixed.');
+    document.getElementById('feedback-title').textContent = nl ? 'Probeer opnieuw' : 'Please try again';
+    document.getElementById('feedback-content').textContent = nl
+      ? 'De tool kon geen feedback genereren. Controleer je verbinding en probeer opnieuw.'
+      : 'The tool could not generate feedback. Check your connection and try again.';
   }
 
   S.loading=false;
